@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PRP IWI</title>
+    <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <style>
+    .flow-text{
+      text-align: center;
+    }
+
+    .container{
+      margin-top: 200px;
+    }
+
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .upload-btn-wrapper .btn {
+      border: 2px solid gray;
+      color: gray;
+      background-color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+  </style>
+
+
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo center">PRP IWI</a>
+    </div>
+  </nav>
+
+  <div class="section">
+    <span id="breadcrumb-1">Main</span>
+    <span id="breadcrumb-2"></span>
+    <span id="breadcrumb-3"></span>
+  </div>
+  <div class="divider"></div>
+
+  <div class="container main-option">
+    <div class="row">
+      <div class="col s3 offset-s2 blue lighten-1">
+        <span class="flow-text operation" id="laser"><p>LASER Operation</p></span>
+      </div>
+      
+      <div class="col s3 offset-s2 teal lighten-2">
+        <span class="flow-text operation" id="milling"><p>Milling Operation</p></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- second level operation -->
+  <div class="container laser-option" style="display:none">
+    <div class="row">
+      <div class="col s3 offset-s2 blue lighten-1">
+        <span class="flow-text operation" id="laser-setup"><p>Setup Parameters</p></span>
+      </div>
+      
+      <div class="col s3 offset-s2 teal lighten-2">
+        <span class="flow-text operation" id="laser-operate"><p>Engraving-Cutting Operation</p></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container milling-option" style="display:none">
+    <div class="row">
+      <div class="col s3 offset-s2 blue lighten-1">
+        <span class="flow-text operation" id="milling-gcode"><p>Generate G-Code</p></span>
+      </div>
+      
+      <div class="col s3 offset-s2 teal lighten-2">
+        <span class="flow-text operation" id="milling-operate"><p>Milling Operation</p></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- third level operation -->
+  <div class="  laser-setup" style="display:none;margin-top: 0px">
+    <div class="row">
+      <div class="col s6">
+        <input type="file" id="selectedFile" style="display: none;" accept="image/*" onchange="fileImport()" />
+        <input type="button" value="Open File" onclick="document.getElementById('selectedFile').click();" />
+      </div>
+      <div class="col s1">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s10" style="min-height: 650px;">
+        <canvas style="border:1px solid #000000;" height="870" width="1134"></canvas>
+      </div>
+      <div class="col s2 teal" style="height: 500px;"></div>
+    </div>
+  </div>
+
+  <div class="container laser-operate" style="display:none">
+    <div class="row">
+      <h1>Laser Operate</h1>
+    </div>
+  </div>
+
+  <div class="container milling-gcode" style="display:none">
+    <div class="row">
+      <h1>Milling G-Code</h1>
+    </div>
+  </div>
+
+  <div class="container milling-operate" style="display:none">
+    <div class="row">
+      <h1>Milling Operate</h1>
+    </div>
+  </div>
+
+<script>
+  const electron = require('electron');
+  var PNG = require('png-js');
+  const {ipcRenderer} = electron;
+
+  const mainOptionView = document.querySelector(".main-option")
+
+  const breadCrumb1 = document.querySelector("#breadcrumb-1");
+  const breadCrumb2 = document.querySelector("#breadcrumb-2");
+  const breadCrumb3 = document.querySelector("#breadcrumb-3");
+ 
+  const laser = document.querySelector("#laser");
+  const laserOptionView = document.querySelector(".laser-option");
+
+  const milling = document.querySelector("#milling");
+  const millingOptionView = document.querySelector(".milling-option");
+  
+  const laserSetup = document.querySelector("#laser-setup");
+  const laserSetupView = document.querySelector(".laser-setup");
+
+  const laserOperate = document.querySelector("#laser-operate");
+  const laserOperateView = document.querySelector(".laser-operate");
+
+  const millingGcode = document.querySelector("#milling-gcode");
+  const millingGcodeView = document.querySelector(".milling-gcode");
+
+  const millingOperate = document.querySelector("#milling-operate");
+  const millingOperateView = document.querySelector(".milling-operate");
+
+  // breadcrumbs
+  breadCrumb1.addEventListener('click', function(){
+    hideAllView()
+    mainOptionView.style.display = "block"
+    breadCrumb2.innerHTML = ""
+    breadCrumb3.innerHTML = ""
+  })
+
+  breadCrumb2.addEventListener('click', function(){
+    breadCrumbText = breadCrumb2.innerHTML
+
+    if (breadCrumbText == "&gt; LASER Operation"){
+      hideAllView()
+      laserOptionView.style.display = "block"
+    }else if(breadCrumbText == "&gt; Milling Operation"){
+      hideAllView()
+      millingOptionView.style.display = "block"
+    }
+
+    breadCrumb3.innerHTML = ""
+
+  })
+
+  breadCrumb3.addEventListener('click', function(){
+    hideAllView()
+    mainOptionView.style.display = "block"
+  })
+
+  // second level
+  laser.addEventListener('click', function(){
+    hideAllView()
+    laserOptionView.style.display = "block"
+    breadCrumb2.innerHTML = "> LASER Operation"
+  })
+
+  milling.addEventListener('click', function(){
+    hideAllView()
+    millingOptionView.style.display = "block"
+    breadCrumb2.innerHTML = "> Milling Operation"
+  })
+
+  // third level
+  laserSetup.addEventListener('click', function(){
+    hideAllView()
+    laserSetupView.style.display = "block"
+    breadCrumb3.innerHTML = "> LASER Setup Parameters"
+  })
+
+  laserOperate.addEventListener('click', function(){
+    hideAllView()
+    laserOperateView.style.display = "block"
+    breadCrumb3.innerHTML = "> LASER Engraving/Cutting"
+  })
+
+  millingGcode.addEventListener('click', function(){
+    hideAllView()
+    millingGcodeView.style.display = "block"
+    breadCrumb3.innerHTML = "> Generate G-Code"
+  })
+
+  millingOperate.addEventListener('click', function(){
+    hideAllView()
+    millingOperateView.style.display = "block"
+    breadCrumb3.innerHTML = "> Milling Operation"
+  })
+
+  function hideAllView(){
+    mainOptionView.style.display = "none"
+    laserOptionView.style.display = "none"
+    millingOptionView.style.display = "none"
+    laserSetupView.style.display = "none"
+    laserOperateView.style.display = "none"
+    millingGcodeView.style.display = "none"
+    millingOperateView.style.display = "none"
+  }
+
+  function fileImport(){
+    file = document.getElementById("selectedFile").files[0].path
+    console.log(file)
+
+    var canvas = document.getElementsByTagName('canvas')[0];
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // PNG.load("tao_logo.png", context)
+
+    drawing = new Image();
+    drawing.src = file 
+    drawing.onload = function() {
+       context.drawImage(drawing,0,0);
+    };
+  }
+
+
+
+</script>
+</body>
+</html>
