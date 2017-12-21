@@ -105,7 +105,7 @@
     </div>
     <div class="row">
       <div class="col s10" style="min-height: 650px;">
-        <canvas style="border:1px solid #000000;" height="870" width="1134"></canvas>
+        <canvas style="border:1px solid #000000;" height="850" width="652"></canvas>
       </div>
       <div class="col s2 teal" style="height: 500px;"></div>
     </div>
@@ -238,16 +238,40 @@
     file = document.getElementById("selectedFile").files[0].path
     console.log(file)
 
-    var canvas = document.getElementsByTagName('canvas')[0];
-    var context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
+   
     // PNG.load("tao_logo.png", context)
 
     drawing = new Image();
     drawing.src = file 
     drawing.onload = function() {
-       context.drawImage(drawing,0,0);
+       drawImage(this)
     };
+  }
+
+  function drawImage(imageObj) {
+    var canvas = document.getElementsByTagName('canvas')[0];
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    var x = 69;
+    var y = 50;
+
+    context.drawImage(imageObj, x, y);
+
+    var imageData = context.getImageData(x, y, imageObj.width, imageObj.height);
+    var data = imageData.data;
+
+    for(var i = 0; i < data.length; i += 4) {
+      var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+      // red
+      data[i] = brightness;
+      // green
+      data[i + 1] = brightness;
+      // blue
+      data[i + 2] = brightness;
+    }
+
+    // overwrite original image
+    context.putImageData(imageData, x, y);
   }
 
 
