@@ -3,7 +3,9 @@
 <head>
   <title>PRP IWI</title>
     <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <style>
     .flow-text{
@@ -55,7 +57,7 @@
   </div>
   <div class="divider"></div>
 
-  <div class="container main-option">
+  <div class="container-fluid main-option">
     <div class="row">
       <div class="col s3 offset-s2 blue lighten-1">
         <span class="flow-text operation" id="laser"><p>LASER Operation</p></span>
@@ -97,15 +99,18 @@
   <div class="  laser-setup" style="display:none;margin-top: 0px">
     <div class="row">
       <div class="col s6">
-        <input type="file" id="selectedFile" style="display: none;" accept="image/*" onchange="fileImport()" />
+        <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
         <input type="button" value="Open File" onclick="document.getElementById('selectedFile').click();" />
       </div>
       <div class="col s1">
+        <input type="button" value="Canvas to G-code" onclick="canvasToGcode()"/>
+        <input type="button" value="Send Gcode" onclick="sendGcode()"/>
+       
       </div>
     </div>
     <div class="row">
       <div class="col s10" style="min-height: 650px;">
-        <canvas style="border:1px solid #000000;" height="850" width="652"></canvas>
+        <canvas id="canvas" style="border:1px solid #000000;" height="850" width="652"></canvas>
       </div>
       <div class="col s2 teal" style="height: 500px;"></div>
     </div>
@@ -113,7 +118,15 @@
 
   <div class="container laser-operate" style="display:none">
     <div class="row">
-      <h1>Laser Operate</h1>
+      <div class="col-md-8">Canvas here!</div>
+      <div class="col-md-4">
+        <div class="input-field col s12">
+          <select class="form-control" id="device-select">
+            <option value="" disabled selected>Select LASER Machine</option>
+          </select>
+           <input type="button" value="Start Lasing" onclick="lasingCommand()"/>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -130,9 +143,43 @@
   </div>
 
 <script src="js/fabric.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script>
   const electron = require('electron');
+  var fs = require('fs');
   var PNG = require('png-js');
+  var sp = require('serialport');
+  const Readline = sp.parsers.Readline;
+  const parser = new Readline();
+  var port;
+
+  sp.list(function(err, ports) {
+    ports.forEach(function(port, index){
+      if (port.manufacturer != undefined ){
+        $('#device-select').append($('<option>', {
+            value: port.comName,
+            text: port.comName + '('+port.manufacturer+')'
+        }));
+      }
+    })
+  });
+
+  $('#device-select').change(function(){
+    port = new sp($(this).val(), {
+      baudRate: 57600
+    });
+
+    port.pipe(parser);
+
+    
+    setTimeout(function(){
+      port.write("?\n")
+    }, 3000)
+   
+  })
+  
+
   const {ipcRenderer} = electron;
 
   const mainOptionView = document.querySelector(".main-option")
@@ -235,46 +282,199 @@
     millingOperateView.style.display = "none"
   }
 
-  function fileImport(){
+
+  var canvas = new fabric.Canvas('canvas');
+
+  function svgImport(){
     file = document.getElementById("selectedFile").files[0].path
     console.log(file)
-
-   
-    // PNG.load("tao_logo.png", context)
-
-    drawing = new Image();
-    drawing.src = file 
-    drawing.onload = function() {
-       drawImage(this)
-    };
+    // create a rectangle with angle=45
+    fabric.loadSVGFromURL(file, function(objects, options) {
+      console.log(options)
+      var shape = new fabric.util.groupSVGElements(objects, options);
+      canvas.add(shape.scale(1));
+      // shape.set({ left: 200, top: 100, name: "test" }).setCoords();
+      // canvas.add(shape);
+    });
   }
 
-  function drawImage(imageObj) {
-    var canvas = document.getElementsByTagName('canvas')[0];
-    var context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    var x = 69;
-    var y = 50;
+  function canvasToGcode(){
+    var gcode_path = []
+    gcode_path.push("G1 F500")
+    gcode_path.push("S255")
+    gcode_path.push("G30")
 
-    context.drawImage(imageObj, x, y);
+    canvasData = canvas.toJSON()
+    canvasData.objects.forEach(function(item, index){
+      item.objects.forEach(function(elements, index){
+        current_x = 0
+        current_y = 0
+        elements.path.forEach(function(paths, index){
+          console.log(paths)
 
-    var imageData = context.getImageData(x, y, imageObj.width, imageObj.height);
-    var data = imageData.data;
 
-    for(var i = 0; i < data.length; i += 4) {
-      var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-      // red
-      data[i] = brightness;
-      // green
-      data[i + 1] = brightness;
-      // blue
-      data[i + 2] = brightness;
+          if (paths[0] === 'M'){
+            current_x = paths[1]
+            current_y = paths[2]
+            gcode_path.push("G0 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'm'){
+            current_x = current_x + paths[1]
+            current_y = current_y + paths[2]
+            gcode_path.push("G0 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'H'){
+            current_x = paths[1]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'h'){
+            current_x = current_x + paths[1]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'V'){
+            current_y = paths[1]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'v'){
+            current_y = current_y + paths[1]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'C'){
+            start_cx = paths[1]
+            start_cy = paths[2]
+
+            end_cx = paths[3]
+            end_cy = paths[4]
+
+            end_x = paths[5]
+            end_y = paths[6]
+
+            gcode_path.push(calculateBezierCurve(current_x, current_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y))
+
+            current_x = end_x
+            current_y = end_y
+          }
+
+          if (paths[0] === 'c'){
+            start_cx = current_x + paths[1]
+            start_cy = current_y + paths[2]
+
+            end_cx = current_x + paths[3]
+            end_cy = current_y + paths[4]
+
+            end_x = current_x + paths[5]
+            end_y = current_y + paths[6]
+
+            gcode_path.push(calculateBezierCurve(current_x, current_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y))
+
+            current_x = end_x
+            current_y = end_y
+          }
+
+          if (paths[0] === 'L'){
+            current_x = paths[1]
+            current_y = paths[2]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+          if (paths[0] === 'l'){
+            current_x = current_x + paths[1]
+            current_y = current_y + paths[2]
+            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+          }
+
+
+        })
+      })
+    })
+
+    gcode_path.push("G30")
+    console.log(gcode_path.join("\n"))
+
+    fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcode_path.join("\n"), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log("The file was saved!");
+    }); 
+  } 
+
+
+  function calculateBezierCurve(start_x, start_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y) {
+    var curve_path = [];
+    var t = 0.1;
+    var offset_increment = 0.1;
+
+    while (t < 1) {
+      x = (1-t)*(1-t)*(1-t)*start_x + 3*(1-t)*(1-t)*t*start_cx + 3*(1-t)*t*t*end_cx + t*t*t*end_x;
+      y = (1-t)*(1-t)*(1-t)*start_y + 3*(1-t)*(1-t)*t*start_cy + 3*(1-t)*t*t*end_cy + t*t*t*end_y;
+      curve_path.push("G1 X"+x+" Y"+y)
+      t  = t + offset_increment;
     }
 
-    // overwrite original image
-    context.putImageData(imageData, x, y);
+    return curve_path.join("\n")
   }
 
+
+  var gcodes = []
+  function sendGcode(){
+    console.log(device)
+
+    if (device == undefined){
+      console.log('No machined attached.')
+    }else{
+     
+
+     
+    }
+  }
+
+ 
+ 
+  index = 0;
+  parser.on('data', function(data){
+    var x = data.substring(1,6)
+    var y = data.substring(7,12)
+    console.log(data)
+    console.log(x)
+    console.log(y)
+  });
+
+
+  function lasingCommand(){
+    var lineReader = require('readline').createInterface({
+        input: require('fs').createReadStream('/Users/jaypaulaying/Desktop/sample.gcode')
+      });
+
+     
+    lineReader.on('line', function (line) {
+      console.log('Line from file:', line);
+      gcodes.push(line)
+    });
+
+    
+    setTimeout(function(){
+      for(var i=0;i<6;i++){
+        port.write(gcodes[i]+"\n", function(error){
+          console.log(error)
+        })
+      }
+    }, 2000)
+
+    setInterval(function(){
+      port.write("?\n", function(error){
+        console.log(error)
+      }, 1000)
+    })
+   
+  }
 
 
 </script>
