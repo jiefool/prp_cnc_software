@@ -153,6 +153,9 @@
   const Readline = sp.parsers.Readline;
   const parser = new Readline();
   var port;
+  var checkGantryPosition;
+  var gantryPosition;
+  var gcodes = []
 
   sp.list(function(err, ports) {
     ports.forEach(function(port, index){
@@ -165,6 +168,9 @@
     })
   });
 
+
+
+
   $('#device-select').change(function(){
     port = new sp($(this).val(), {
       baudRate: 57600
@@ -172,11 +178,18 @@
 
     port.pipe(parser);
 
-    
-    setTimeout(function(){
-      port.write("?\n")
-    }, 3000)
-   
+    parser.on('data', function(data){
+      console.log(data)
+      if (counter < gcodes.length){
+        counter++;
+        console.log(gcodes[counter])
+        port.write(gcodes[counter]+"\n")
+        port.write("?\n")
+      }
+
+
+    });
+
   })
   
 
@@ -298,9 +311,14 @@
     });
   }
 
+
+  var seekRate = 2000;
+  var lasingRate = 500;
+
   function canvasToGcode(){
     var gcode_path = []
-    gcode_path.push("G1 F500")
+    gcode_path.push("G0 F"+seekRate)
+    gcode_path.push("G1 F"+lasingRate)
     gcode_path.push("S255")
     gcode_path.push("G30")
 
@@ -316,33 +334,33 @@
           if (paths[0] === 'M'){
             current_x = paths[1]
             current_y = paths[2]
-            gcode_path.push("G0 X"+current_x+" Y"+current_y)
+            gcode_path.push("G0 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'm'){
             current_x = current_x + paths[1]
             current_y = current_y + paths[2]
-            gcode_path.push("G0 X"+current_x+" Y"+current_y)
+            gcode_path.push("G0 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'H'){
             current_x = paths[1]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'h'){
             current_x = current_x + paths[1]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'V'){
             current_y = paths[1]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'v'){
             current_y = current_y + paths[1]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'C'){
@@ -380,13 +398,13 @@
           if (paths[0] === 'L'){
             current_x = paths[1]
             current_y = paths[2]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
           if (paths[0] === 'l'){
             current_x = current_x + paths[1]
             current_y = current_y + paths[2]
-            gcode_path.push("G1 X"+current_x+" Y"+current_y)
+            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
           }
 
 
@@ -394,7 +412,7 @@
       })
     })
 
-    gcode_path.push("G30")
+    gcode_path.push("G30\n")
     console.log(gcode_path.join("\n"))
 
     fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcode_path.join("\n"), function(err) {
@@ -415,7 +433,7 @@
     while (t < 1) {
       x = (1-t)*(1-t)*(1-t)*start_x + 3*(1-t)*(1-t)*t*start_cx + 3*(1-t)*t*t*end_cx + t*t*t*end_x;
       y = (1-t)*(1-t)*(1-t)*start_y + 3*(1-t)*(1-t)*t*start_cy + 3*(1-t)*t*t*end_cy + t*t*t*end_y;
-      curve_path.push("G1 X"+x+" Y"+y)
+      curve_path.push("G1 X"+x.toFixed(3)+" Y"+y.toFixed(3))
       t  = t + offset_increment;
     }
 
@@ -423,7 +441,7 @@
   }
 
 
-  var gcodes = []
+  
   function sendGcode(){
     console.log(device)
 
@@ -438,42 +456,100 @@
 
  
  
-  index = 0;
-  parser.on('data', function(data){
-    var x = data.substring(1,6)
-    var y = data.substring(7,12)
-    console.log(data)
-    console.log(x)
-    console.log(y)
-  });
-
+  var index = 0;
+  var gantryPosition;
+  var pointOne;
+  var pointTwo;
+  var laserDelay = 0;
+  var dbtp;
+  var td;
+  var content;
+  var serialPing;
+  var checkPosition;
 
   function lasingCommand(){
     var lineReader = require('readline').createInterface({
-        input: require('fs').createReadStream('/Users/jaypaulaying/Desktop/sample.gcode')
-      });
+      input: require('fs').createReadStream('/Users/jaypaulaying/Desktop/sample.gcode')
+    });
 
-     
     lineReader.on('line', function (line) {
-      console.log('Line from file:', line);
+      // console.log('Line from file:', line);
       gcodes.push(line)
     });
 
-    
+
+
+   
+   
+    //set homing cycle
+    // setGantryHome();
+    // checkPosition = "X5.000Y5.000"
+    // serialPing = setInterval(function(){getGantryPosition()}, 200);
+
+
+    //get gantry position
+    //getGantryPosition()
+
+
     setTimeout(function(){
-      for(var i=0;i<6;i++){
-        port.write(gcodes[i]+"\n", function(error){
-          console.log(error)
-        })
-      }
+      port.write(gcodes[counter]+"\n")
+      port.write("?\n")
     }, 2000)
 
-    setInterval(function(){
-      port.write("?\n", function(error){
-        console.log(error)
-      }, 1000)
-    })
+  }
+
+  var counter = 0;
+  function gcodeLoop() {           
+    setTimeout(function () {  
+      console.log(counter)  
+      writeAndDrain(gcodes[counter]);    
+      counter++;                     
+      if (counter < gcodes.length) {            
+        gcodeLoop();             
+      }                        
+    }, 400)
    
+    
+    
+  }
+
+  function parseGcode(gcode){
+    var  valArray =  gcode.split(" ")
+    var  x;
+    var  y; 
+    var gcodeObj;
+
+    if(valArray[1] != undefined && valArray[2] != undefined){
+      x = valArray[1].replace('X','');
+      y = valArray[2].replace('Y','');
+      return {c: valArray[0], x: parseFloat(x), y: parseFloat(y)}
+    }else{
+      return {c: valArray[0]}
+    }
+  }
+
+  function distanceBetweenTwoPoints(x1, y1, x2, y2){
+    hyp = (Math.hypot(x2-x1, y2-y1))
+    return hyp
+  }
+
+  function timeDelay(distance, speed){
+    delay = distance/speed
+    return delay
+  }
+
+  function writeAndDrain (data) {
+    port.write(data+"\n");
+    port.drain();
+  }
+
+  function getGantryPosition(){
+    checkGantryPosition = true;
+    port.write("?\n", console.log)
+  }
+
+  function setGantryHome(){
+    port.write("G30\n", console.log)
   }
 
 
