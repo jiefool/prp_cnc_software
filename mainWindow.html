@@ -145,6 +145,7 @@
 <script src="js/fabric.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/gcode_writer.js"></script>
 <script>
   const electron = require('electron');
   var fs = require('fs');
@@ -300,122 +301,56 @@
 
   function svgImport(){
     file = document.getElementById("selectedFile").files[0].path
-    console.log(file)
     // create a rectangle with angle=45
     fabric.loadSVGFromURL(file, function(objects, options) {
-      console.log(options)
-      var shape = new fabric.util.groupSVGElements(objects, options);
-      canvas.add(shape.scale(1));
-      // shape.set({ left: 200, top: 100, name: "test" }).setCoords();
-      // canvas.add(shape);
+      var shape = fabric.util.groupSVGElements(objects, options);
+      // shape.set({scaleX: 0.353, scaleY: 0.353 }).setCoords();
+      canvas.add(shape);
     });
+
+    // fabric.loadSVGFromString(file, function(objects, options) {
+    //    // Group elements to fabric.PathGroup (more than 1 elements) or
+    //    // to fabric.Path
+    //    var loadedObject = fabric.util.groupSVGElements(objects, options);
+    //    // Set sourcePath
+    //    loadedObject.set('sourcePath', file);
+
+    //    canvas.add(loadedObject);
+    //    console.log(loadedObject);
+    //    loadedObject.center().setCoords();
+    //    canvas.renderAll();
+    // });
+
   }
 
 
   var seekRate = 2000;
   var lasingRate = 500;
+  var x_center_group = 0;
+  var y_center_group = 0;
+
 
   function canvasToGcode(){
-    var gcode_path = []
-    gcode_path.push("G0 F"+seekRate)
-    gcode_path.push("G1 F"+lasingRate)
-    gcode_path.push("S255")
-    gcode_path.push("G30")
-
+    var shapeObjects = []
+    var scale = 0.353
     canvasData = canvas.toJSON()
-    canvasData.objects.forEach(function(item, index){
-      item.objects.forEach(function(elements, index){
-        current_x = 0
-        current_y = 0
-        elements.path.forEach(function(paths, index){
-          console.log(paths)
 
-
-          if (paths[0] === 'M'){
-            current_x = paths[1]
-            current_y = paths[2]
-            gcode_path.push("G0 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'm'){
-            current_x = current_x + paths[1]
-            current_y = current_y + paths[2]
-            gcode_path.push("G0 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'H'){
-            current_x = paths[1]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'h'){
-            current_x = current_x + paths[1]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'V'){
-            current_y = paths[1]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'v'){
-            current_y = current_y + paths[1]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'C'){
-            start_cx = paths[1]
-            start_cy = paths[2]
-
-            end_cx = paths[3]
-            end_cy = paths[4]
-
-            end_x = paths[5]
-            end_y = paths[6]
-
-            gcode_path.push(calculateBezierCurve(current_x, current_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y))
-
-            current_x = end_x
-            current_y = end_y
-          }
-
-          if (paths[0] === 'c'){
-            start_cx = current_x + paths[1]
-            start_cy = current_y + paths[2]
-
-            end_cx = current_x + paths[3]
-            end_cy = current_y + paths[4]
-
-            end_x = current_x + paths[5]
-            end_y = current_y + paths[6]
-
-            gcode_path.push(calculateBezierCurve(current_x, current_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y))
-
-            current_x = end_x
-            current_y = end_y
-          }
-
-          if (paths[0] === 'L'){
-            current_x = paths[1]
-            current_y = paths[2]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-          if (paths[0] === 'l'){
-            current_x = current_x + paths[1]
-            current_y = current_y + paths[2]
-            gcode_path.push("G1 X"+current_x.toFixed(3)+" Y"+current_y.toFixed(3))
-          }
-
-
+    canvasData.objects.forEach(function(group, index){
+      if (group.objects != undefined){
+        x_center_group = canvasData.objects[0].left + (canvasData.objects[0].width/2)
+        y_center_group = canvasData.objects[0].top + (canvasData.objects[0].height/2)
+        group.objects.forEach(function(shape, index){
+          shapeObjects.push(shape)
         })
-      })
+      }else{
+        shapeObjects.push(group)
+      }
     })
 
-    gcode_path.push("G30\n")
-    console.log(gcode_path.join("\n"))
+    gcodes = GcodeWriter.write(shapeObjects, scale)
+    console.log(gcodes)
 
-    fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcode_path.join("\n"), function(err) {
+    fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcodes, function(err) {
         if(err) {
             return console.log(err);
         }
