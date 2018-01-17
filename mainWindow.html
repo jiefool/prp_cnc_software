@@ -2,122 +2,149 @@
 <html lang="en">
 <head>
   <title>PRP IWI</title>
-    <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-  <style>
-    .flow-text{
-      text-align: center;
-    }
-
-    .container{
-      margin-top: 200px;
-    }
-
-    .upload-btn-wrapper {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
-    }
-
-    .upload-btn-wrapper .btn {
-      border: 2px solid gray;
-      color: gray;
-      background-color: white;
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .upload-btn-wrapper input[type=file] {
-      font-size: 100px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-    }
-  </style>
-
-
 </head>
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <a class="brand-logo center">PRP IWI</a>
-    </div>
-  </nav>
-
-  <div class="section">
-    <span id="breadcrumb-1">Main</span>
-    <span id="breadcrumb-2"></span>
-    <span id="breadcrumb-3"></span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="container-fluid main-option">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col s3 offset-s2 blue lighten-1">
-        <span class="flow-text operation" id="laser"><p>LASER Operation</p></span>
+      <div class="col-md-12 main-title">
+        <h1>PLASTIC RECYCLING PROJECT TO INCREASE WOMEN INCOME</h1>
+      </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 breadcrumb">
+        <button type="button" class="btn btn-default" aria-label="Left Align">
+          <span id="breadcrumb-1">MAIN</span>
+        </button>
+
+        <button type="button" class="btn btn-default" aria-label="Left Align">
+          <span id="breadcrumb-2"></span>
+        </button>
+
+        <button type="button" class="btn btn-default" aria-label="Left Align">
+          <span id="breadcrumb-3"></span>
+        </button>
+      </div>
+    </div>
+  
+    <div class="row main-option">
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="laser">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>LASER OPERATIONS</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/laser.png">
+          </div>
+        </div>
       </div>
       
-      <div class="col s3 offset-s2 teal lighten-2">
-        <span class="flow-text operation" id="milling"><p>Milling Operation</p></span>
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="milling">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>MILLING OPERATIONS</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/milling.png">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- second level operation -->
-  <div class="container laser-option" style="display:none">
-    <div class="row">
-      <div class="col s3 offset-s2 blue lighten-1">
-        <span class="flow-text operation" id="laser-setup"><p>Setup Parameters</p></span>
+
+    <!-- second level operation -->
+    <div class="row laser-option" style="display:none">
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="laser-setup">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>SETUP PARAMETERS</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/laser.png">
+          </div>
+        </div>
       </div>
-      
-      <div class="col s3 offset-s2 teal lighten-2">
-        <span class="flow-text operation" id="laser-operate"><p>Engraving-Cutting Operation</p></span>
+
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="laser-operate">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>ENGRAVING/CUTTING OPERATION</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/laser.png">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container milling-option" style="display:none">
-    <div class="row">
-      <div class="col s3 offset-s2 blue lighten-1">
-        <span class="flow-text operation" id="milling-gcode"><p>Generate G-Code</p></span>
+
+    <div class="row milling-option" style="display:none">
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="milling-gcode">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>GENERATE G-CODE</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/laser.png">
+          </div>
+        </div>
       </div>
-      
-      <div class="col s3 offset-s2 teal lighten-2">
-        <span class="flow-text operation" id="milling-operate"><p>Milling Operation</p></span>
+
+      <div class="col-md-3 col-sm-6 col-md-offset-2">
+        <div class="panel panel-success" id="milling-operate">
+          <div class="panel-heading">
+            <span class="flow-text operation">
+              <p>MILLING OPERATION</p>
+            </span>
+          </div>
+          <div class="panel-body">
+            <img src="images/laser.png">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-
-  <!-- third level operation -->
-  <div class="  laser-setup" style="display:none;margin-top: 0px">
-    <div class="row">
-      <div class="col s6">
+    <!-- third level operation -->
+    <div class="row laser-setup" style="display:none;margin-top: 0px">
+      <div class="col-md-12 import-buttons">
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
-        <input type="button" value="Open File" onclick="document.getElementById('selectedFile').click();" />
+        <input type="button" class="btn btn-default" value="SVG" onclick="document.getElementById('selectedFile').click();" />
       </div>
-      <div class="col s1">
-        <input type="button" value="Canvas to G-code" onclick="canvasToGcode()"/>
-        <input type="button" value="Send Gcode" onclick="sendGcode()"/>
-       
+      <div class="col-md-9">
+        <div class="canvas-area">
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h4>Parameters Setting</h4>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"><button></button></span>
+          <span class="input-group-addon" id="basic-addon1">Speed</span>
+          <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1">
+          <span class="input-group-addon" id="basic-addon1">Power</span>
+          <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1">
+        </div>
+        <hr/>
+        <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/>
       </div>
     </div>
-    <div class="row">
-      <div class="col s10" style="min-height: 650px;">
-        <canvas id="canvas" style="border:1px solid #000000;" height="850" width="652"></canvas>
-      </div>
-      <div class="col s2 teal" style="height: 500px;"></div>
-    </div>
-  </div>
 
-  <div class="container laser-operate" style="display:none">
-    <div class="row">
+    <div class="row laser-operate" style="display:none">
       <div class="col-md-8">Canvas here!</div>
       <div class="col-md-4">
         <div class="input-field col s12">
@@ -128,6 +155,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="container milling-gcode" style="display:none">
@@ -146,348 +174,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/gcode_writer.js"></script>
-<script>
-  const electron = require('electron');
-  var fs = require('fs');
-  var PNG = require('png-js');
-  var sp = require('serialport');
-  const Readline = sp.parsers.Readline;
-  const parser = new Readline();
-  var port;
-  var checkGantryPosition;
-  var gantryPosition;
-  var gcodes = []
+<script src="js/app.js"></script>
 
-  sp.list(function(err, ports) {
-    ports.forEach(function(port, index){
-      if (port.manufacturer != undefined ){
-        $('#device-select').append($('<option>', {
-            value: port.comName,
-            text: port.comName + '('+port.manufacturer+')'
-        }));
-      }
-    })
-  });
-
-
-
-
-  $('#device-select').change(function(){
-    port = new sp($(this).val(), {
-      baudRate: 57600
-    });
-
-    port.pipe(parser);
-
-    parser.on('data', function(data){
-      console.log(data)
-      if (counter < gcodes.length){
-        counter++;
-        console.log(gcodes[counter])
-        port.write(gcodes[counter]+"\n")
-        port.write("?\n")
-      }
-
-
-    });
-
-  })
-  
-
-  const {ipcRenderer} = electron;
-
-  const mainOptionView = document.querySelector(".main-option")
-
-  const breadCrumb1 = document.querySelector("#breadcrumb-1");
-  const breadCrumb2 = document.querySelector("#breadcrumb-2");
-  const breadCrumb3 = document.querySelector("#breadcrumb-3");
- 
-  const laser = document.querySelector("#laser");
-  const laserOptionView = document.querySelector(".laser-option");
-
-  const milling = document.querySelector("#milling");
-  const millingOptionView = document.querySelector(".milling-option");
-  
-  const laserSetup = document.querySelector("#laser-setup");
-  const laserSetupView = document.querySelector(".laser-setup");
-
-  const laserOperate = document.querySelector("#laser-operate");
-  const laserOperateView = document.querySelector(".laser-operate");
-
-  const millingGcode = document.querySelector("#milling-gcode");
-  const millingGcodeView = document.querySelector(".milling-gcode");
-
-  const millingOperate = document.querySelector("#milling-operate");
-  const millingOperateView = document.querySelector(".milling-operate");
-
-  // breadcrumbs
-  breadCrumb1.addEventListener('click', function(){
-    hideAllView()
-    mainOptionView.style.display = "block"
-    breadCrumb2.innerHTML = ""
-    breadCrumb3.innerHTML = ""
-  })
-
-  breadCrumb2.addEventListener('click', function(){
-    breadCrumbText = breadCrumb2.innerHTML
-
-    if (breadCrumbText == "&gt; LASER Operation"){
-      hideAllView()
-      laserOptionView.style.display = "block"
-    }else if(breadCrumbText == "&gt; Milling Operation"){
-      hideAllView()
-      millingOptionView.style.display = "block"
-    }
-
-    breadCrumb3.innerHTML = ""
-
-  })
-
-  breadCrumb3.addEventListener('click', function(){
-    hideAllView()
-    mainOptionView.style.display = "block"
-  })
-
-  // second level
-  laser.addEventListener('click', function(){
-    hideAllView()
-    laserOptionView.style.display = "block"
-    breadCrumb2.innerHTML = "> LASER Operation"
-  })
-
-  milling.addEventListener('click', function(){
-    hideAllView()
-    millingOptionView.style.display = "block"
-    breadCrumb2.innerHTML = "> Milling Operation"
-  })
-
-  // third level
-  laserSetup.addEventListener('click', function(){
-    hideAllView()
-    laserSetupView.style.display = "block"
-    breadCrumb3.innerHTML = "> LASER Setup Parameters"
-  })
-
-  laserOperate.addEventListener('click', function(){
-    hideAllView()
-    laserOperateView.style.display = "block"
-    breadCrumb3.innerHTML = "> LASER Engraving/Cutting"
-  })
-
-  millingGcode.addEventListener('click', function(){
-    hideAllView()
-    millingGcodeView.style.display = "block"
-    breadCrumb3.innerHTML = "> Generate G-Code"
-  })
-
-  millingOperate.addEventListener('click', function(){
-    hideAllView()
-    millingOperateView.style.display = "block"
-    breadCrumb3.innerHTML = "> Milling Operation"
-  })
-
-  function hideAllView(){
-    mainOptionView.style.display = "none"
-    laserOptionView.style.display = "none"
-    millingOptionView.style.display = "none"
-    laserSetupView.style.display = "none"
-    laserOperateView.style.display = "none"
-    millingGcodeView.style.display = "none"
-    millingOperateView.style.display = "none"
-  }
-
-
-  var canvas = new fabric.Canvas('canvas');
-
-  function svgImport(){
-    file = document.getElementById("selectedFile").files[0].path
-    // create a rectangle with angle=45
-    fabric.loadSVGFromURL(file, function(objects, options) {
-      var shape = fabric.util.groupSVGElements(objects, options);
-      // shape.set({scaleX: 0.353, scaleY: 0.353 }).setCoords();
-      canvas.add(shape);
-    });
-
-    // fabric.loadSVGFromString(file, function(objects, options) {
-    //    // Group elements to fabric.PathGroup (more than 1 elements) or
-    //    // to fabric.Path
-    //    var loadedObject = fabric.util.groupSVGElements(objects, options);
-    //    // Set sourcePath
-    //    loadedObject.set('sourcePath', file);
-
-    //    canvas.add(loadedObject);
-    //    console.log(loadedObject);
-    //    loadedObject.center().setCoords();
-    //    canvas.renderAll();
-    // });
-
-  }
-
-
-  var seekRate = 2000;
-  var lasingRate = 500;
-  var x_center_group = 0;
-  var y_center_group = 0;
-
-
-  function canvasToGcode(){
-    var shapeObjects = []
-    var scale = 0.353
-    canvasData = canvas.toJSON()
-
-    canvasData.objects.forEach(function(group, index){
-      if (group.objects != undefined){
-        x_center_group = canvasData.objects[0].left + (canvasData.objects[0].width/2)
-        y_center_group = canvasData.objects[0].top + (canvasData.objects[0].height/2)
-        group.objects.forEach(function(shape, index){
-          shapeObjects.push(shape)
-        })
-      }else{
-        shapeObjects.push(group)
-      }
-    })
-
-    gcodes = GcodeWriter.write(shapeObjects, scale)
-    console.log(gcodes)
-
-    fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcodes, function(err) {
-        if(err) {
-            return console.log(err);
-        }
-
-        console.log("The file was saved!");
-    }); 
-  } 
-
-
-  function calculateBezierCurve(start_x, start_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y) {
-    var curve_path = [];
-    var t = 0.1;
-    var offset_increment = 0.1;
-
-    while (t < 1) {
-      x = (1-t)*(1-t)*(1-t)*start_x + 3*(1-t)*(1-t)*t*start_cx + 3*(1-t)*t*t*end_cx + t*t*t*end_x;
-      y = (1-t)*(1-t)*(1-t)*start_y + 3*(1-t)*(1-t)*t*start_cy + 3*(1-t)*t*t*end_cy + t*t*t*end_y;
-      curve_path.push("G1 X"+x.toFixed(3)+" Y"+y.toFixed(3))
-      t  = t + offset_increment;
-    }
-
-    return curve_path.join("\n")
-  }
-
-
-  
-  function sendGcode(){
-    console.log(device)
-
-    if (device == undefined){
-      console.log('No machined attached.')
-    }else{
-     
-
-     
-    }
-  }
-
- 
- 
-  var index = 0;
-  var gantryPosition;
-  var pointOne;
-  var pointTwo;
-  var laserDelay = 0;
-  var dbtp;
-  var td;
-  var content;
-  var serialPing;
-  var checkPosition;
-
-  function lasingCommand(){
-    var lineReader = require('readline').createInterface({
-      input: require('fs').createReadStream('/Users/jaypaulaying/Desktop/sample.gcode')
-    });
-
-    lineReader.on('line', function (line) {
-      // console.log('Line from file:', line);
-      gcodes.push(line)
-    });
-
-
-
-   
-   
-    //set homing cycle
-    // setGantryHome();
-    // checkPosition = "X5.000Y5.000"
-    // serialPing = setInterval(function(){getGantryPosition()}, 200);
-
-
-    //get gantry position
-    //getGantryPosition()
-
-
-    setTimeout(function(){
-      port.write(gcodes[counter]+"\n")
-      port.write("?\n")
-    }, 2000)
-
-  }
-
-  var counter = 0;
-  function gcodeLoop() {           
-    setTimeout(function () {  
-      console.log(counter)  
-      writeAndDrain(gcodes[counter]);    
-      counter++;                     
-      if (counter < gcodes.length) {            
-        gcodeLoop();             
-      }                        
-    }, 400)
-   
-    
-    
-  }
-
-  function parseGcode(gcode){
-    var  valArray =  gcode.split(" ")
-    var  x;
-    var  y; 
-    var gcodeObj;
-
-    if(valArray[1] != undefined && valArray[2] != undefined){
-      x = valArray[1].replace('X','');
-      y = valArray[2].replace('Y','');
-      return {c: valArray[0], x: parseFloat(x), y: parseFloat(y)}
-    }else{
-      return {c: valArray[0]}
-    }
-  }
-
-  function distanceBetweenTwoPoints(x1, y1, x2, y2){
-    hyp = (Math.hypot(x2-x1, y2-y1))
-    return hyp
-  }
-
-  function timeDelay(distance, speed){
-    delay = distance/speed
-    return delay
-  }
-
-  function writeAndDrain (data) {
-    port.write(data+"\n");
-    port.drain();
-  }
-
-  function getGantryPosition(){
-    checkGantryPosition = true;
-    port.write("?\n", console.log)
-  }
-
-  function setGantryHome(){
-    port.write("G30\n", console.log)
-  }
-
-
-</script>
 </body>
 </html>

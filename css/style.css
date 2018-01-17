@@ -1,0 +1,58 @@
+.flow-text{
+  text-align: center;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper .btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.panel-body{
+  text-align:center;
+  padding: 0;
+}
+
+p{
+  margin: 0;
+}
+
+.main-title{
+  text-align: center;
+  color: white;
+  background-color: green;
+}
+
+.main-operation{
+  border:1px solid green;
+}
+
+.canvas-area{
+  background-color: gray;
+}
+
+#canvas{
+  border: 1px solid #000000;
+}
+
+.import-buttons{
+  margin-bottom: 10px;
+}
