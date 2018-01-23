@@ -123,7 +123,7 @@
     <div class="row laser-setup" style="display:none;margin-top: 0px">
       <div class="col-md-12 import-buttons">
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
-        <input type="button" class="btn btn-default" value="SVG" onclick="document.getElementById('selectedFile').click();" />
+        <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" />
       </div>
       <div class="col-md-9">
         <div class="canvas-area">
@@ -132,21 +132,23 @@
       </div>
       <div class="col-md-3">
         <h4>Parameters Setting</h4>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1"><button></button></span>
-          <span class="input-group-addon" id="basic-addon1">Speed</span>
-          <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1">
-          <span class="input-group-addon" id="basic-addon1">Power</span>
-          <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1">
-        </div>
+        <div class="speed-power-params"></div>
         <hr/>
         <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/>
       </div>
     </div>
 
     <div class="row laser-operate" style="display:none">
-      <div class="col-md-8">Canvas here!</div>
-      <div class="col-md-4">
+      <div class="col-md-12 import-buttons">
+        <input type="file" id="gcodeFileSelect" style="display: none;" accept="*/gcode" onchange="gcodeImport()" />
+        <input type="button" class="btn btn-default" value="IMPORT GCODE" onclick="document.getElementById('gcodeFileSelect').click();" />
+      </div>
+      <div class="col-md-9">
+        <div class="canvas-area">
+          <canvas id="en-cut-canvas"></canvas>
+        </div>
+      </div>
+      <div class="col-md-3">
         <div class="input-field col s12">
           <select class="form-control" id="device-select">
             <option value="" disabled selected>Select LASER Machine</option>

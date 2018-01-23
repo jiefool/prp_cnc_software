@@ -3,6 +3,8 @@ const {ipcRenderer} = electron;
 var fs = require('fs');
 var PNG = require('png-js');
 var sp = require('serialport');
+var lineReader = require('line-reader');
+
 const Readline = sp.parsers.Readline;
 const parser = new Readline();
 var port;
@@ -12,10 +14,15 @@ var gcodes = []
 var counter = 0;
 var x_center_group = 0;
 var y_center_group = 0;
+var objectStrokeColors = {};
+var laserDevices = []
 
 var cwidth = 0
 var canvas = new fabric.Canvas('canvas');
+var en_cut_canvas = new fabric.Canvas('en-cut-canvas');
 canvas.setHeight(620);
+en_cut_canvas.setHeight(620);
+
 window.addEventListener('resize', resizeCanvas, false);
 
 const mainOptionView = document.querySelector(".main-option")
@@ -35,20 +42,36 @@ const millingGcodeView = document.querySelector(".milling-gcode");
 const millingOperate = document.querySelector("#milling-operate");
 const millingOperateView = document.querySelector(".milling-operate");
 
+
+$('#device-select').hover(function(){
+  appendSerialDevice();
+})
+
+
+parser.on('data', function(data){
+  console.log(data)
+  if (counter < gcodes.length){
+    counter++;
+    console.log(gcodes[counter])
+    port.write(gcodes[counter]+"\n")
+    port.write("?\n")
+  }
+
+  if ((counter+1) >= gcodes.length){
+    port.close();
+    counter = 0;
+  }
+
+});
+
+
 $('#device-select').change(function(){
   port = new sp($(this).val(), {
-    baudRate: 57600
+    baudRate: 57600,
+    autoOpen: false
   });
 
   port.pipe(parser);
-
-  parser.on('data', function(data){
-    if (counter < gcodes.length){
-      counter++;
-      port.write(gcodes[counter]+"\n")
-      port.write("?\n")
-    }
-  });
 })
 
 breadCrumb1.addEventListener('click', function(){
@@ -104,7 +127,6 @@ laserOperate.addEventListener('click', function(){
   hideAllView()
   laserOperateView.style.display = "block"
   breadCrumb3.innerHTML = "LASER ENGRAVING/CUTTING"
-  appendSerialDevice();
 })
 
 millingGcode.addEventListener('click', function(){
@@ -131,38 +153,80 @@ function hideAllView(){
 
 function resizeCanvas() {
   canvas.setWidth(cwidth);
+  en_cut_canvas.setWidth(cwidth);
   canvas.renderAll();
+  en_cut_canvas.renderAll();
 }
 
 function svgImport(){
   file = document.getElementById("selectedFile").files[0].path
   fabric.loadSVGFromURL(file, function(objects, options) {
-    var shape = fabric.util.groupSVGElements(objects, options);
-    canvas.add(shape);
+
+    svgObjects = []
+    objects.forEach(function(object){
+      svgObjects.push(object)
+      getObjectStrokeColors(object)
+    })
+
+    var group = new fabric.Group(svgObjects);
+    x_center_group = group.left;
+    y_center_group = group.top;
+    console.log(group)
+    canvas.add(group)
+
+    addStrokeSpeedPowerParams();
   });
 }
 
-function canvasToGcode(){
-  var shapeObjects = []
-  var scale = 0.353
-  canvasData = canvas.toJSON()
+function getObjectStrokeColors(object){
+  if ( objectStrokeColors[object.stroke] == undefined){
+    objectStrokeColors[object.stroke] = []
+  }
+  objectStrokeColors[object.stroke].push(object)
+}
 
-  canvasData.objects.forEach(function(group, index){
-    if (group.objects != undefined){
-      x_center_group = canvasData.objects[0].left + (canvasData.objects[0].width/2)
-      y_center_group = canvasData.objects[0].top + (canvasData.objects[0].height/2)
-      group.objects.forEach(function(shape, index){
-        shapeObjects.push(shape)
-      })
-    }else{
-      shapeObjects.push(group)
+function addStrokeSpeedPowerParams(){
+  Object.keys(objectStrokeColors).forEach(function(stroke){
+    stroke_n = stroke.replace("#","")
+    html_text = '<div class="input-group"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+'"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power"></div><br/>'
+    $(".speed-power-params").append(html_text)
+  })
+}
+
+function canvasToGcode(){
+  // var shapeObjects = []
+  gcodes = []
+  var scale = 0.353
+  // canvasData = canvas.toJSON()
+
+  // canvasData.objects.forEach(function(group, index){
+  //   if (group.objects != undefined){
+  //     x_center_group = canvasData.objects[0].left + (canvasData.objects[0].width/2)
+  //     y_center_group = canvasData.objects[0].top + (canvasData.objects[0].height/2)
+  //     group.objects.forEach(function(shape, index){
+  //       shapeObjects.push(shape)
+  //     })
+  //   }else{
+  //     shapeObjects.push(group)
+  //   }
+  // })
+  Object.keys(objectStrokeColors).forEach(function(stroke){
+    speed_id = stroke + "-speed" 
+    speed = $(speed_id).val()
+    power_id = stroke + "-power" 
+    power = $(power_id).val()
+    gcodes.push(GcodeWriter.write(objectStrokeColors[stroke], scale, speed, power))
+  })
+
+  homeGcodes = []
+  gcodes.forEach(function(element, index){
+    if (index != 0){
+      gcodes[index] = element.replace("G30", "")
     }
   })
 
-  gcodes = GcodeWriter.write(shapeObjects, scale)
-  console.log(gcodes)
 
-  fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcodes, function(err) {
+  fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcodes.join("\n"), function(err) {
       if(err) {
           return console.log(err);
       }
@@ -171,30 +235,40 @@ function canvasToGcode(){
 } 
 
 function lasingCommand(){
-  var lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream('/Users/jaypaulaying/Desktop/sample.gcode')
+  port.open(function(err){
+      port.write(gcodes[counter]+"\n")
+      port.write("?\n")
   });
-
-  lineReader.on('line', function (line) {
-    gcodes.push(line)
-  });
-
-  setTimeout(function(){
-    port.write(gcodes[counter]+"\n")
-    port.write("?\n")
-  }, 2000)
 }
 
 function appendSerialDevice(){
   sp.list(function(err, ports) {
     ports.forEach(function(port, index){
       if (port.manufacturer != undefined ){
-        $('#device-select').append($('<option>', {
-            value: port.comName,
-            text: port.comName + '('+port.manufacturer+')'
-        }));
+        if (laserDevices.indexOf(port.comName) === -1){
+          laserDevices.push(port.comName)
+          $('#device-select').append($('<option>', {
+              value: port.comName,
+              text: port.comName + '('+port.manufacturer+')'
+          }));
+        }
       }
     })
   });
+}
+
+function gcodeImport(){
+  gcodes = []
+  file = document.getElementById("gcodeFileSelect").files[0].path
+  lineReader.eachLine(file, function(line, last) {
+    gcodes.push(line.replace(",", ""))
+  });
+}
+
+function svgSelectFile(){
+  canvas.clear();
+  $(".speed-power-params").html("")
+  $('#selectedFile').val("")
+  $('#selectedFile').click();
 }
 

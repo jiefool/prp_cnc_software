@@ -1,16 +1,16 @@
-  GcodeWriter = {
-  write: function(fcObjects, scale){
+GcodeWriter = {
+  write: function(fcObjects, scale, speed, power){
     x_prev = 0
     y_prev = 0
     glist = []
+    intensity = 255 * (power/100)
 
     glist.push("G0 F2000")
-    glist.push("G1 F500")
-    glist.push("S255")
+    glist.push("G1 F"+speed)
+    glist.push("S"+intensity)
     glist.push("G30")
 
     fcObjects.forEach(function(segment, index){
-      console.log(segment)
       switch(segment.type){
         case "path":
           glist.push(parsePath(segment))
@@ -44,8 +44,13 @@
     function parseRect(segment){
       //move to top left corner
 
-      x_prev = x_center_group + segment.left
-      y_prev = y_center_group + segment.top
+      console.log(segment)
+
+      console.log(segment.left)
+      console.log(segment.top)
+
+      x_prev = x_center_group + segment.left + (segment.width/2)
+      y_prev = y_center_group + segment.top + (segment.height/2)
 
       glist.push("G0 X"+(x_prev * scale)+"Y"+(y_prev * scale))
 
@@ -94,9 +99,7 @@
     }
 
     function parsePath(segment){
-      console.log(segment)
       segment.path.forEach(function(path, index){
-        console.log(path[0])
         switch(path[0]){
           case "M":
             x_prev = path[1]
@@ -211,6 +214,7 @@
     }
 
     glist.push("G0 X5Y5")
+    glist = glist.filter(function(n){ return n != undefined }); 
     return glist.join("\n")
   }
 }

@@ -46,11 +46,7 @@ p{
 }
 
 .canvas-area{
-  background-color: gray;
-}
-
-#canvas{
-  border: 1px solid #000000;
+  background-color: #f5f5f5;
 }
 
 .import-buttons{
