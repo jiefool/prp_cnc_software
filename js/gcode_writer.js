@@ -1,5 +1,5 @@
 GcodeWriter = {
-  write: function(fcObjects, scale, speed, power){
+  write: function(fcObjects, scale, speed, power, isRaster, rasterColor){
     x_prev = 0
     y_prev = 0
     glist = []
@@ -13,89 +13,87 @@ GcodeWriter = {
     fcObjects.forEach(function(segment, index){
       switch(segment.type){
         case "path":
-          glist.push(parsePath(segment))
+          isRaster ? rasterizeObject(segment) : glist.push(parsePath(segment))
           break
         case "rect":
-          glist.push(parseRect(segment))
+          isRaster ? rasterizeObject(segment) : glist.push(parseRect(segment))
           break
         case "ellipse":
-          glist.push(parseEllipse(segment))
+          isRaster ? rasterizeObject(segment) : glist.push(parseEllipse(segment))
           break
         case "line":
-          glist.push(parseLine(segment))
+          isRaster ? rasterizeObject(segment) : glist.push(parseLine(segment))
           break
         case "polygon":
-          glist.push(parsePolygon(segment))
+          isRaster ? rasterizeObject(segment) : glist.push(parsePolygon(segment))
+          break
+        case "circle":
+          isRaster ? rasterizeObject(segment) : glist.push(parseEllipse(segment))
           break
       }
     })
 
     function parsePolygon(segment){
+      x_offset = 0
+      y_offset = 0
+
       segment.points.forEach(function(point, index){
+        x = point.x + x_offset
+        y = point.y + y_offset
         if (index == 0){
-          glist.push("G0 X"+(point.x * scale)+"Y"+(point.y * scale))
+          glist.push("G0 X"+(x * scale)+"Y"+(y * scale))
         }else{
-          glist.push("G1 X"+(point.x * scale)+"Y"+(point.y * scale))
+          glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
         }
       })
-      glist.push("G1 X"+(segment.points[0].x * scale)+"Y"+(segment.points[0].y * scale))
+
+      x = segment.points[0].x + x_offset
+      y = segment.points[0].y + y_offset
+      glist.push("G1 X"+( x * scale)+"Y"+( y * scale))
     }
 
     function parseRect(segment){
-      //move to top left corner
-
-      console.log(segment)
-
-      console.log(segment.left)
-      console.log(segment.top)
-
-      x_prev = x_center_group + segment.left + (segment.width/2)
-      y_prev = y_center_group + segment.top + (segment.height/2)
-
-      glist.push("G0 X"+(x_prev * scale)+"Y"+(y_prev * scale))
-
-      //lase to top right corner
-      x_prev += segment.width
-      glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
-
-      //lase to bot right corner
-      y_prev += segment.height
-      glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
-
-      //lase to bot left
-      x_prev -= segment.width
-      glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
-
-      //lase to top left
-      y_prev -= segment.height
-      glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
+      pos = segment.aCoords
+      glist.push("G0 X"+(pos.tl.x * scale)+"Y"+(pos.tl.y * scale))
+      glist.push("G1 X"+(pos.tr.x * scale)+"Y"+(pos.tr.y * scale))
+      glist.push("G1 X"+(pos.br.x * scale)+"Y"+(pos.br.y * scale))
+      glist.push("G1 X"+(pos.bl.x * scale)+"Y"+(pos.bl.y * scale))
+      glist.push("G1 X"+(pos.tl.x * scale)+"Y"+(pos.tl.y * scale))
     }
 
     function parseEllipse(segment){
-      //move to top left corner
-      x_center_ellipse = x_center_group + segment.left + segment.rx
-      y_center_ellipse = y_center_group + segment.top + segment.ry
+      cSegment = segment.getCenterPoint()
+      rx = segment.radius
+      ry = segment.radius
+      x_center_ellipse = group.left + (group.width/2) + cSegment.x
+      y_center_ellipse = group.top + (group.height/2) + cSegment.y 
+      lastPoint = ""
 
-      for (var i = 0 * Math.PI; i < 2 * Math.PI; i += 0.01 ) {
-          xPos = x_center_ellipse - (segment.rx * Math.cos(i));
-          yPos = y_center_ellipse + (segment.ry * Math.sin(i));
+      for (var i = 0 * Math.PI; i <= 2.02 * Math.PI; i += 0.01 ) {
+        xPos = x_center_ellipse - (rx * Math.cos(i));
+        yPos = y_center_ellipse + (ry * Math.sin(i));
 
-          if (i == 0) {
-            glist.push("G0 X"+(xPos * scale )+"Y"+(yPos* scale))
-          } else {
-            glist.push("G1 X"+(xPos * scale)+"Y"+(yPos* scale))
-          }
+        if (i == 0) {
+          glist.push("G0 X"+(xPos * scale )+"Y"+(yPos * scale))
+          lastPoint = "G1 X"+(xPos * scale )+"Y"+(yPos * scale)
+        }else {
+          glist.push("G1 X"+(xPos * scale)+"Y"+(yPos * scale))
+        }
       }
+      glist.push(lastPoint)
     }
 
     function parseLine(segment){
-      x = x_center_group + segment.left + segment.width/2 + segment.x1
-      y = y_center_group + segment.top + segment.height/2 + segment.y1
-      glist.push("G0 X"+(x* scale)+"Y"+(y* scale))
+      x_offset = 0
+      y_offset = 0
 
-      x = x_center_group + segment.left + segment.width/2 + segment.x2
-      y = y_center_group + segment.top + segment.height/2 + segment.y2
-      glist.push("G1 X"+(x* scale)+"Y"+(y* scale))
+      x = x_offset + segment.x1 
+      y = y_offset + segment.y1 
+      glist.push("G0 X"+(x * scale)+"Y"+(y* scale))
+
+      x = x_offset + segment.x2 
+      y = y_offset + segment.y2 
+      glist.push("G1 X"+(x * scale)+"Y"+(y* scale))
     }
 
     function parsePath(segment){
@@ -104,28 +102,28 @@ GcodeWriter = {
           case "M":
             x_prev = path[1]
             y_prev = path[2]
-            glist.push("G0 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G0 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "m":
             x_prev = x_prev + path[1]
             y_prev = y_prev + path[2]
-            glist.push("G0 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G0 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "H":
             x_prev = path[1]
-            glist.push("G1 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "h":
             x_prev = x_prev + path[1]
-            glist.push("G1 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "V":
             y_prev = path[1]
-            glist.push("G1 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "v":
             y_prev = y_prev + path[1]
-            glist.push("G1 X"+(x_prev* scale)+" Y"+(y_prev* scale))
+            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
             break
           case "C":
             start_cx = path[1]
@@ -201,6 +199,40 @@ GcodeWriter = {
       })
     }
 
+    function rasterizeObject(segment){
+      tl_x = segment.aCoords.tl.x
+      tl_y = segment.aCoords.tl.y
+      tr_x = segment.aCoords.tr.x
+
+      dir = 0
+      for(var j=0;j<segment.height;j+=0.5){
+        if (dir % 2 == 0){
+          for(var k=0;k<segment.width;k++){
+            x = tl_x + k
+            y = tl_y + j
+            var px = ctx.getImageData(x, y, 1, 1).data;
+            pixelGcode(px)
+          }
+        }else{
+          for(var k=0;k<segment.width;k++){
+            x = tr_x - k
+            y = tl_y + j
+            var px = ctx.getImageData(x, y, 1, 1).data;
+            pixelGcode(px)
+          }
+        }
+        dir++;
+      }
+    }
+
+    function pixelGcode(px){
+      if (px[0] == rasterColor.r && px[1] == rasterColor.g && px[2] == rasterColor.b){
+        glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
+      }else{
+        glist.push("G0 X"+(x * scale)+"Y"+(y * scale))
+      }
+    }
+
     function calBezierCurve(start_x, start_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y){
       var t = 0.1;
       var offset_increment = 0.1;
@@ -208,12 +240,11 @@ GcodeWriter = {
       while (t < 1) {
         x = (1-t)*(1-t)*(1-t)*start_x + 3*(1-t)*(1-t)*t*start_cx + 3*(1-t)*t*t*end_cx + t*t*t*end_x;
         y = (1-t)*(1-t)*(1-t)*start_y + 3*(1-t)*(1-t)*t*start_cy + 3*(1-t)*t*t*end_cy + t*t*t*end_y;
-        glist.push("G1 X"+(x* scale)+" Y"+(y * scale))
+        glist.push("G1 X"+(x * scale)+" Y"+(y * scale))
         t  = t + offset_increment;
       }
     }
 
-    glist.push("G0 X5Y5")
     glist = glist.filter(function(n){ return n != undefined }); 
     return glist.join("\n")
   }

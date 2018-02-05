@@ -125,12 +125,12 @@
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
         <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" />
       </div>
-      <div class="col-md-9">
+      <div class="col-md-8">
         <div class="canvas-area">
           <canvas id="canvas"></canvas>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <h4>Parameters Setting</h4>
         <div class="speed-power-params"></div>
         <hr/>
@@ -153,7 +153,9 @@
           <select class="form-control" id="device-select">
             <option value="" disabled selected>Select LASER Machine</option>
           </select>
-           <input type="button" value="Start Lasing" onclick="lasingCommand()"/>
+            <input type="button" value="Start Lasing" onclick="lasingCommand()"/>
+            <input type="button" value="Stop" onclick="stopLasing()"/>
+            <input type="button" value="Home" onclick="gantryHome()"/>
         </div>
       </div>
     </div>
