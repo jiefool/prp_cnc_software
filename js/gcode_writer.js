@@ -1,5 +1,5 @@
 GcodeWriter = {
-  write: function(fcObjects, scale, speed, power, isRaster, rasterColor){
+  write: function(fcObjects, scale, speed, power, isRaster){
     x_prev = 0
     y_prev = 0
     glist = []
@@ -205,28 +205,35 @@ GcodeWriter = {
       tr_x = segment.aCoords.tr.x
 
       dir = 0
-      for(var j=0;j<segment.height;j+=0.5){
-        if (dir % 2 == 0){
-          for(var k=0;k<segment.width;k++){
-            x = tl_x + k
-            y = tl_y + j
-            var px = ctx.getImageData(x, y, 1, 1).data;
-            pixelGcode(px)
-          }
-        }else{
-          for(var k=0;k<segment.width;k++){
-            x = tr_x - k
-            y = tl_y + j
-            var px = ctx.getImageData(x, y, 1, 1).data;
-            pixelGcode(px)
+      for(var j=0;j<segment.height;j+=0.05){
+        movePx = []
+        lasePx = []
+        for(var k=0;k<segment.width;k++){
+          if (k=0)
+          dir % 2 == 0 ? x = tl_x + k :  x = tr_x - k
+          y = tl_y + j
+          var px = ctx.getImageData(x, y, 1, 1).data;
+          var nPx = ctx.getImageData(x+1, y, 1, 1).data;
+          if (isPixelBlack(px) && isPixelBlack(nPx)){
+            lasePx.push(px)
+          }else{
+
           }
         }
         dir++;
       }
     }
 
+    function isPixelBlack(px){
+      if (px[0] == 0 && px[1] == 0 && px[2] == 0 && px[3] == 255){
+        return true
+      }else{
+        return false
+      }
+    }
+
     function pixelGcode(px){
-      if (px[0] == rasterColor.r && px[1] == rasterColor.g && px[2] == rasterColor.b){
+      if (px[0] == 0 && px[1] == 0 && px[2] == 0 && px[3] == 255){
         glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
       }else{
         glist.push("G0 X"+(x * scale)+"Y"+(y * scale))

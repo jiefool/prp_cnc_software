@@ -18,12 +18,15 @@ var y_center_group = 0
 var objectStrokeColors = {}
 var laserDevices = []
 var enableLasing
+var sendBatch = false
+var linePath = []
 
 var cwidth = 0
 var canvas = new fabric.Canvas('canvas')
-var en_cut_canvas = new fabric.Canvas('en-cut-canvas')
+var en_cut_canvas = document.getElementById("en-cut-canvas");
+var en_cut_ctx=en_cut_canvas.getContext("2d");
 canvas.setHeight(620)
-en_cut_canvas.setHeight(620)
+
 
 window.addEventListener('resize', resizeCanvas, false)
 
@@ -57,16 +60,17 @@ $('#device-select').hover(function(){
 
 parser.on('data', function(data){
   if (counter < gcodes.length && enableLasing){
-    counter++
-    console.log(gcodes[counter])
     port.write(gcodes[counter]+"\n")
-    port.write("?\n")
+    port.write("?\n");
+   
+    var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
+    if (line != undefined ){
+      en_cut_canvas.add(line)
+      en_cut_canvas.renderAll()
+    }
+    counter++
   }
-
-  if ((counter+1) >= gcodes.length){
-    port.close()
-    counter = 0
-  }
+  
 })
 
 
@@ -158,9 +162,7 @@ function hideAllView(){
 
 function resizeCanvas() {
   canvas.setWidth(cwidth)
-  en_cut_canvas.setWidth(cwidth)
   canvas.renderAll()
-  en_cut_canvas.renderAll()
 }
 
 function svgImport(){
@@ -216,18 +218,24 @@ function svgImport(){
     canvas._objects.forEach(function(gObject, index){
       group = gObject
       gObject._objects.forEach(function(object, index){
-        if(objectStrokeColors[object.stroke] == undefined){
-          objectStrokeColors[object.stroke] = []
-        }
-        objectStrokeColors[object.stroke].push(object)
-
-        if (object.fill != ""){
-          fillVal = parseRGBValue(object.fill)
-          if(objectStrokeColors[fillVal] == undefined){
-            objectStrokeColors[fillVal] = []
+        
+          if (object.stroke != null){
+            if(objectStrokeColors[object.stroke] == undefined){
+              objectStrokeColors[object.stroke] = []
+            }
+            objectStrokeColors[object.stroke].push(object)
           }
-          objectStrokeColors[fillVal].push(object)
-        }
+
+          if (object.fill != null){
+            if (object.fill != ""){
+              fillVal = parseRGBValue(object.fill)
+              if(objectStrokeColors[fillVal] == undefined){
+                objectStrokeColors[fillVal] = []
+              }
+              objectStrokeColors[fillVal].push(object)
+            }
+          }
+        
       })
     })
 
@@ -238,7 +246,12 @@ function svgImport(){
 function addStrokeSpeedPowerParams(){
   Object.keys(objectStrokeColors).forEach(function(stroke){
     stroke_n = stroke.replace("#","")
-    html_text = '<div class="input-group"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+'"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power"><span class="input-group-addon" id="basic-addon1">Rasterize</span> <span class="input-group-addon"><input type="checkbox" aria-label="" id="'+stroke_n+'-raster"></div><br/>'
+    html_text = '<div class="input-group"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+'"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power">'
+    if (stroke == "#000000" || stroke == "#000"){
+      html_text += '<span class="input-group-addon" id="basic-addon1">Rasterize</span> <span class="input-group-addon"><input type="checkbox" aria-label="" id="'+stroke_n+'-raster"></div><br/>'
+    }else{
+      html_text += '</div><br/>'
+    }
     $(".speed-power-params").append(html_text)
   })
 }
@@ -285,10 +298,6 @@ function parseHexValue(val){
   green = val.substring(3,5)
   blue = val.substring(5,7)
 
-  console.log(red)
-  console.log(green)
-  console.log(blue)
-
   rgbVal = {
     r: decVal(red),
     g: decVal(green),
@@ -319,11 +328,7 @@ function canvasToGcode(){
     power = $(power_id).val()
     raster_id = stroke + "-raster" 
     isRaster = $(raster_id).is(":checked")
-    rasterColor = parseHexValue(stroke)
-
-    console.log(rasterColor)
-
-    gcodes.push(GcodeWriter.write(objectStrokeColors[stroke], scale, speed, power, isRaster, rasterColor))
+    gcodes.push(GcodeWriter.write(objectStrokeColors[stroke], scale, speed, power, isRaster))
   })
 
   gcodes.forEach(function(element, index){
@@ -345,8 +350,7 @@ function canvasToGcode(){
 function lasingCommand(){
   enableLasing = true;
   port.open(function(err){
-      port.write(gcodes[counter]+"\n")
-      port.write("?\n")
+    port.write("?\n")
   })
 }
 
@@ -370,7 +374,7 @@ function gcodeImport(){
   gcodes = []
   file = document.getElementById("gcodeFileSelect").files[0].path
   lineReader.eachLine(file, function(line, last) {
-    gcodes.push(line.replace(",", ""))
+    gcodes.push(line)
   })
 }
 
@@ -383,9 +387,59 @@ function svgSelectFile(){
 
 function stopLasing(){
   enableLasing = false;
+  counter = 0;
+  gantryHome();
+}
+
+function pauseLasing(){
+  enableLasing = false;
+  gantryHome();
+}
+
+function resumeLasing(){
+  enableLasing = true;
+  port.write("?\n");
 }
 
 function gantryHome(){
   port.write("G30\n")
 }
 
+function drawLasingPath(previousPoint, nextPoint){
+  var prevVal = getGcodeCommand(previousPoint)
+  var nextVal = getGcodeCommand(nextPoint)
+
+  if (prevVal != undefined && nextVal != undefined){
+    if((prevVal[1] == "G0" && nextVal[1] == "G1") || (prevVal[1] == "G1" && nextVal[1] == "G1")){
+      return lowDrawLine(prevVal[2]/0.353, prevVal[3]/0.353, nextVal[2]/0.353, nextVal[3]/0.353);
+    }
+  }
+}
+
+function getGcodeCommand(val){
+  var regGcode = /(G[0-1])\sX(\d+.\d+)Y(\d+.\d+)/g
+  var gcodeCommand = regGcode.exec(val)
+
+  if (gcodeCommand != null){
+    return gcodeCommand
+  }
+}
+
+// function drawLine(x1, y1, x2, y2){
+//   var line = new fabric.Line([x1, y1, x2, y2], {
+//       stroke: 'red',
+//       strokeWidth: 1
+//   });
+
+//   return line
+// }
+
+function lowDrawLine(x1, y1, x2, y2){
+  console.log("drawing line")
+  
+  en_cut_ctx.strokeStyle="#FF0000";
+  en_cut_ctx.beginPath();
+  en_cut_ctx.moveTo(x1,y1);
+  en_cut_ctx.lineTo(x2,y2);
+  en_cut_ctx.stroke();
+}

@@ -145,17 +145,32 @@
       </div>
       <div class="col-md-9">
         <div class="canvas-area">
-          <canvas id="en-cut-canvas"></canvas>
+          <canvas id="en-cut-canvas" width="930" height="620"></canvas>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="input-field col s12">
-          <select class="form-control" id="device-select">
-            <option value="" disabled selected>Select LASER Machine</option>
-          </select>
-            <input type="button" value="Start Lasing" onclick="lasingCommand()"/>
-            <input type="button" value="Stop" onclick="stopLasing()"/>
-            <input type="button" value="Home" onclick="gantryHome()"/>
+        <div class="row">
+          <div class="col-md-12">
+            <select class="form-control" id="device-select">
+              <option value="" disabled selected>Select LASER Machine</option>
+            </select>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="button" class="btn btn-primary" value="Start Lasing" onclick="lasingCommand()"/>
+            <input type="button" class="btn btn-warning" value="Pause" onclick="pauseLasing()"/>
+            <input type="button" class="btn btn-success" value="Resume" onclick="resumeLasing()"/>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="button" class="btn btn-danger" value="Stop" onclick="stopLasing()"/>
+            <input type="button" class="btn btn-success" value="Home" onclick="gantryHome()"/>
+           
+          </div>
         </div>
       </div>
     </div>
