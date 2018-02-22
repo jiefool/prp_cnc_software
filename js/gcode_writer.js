@@ -102,28 +102,28 @@ GcodeWriter = {
           case "M":
             x_prev = path[1]
             y_prev = path[2]
-            glist.push("G0 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G0 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "m":
             x_prev = x_prev + path[1]
             y_prev = y_prev + path[2]
-            glist.push("G0 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G0 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "H":
             x_prev = path[1]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "h":
             x_prev = x_prev + path[1]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "V":
             y_prev = path[1]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "v":
             y_prev = y_prev + path[1]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "C":
             start_cx = path[1]
@@ -188,12 +188,12 @@ GcodeWriter = {
           case "L":
             x_prev = path[1]
             y_prev = path[2]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
           case "l":
             x_prev = x_prev + path[1]
             y_prev = y_prev + path[2]
-            glist.push("G1 X"+(x_prev * scale)+" Y"+(y_prev * scale))
+            glist.push("G1 X"+(x_prev * scale)+"Y"+(y_prev * scale))
             break
         }
       })
@@ -205,30 +205,14 @@ GcodeWriter = {
       tr_x = segment.aCoords.tr.x
 
       dir = 0
-      for(var j=0;j<segment.height;j+=0.05){
-        movePx = []
-        lasePx = []
-        for(var k=0;k<segment.width;k++){
-          if (k=0)
+      for(var j=0;j<segment.height;j+=scale){
+        for(var k=0;k<segment.width;k+=scale){
           dir % 2 == 0 ? x = tl_x + k :  x = tr_x - k
           y = tl_y + j
           var px = ctx.getImageData(x, y, 1, 1).data;
-          var nPx = ctx.getImageData(x+1, y, 1, 1).data;
-          if (isPixelBlack(px) && isPixelBlack(nPx)){
-            lasePx.push(px)
-          }else{
-
-          }
+          pixelGcode(px)
         }
         dir++;
-      }
-    }
-
-    function isPixelBlack(px){
-      if (px[0] == 0 && px[1] == 0 && px[2] == 0 && px[3] == 255){
-        return true
-      }else{
-        return false
       }
     }
 
@@ -247,7 +231,7 @@ GcodeWriter = {
       while (t < 1) {
         x = (1-t)*(1-t)*(1-t)*start_x + 3*(1-t)*(1-t)*t*start_cx + 3*(1-t)*t*t*end_cx + t*t*t*end_x;
         y = (1-t)*(1-t)*(1-t)*start_y + 3*(1-t)*(1-t)*t*start_cy + 3*(1-t)*t*t*end_cy + t*t*t*end_y;
-        glist.push("G1 X"+(x * scale)+" Y"+(y * scale))
+        glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
         t  = t + offset_increment;
       }
     }

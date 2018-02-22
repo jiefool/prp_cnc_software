@@ -4,6 +4,7 @@
   <title>PRP IWI</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fontawesome.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
@@ -134,7 +135,10 @@
         <h4>Parameters Setting</h4>
         <div class="speed-power-params"></div>
         <hr/>
-        <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/>
+
+        <button type="button" class="btn btn-primary btn-lg generate-gcode" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Generating...">Generate & Save G-Code</button>
+
+        <!-- <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/> -->
       </div>
     </div>
 
@@ -189,11 +193,14 @@
     </div>
   </div>
 
-<script src="js/fabric.js"></script>
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="js/jquery.min.js"></script>
+<script src="js/fabric.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/fontawesome.js"></script>
 <script src="js/gcode_writer.js"></script>
 <script src="js/app.js"></script>
+<script>if (window.module) module = window.module;</script>
 
 </body>
 </html>

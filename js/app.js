@@ -4,6 +4,9 @@ var fs = require('fs')
 var PNG = require('png-js')
 var sp = require('serialport')
 var lineReader = require('line-reader')
+var app = require('electron').remote; 
+var dialog = app.dialog;
+
 
 const Readline = sp.parsers.Readline
 const parser = new Readline()
@@ -17,9 +20,10 @@ var x_center_group = 0
 var y_center_group = 0
 var objectStrokeColors = {}
 var laserDevices = []
-var enableLasing
-var sendBatch = false
-var linePath = []
+var enableLasing = false;
+var sendBatch = false;
+var linePath = [];
+var scale = 0.346020761245675
 
 var cwidth = 0
 var canvas = new fabric.Canvas('canvas')
@@ -51,7 +55,65 @@ const decLiteral = {A: 10, B: 11, C: 12, D: 13, E: 14, F: 15}
 
 var canvasElement = document.getElementById('canvas');
 var ctx = canvasElement.getContext("2d");
+var hasImportedDesign = false;
 
+
+$(document).ready(function(){
+
+  $('.generate-gcode').on('click', function() {
+    if (hasImportedDesign){
+      var $this = $(this);
+      $this.button('loading');
+      canvasToGcode();
+    }else{
+      alert("Please import a design first.")
+    }
+    
+  });
+})
+
+
+function addRuler(){
+  var rulerLine = []
+
+  rulerLine.push(new fabric.Rect({
+    left: 0,
+    top: 0,
+    fill: 'black',
+    width: canvas.width,
+    height: 8/scale
+  }))
+
+
+  for(var i=0;i<canvas.width;i+=10){
+    rulerLine.push(new fabric.Line([i, 0, i, 8/scale], {
+      left: i/scale,
+      top: 0,
+      stroke: 'white',
+      strokeWidth: 0.5
+    }))
+
+    rulerLine.push(new fabric.Text(String(i), { 
+      left: i/scale,
+      top: 4/scale, 
+      fill: 'white',
+      fontSize: 10,
+      textAlign: 'center'
+    }))
+  }
+
+  for(var i=5;i<canvas.width;i+=10){
+    rulerLine.push(new fabric.Line([i, 0, i, 2.5/scale], {
+      left: i/scale,
+      top: 0,
+      stroke: 'white',
+      strokeWidth: 0.5
+    }))
+  }
+
+  var rulerLineGroup = new fabric.Group(rulerLine)
+  canvas.add(rulerLineGroup)
+}
 
 $('#device-select').hover(function(){
   appendSerialDevice()
@@ -69,15 +131,22 @@ parser.on('data', function(data){
       en_cut_canvas.renderAll()
     }
     counter++
+
+    if (counter >= gcodes.length){
+      port.close()
+    }
   }
-  
+
+  //pausing
+  if (!enableLasing){
+    gantryHome();
+  }
 })
 
 
 $('#device-select').change(function(){
   port = new sp($(this).val(), {
-    baudRate: 57600,
-    autoOpen: false
+    baudRate: 57600
   })
 
   port.pipe(parser)
@@ -163,9 +232,17 @@ function hideAllView(){
 function resizeCanvas() {
   canvas.setWidth(cwidth)
   canvas.renderAll()
+  handleAddRuler();
 }
 
-function svgImport(){
+function handleAddRuler(){
+  if (canvas._objects[0] != undefined){
+    canvas.remove(canvas._objects[0])
+  } 
+  addRuler();
+}
+
+function svgImport(){ 
   var svgFile = document.getElementById("selectedFile").files[0].path
 
   fabric.loadSVGFromURL(svgFile, function(objects, options) {
@@ -211,32 +288,34 @@ function svgImport(){
       }
     })
 
+    hasImportedDesign = true;
     group = new fabric.Group(svgObjects)
     canvas.add(group)
     canvas.renderAll()
     
     canvas._objects.forEach(function(gObject, index){
-      group = gObject
-      gObject._objects.forEach(function(object, index){
-        
-          if (object.stroke != null){
-            if(objectStrokeColors[object.stroke] == undefined){
-              objectStrokeColors[object.stroke] = []
-            }
-            objectStrokeColors[object.stroke].push(object)
-          }
-
-          if (object.fill != null){
-            if (object.fill != ""){
-              fillVal = parseRGBValue(object.fill)
-              if(objectStrokeColors[fillVal] == undefined){
-                objectStrokeColors[fillVal] = []
+      if (index == (canvas._objects.length - 1)){
+        group = gObject
+        gObject._objects.forEach(function(object, index){
+            if (object.stroke != null && object.stroke != "#FFFFFF"){
+              if(objectStrokeColors[object.stroke] == undefined){
+                objectStrokeColors[object.stroke] = []
               }
-              objectStrokeColors[fillVal].push(object)
+              objectStrokeColors[object.stroke].push(object)
             }
-          }
-        
-      })
+
+            if (object.fill != null && object.fill != "#FFFFFF"){
+              if (object.fill != ""){
+                fillVal = parseRGBValue(object.fill)
+                if(objectStrokeColors[fillVal] == undefined){
+                  objectStrokeColors[fillVal] = []
+                }
+                objectStrokeColors[fillVal].push(object)
+              }
+            }
+          
+        })
+      }
     })
 
     addStrokeSpeedPowerParams();
@@ -315,10 +394,37 @@ function decVal(val){
   return dec
 }
 
+
+function saveGcodeToFile(){
+  dialog.showSaveDialog({
+    filters: [{
+      name: 'G-Code File',
+      extensions: ['gcode']
+    }]
+  },
+
+  (fileName) => {
+    if (fileName === undefined){
+        console.log("You didn't save the file");
+        return;
+    }
+
+    fs.writeFile(fileName, gcodes.join("\n"), (err) => {
+        if(err){
+          alert("An error ocurred creating the file "+ err.message)
+        }
+        $(".generate-gcode").button('reset');
+        alert("Done saving G-Codes to "+ fileName)
+    });
+  }); 
+}
+
+
 function canvasToGcode(){
+  
+
   var shapeObjects = []
   gcodes = []
-  var scale = 0.353
 
   Object.keys(objectStrokeColors).forEach(function(stroke){
     stroke = parseRGBValue(stroke)
@@ -339,12 +445,8 @@ function canvasToGcode(){
 
   gcodes.push("G0 X5Y5")
 
-  fs.writeFile("/Users/jaypaulaying/Desktop/sample.gcode", gcodes.join("\n"), function(err) {
-      if(err) {
-          return console.log(err)
-      }
-      console.log("The file was saved!")
-  }) 
+
+  saveGcodeToFile();
 } 
 
 function lasingCommand(){
@@ -379,7 +481,9 @@ function gcodeImport(){
 }
 
 function svgSelectFile(){
-  canvas.clear()
+  if (canvas._objects[1] != undefined){
+    canvas.remove(canvas._objects[1]);
+  }
   $(".speed-power-params").html("")
   $('#selectedFile').val("")
   $('#selectedFile').click()
@@ -388,17 +492,17 @@ function svgSelectFile(){
 function stopLasing(){
   enableLasing = false;
   counter = 0;
-  gantryHome();
+  closeOpenPort();
 }
 
 function pauseLasing(){
   enableLasing = false;
-  gantryHome();
+  closeOpenPort();
 }
 
 function resumeLasing(){
   enableLasing = true;
-  port.write("?\n");
+  closeOpenPort();
 }
 
 function gantryHome(){
@@ -411,7 +515,7 @@ function drawLasingPath(previousPoint, nextPoint){
 
   if (prevVal != undefined && nextVal != undefined){
     if((prevVal[1] == "G0" && nextVal[1] == "G1") || (prevVal[1] == "G1" && nextVal[1] == "G1")){
-      return lowDrawLine(prevVal[2]/0.353, prevVal[3]/0.353, nextVal[2]/0.353, nextVal[3]/0.353);
+      return lowDrawLine(prevVal[2]/scale, prevVal[3]/scale, nextVal[2]/scale, nextVal[3]/scale);
     }
   }
 }
@@ -425,21 +529,20 @@ function getGcodeCommand(val){
   }
 }
 
-// function drawLine(x1, y1, x2, y2){
-//   var line = new fabric.Line([x1, y1, x2, y2], {
-//       stroke: 'red',
-//       strokeWidth: 1
-//   });
-
-//   return line
-// }
-
 function lowDrawLine(x1, y1, x2, y2){
-  console.log("drawing line")
-  
   en_cut_ctx.strokeStyle="#FF0000";
   en_cut_ctx.beginPath();
   en_cut_ctx.moveTo(x1,y1);
   en_cut_ctx.lineTo(x2,y2);
   en_cut_ctx.stroke();
+}
+
+function closeOpenPort(){
+  port.close(function(){
+    port.open(function(){
+      port.write("?\n", function(err){
+        console.log(err)
+      });
+    })
+  })
 }
