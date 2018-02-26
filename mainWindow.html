@@ -144,8 +144,10 @@
 
     <div class="row laser-operate" style="display:none">
       <div class="col-md-12 import-buttons">
-        <input type="file" id="gcodeFileSelect" style="display: none;" accept="*/gcode" onchange="gcodeImport()" />
+        <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
         <input type="button" class="btn btn-default" value="IMPORT GCODE" onclick="document.getElementById('gcodeFileSelect').click();" />
+        <input type="button" class="btn btn-default" id="clear-cut-en-canvas" value="Clear" onclick="clearCutEngraveCanvas()"/>
+        <span id="gcode-path"></span>
       </div>
       <div class="col-md-9">
         <div class="canvas-area">
@@ -163,7 +165,7 @@
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <input type="button" class="btn btn-primary" value="Start Lasing" onclick="lasingCommand()"/>
+            <button type="button" id="lasing-button" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Lasing...">Start Lasing</button>
             <input type="button" class="btn btn-warning" value="Pause" onclick="pauseLasing()"/>
             <input type="button" class="btn btn-success" value="Resume" onclick="resumeLasing()"/>
           </div>

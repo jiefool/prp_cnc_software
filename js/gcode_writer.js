@@ -30,6 +30,10 @@ GcodeWriter = {
         case "circle":
           isRaster ? rasterizeObject(segment) : glist.push(parseEllipse(segment))
           break
+        case "image":
+          console.log(segment)
+          rasterizeObject(segment)
+          break
       }
     })
 
@@ -210,6 +214,9 @@ GcodeWriter = {
           dir % 2 == 0 ? x = tl_x + k :  x = tr_x - k
           y = tl_y + j
           var px = ctx.getImageData(x, y, 1, 1).data;
+          if (segment.type == "image"){
+            console.log(px)
+          }
           pixelGcode(px)
         }
         dir++;

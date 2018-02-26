@@ -28,7 +28,7 @@ var scale = 0.346020761245675
 var cwidth = 0
 var canvas = new fabric.Canvas('canvas')
 var en_cut_canvas = document.getElementById("en-cut-canvas");
-var en_cut_ctx=en_cut_canvas.getContext("2d");
+var en_cut_ctx = en_cut_canvas.getContext("2d");
 canvas.setHeight(620)
 
 
@@ -56,7 +56,8 @@ const decLiteral = {A: 10, B: 11, C: 12, D: 13, E: 14, F: 15}
 var canvasElement = document.getElementById('canvas');
 var ctx = canvasElement.getContext("2d");
 var hasImportedDesign = false;
-
+var hasImportedGcode = false;
+var hasPortOpen = false;
 
 $(document).ready(function(){
 
@@ -69,6 +70,22 @@ $(document).ready(function(){
       alert("Please import a design first.")
     }
     
+  });
+
+
+  $('#lasing-button').on('click', function() {
+    if (hasImportedGcode){
+      var $this = $(this);
+      if (hasPortOpen){
+        $this.button('loading');
+        lasingCommand();
+      }else{
+         alert("No laser device connected.")
+      }
+      
+    }else{
+      alert("Please import a gcode first.")
+    }
   });
 })
 
@@ -133,6 +150,7 @@ parser.on('data', function(data){
     counter++
 
     if (counter >= gcodes.length){
+      $("#lasing-button").button('reset');
       port.close()
     }
   }
@@ -149,6 +167,7 @@ $('#device-select').change(function(){
     baudRate: 57600
   })
 
+  hasPortOpen = true;
   port.pipe(parser)
 })
 
@@ -246,8 +265,16 @@ function svgImport(){
   var svgFile = document.getElementById("selectedFile").files[0].path
 
   fabric.loadSVGFromURL(svgFile, function(objects, options) {
+    console.log(svgFile)
     svgObjects = []
     objects.forEach(function(object,index){
+      console.log(object)
+      if(object.type == "image"){
+        var filter = new fabric.Image.filters.Grayscale();
+        object.filters.push(filter);
+        object.applyFilters();
+      }
+
       if(object.type == "circle"){
         svgObjects.push(new fabric.Circle({
           radius: object.radius,
@@ -290,11 +317,17 @@ function svgImport(){
 
     hasImportedDesign = true;
     group = new fabric.Group(svgObjects)
+
+    group.set({
+      top: (10 + group.top)/scale
+    })
+
     canvas.add(group)
     canvas.renderAll()
     
     canvas._objects.forEach(function(gObject, index){
       if (index == (canvas._objects.length - 1)){
+
         group = gObject
         gObject._objects.forEach(function(object, index){
             if (object.stroke != null && object.stroke != "#FFFFFF"){
@@ -451,6 +484,7 @@ function canvasToGcode(){
 
 function lasingCommand(){
   enableLasing = true;
+  counter = 0;
   port.open(function(err){
     port.write("?\n")
   })
@@ -472,12 +506,27 @@ function appendSerialDevice(){
   })
 }
 
+function clearCutEngraveCanvas(){
+  en_cut_ctx.clearRect(0, 0, en_cut_canvas.width, en_cut_canvas.height);
+  $("#gcode-path").html("")
+  $("#gcodeFileSelect").val("")
+  hasImportedGcode = false;
+  counter = 0;
+}
+
+
 function gcodeImport(){
   gcodes = []
-  file = document.getElementById("gcodeFileSelect").files[0].path
-  lineReader.eachLine(file, function(line, last) {
-    gcodes.push(line)
-  })
+  file = document.getElementById("gcodeFileSelect").files[0]
+
+  if (file != undefined){
+    lineReader.eachLine(file.path, function(line, last) {
+      gcodes.push(line)
+    })
+
+    $("#gcode-path").html(file.path)
+    hasImportedGcode = true;
+  }
 }
 
 function svgSelectFile(){
@@ -492,6 +541,7 @@ function svgSelectFile(){
 function stopLasing(){
   enableLasing = false;
   counter = 0;
+  $("#lasing-button").button('reset');
   closeOpenPort();
 }
 
