@@ -129,6 +129,9 @@ function addRuler(){
   }
 
   var rulerLineGroup = new fabric.Group(rulerLine)
+  rulerLineGroup.lockMovementX = true
+  rulerLineGroup.lockMovementY = true
+  rulerLineGroup.selectable = false
   canvas.add(rulerLineGroup)
 }
 
@@ -143,10 +146,6 @@ parser.on('data', function(data){
     port.write("?\n");
    
     var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
-    if (line != undefined ){
-      en_cut_canvas.add(line)
-      en_cut_canvas.renderAll()
-    }
     counter++
 
     if (counter >= gcodes.length){
@@ -224,6 +223,7 @@ laserOperate.addEventListener('click', function(){
   hideAllView()
   laserOperateView.style.display = "block"
   breadCrumb3.innerHTML = "LASER ENGRAVING/CUTTING"
+
 })
 
 millingGcode.addEventListener('click', function(){
@@ -265,16 +265,8 @@ function svgImport(){
   var svgFile = document.getElementById("selectedFile").files[0].path
 
   fabric.loadSVGFromURL(svgFile, function(objects, options) {
-    console.log(svgFile)
     svgObjects = []
     objects.forEach(function(object,index){
-      console.log(object)
-      if(object.type == "image"){
-        var filter = new fabric.Image.filters.Grayscale();
-        object.filters.push(filter);
-        object.applyFilters();
-      }
-
       if(object.type == "circle"){
         svgObjects.push(new fabric.Circle({
           radius: object.radius,
@@ -310,8 +302,13 @@ function svgImport(){
           top: object.top,
           left: object.left
         }))
+      }else if(object.type == "image"){
+        var filter = new fabric.Image.filters.Grayscale();
+        object.filters.push(filter);
+        object.applyFilters();
+        svgObjects.push(object)
       }else{
-         svgObjects.push(object)
+        svgObjects.push(object)
       }
     })
 
@@ -319,8 +316,12 @@ function svgImport(){
     group = new fabric.Group(svgObjects)
 
     group.set({
-      top: (10 + group.top)/scale
+      top: (group.top) + 8/scale
     })
+
+    group.lockMovementX = true
+    group.lockMovementY = true
+    group.selectable = false
 
     canvas.add(group)
     canvas.renderAll()
@@ -438,6 +439,7 @@ function saveGcodeToFile(){
 
   (fileName) => {
     if (fileName === undefined){
+        $(".generate-gcode").button('reset');
         console.log("You didn't save the file");
         return;
     }

@@ -31,8 +31,7 @@ GcodeWriter = {
           isRaster ? rasterizeObject(segment) : glist.push(parseEllipse(segment))
           break
         case "image":
-          console.log(segment)
-          rasterizeObject(segment)
+          rasterizeImage(segment)
           break
       }
     })
@@ -207,17 +206,24 @@ GcodeWriter = {
       tl_x = segment.aCoords.tl.x
       tl_y = segment.aCoords.tl.y
       tr_x = segment.aCoords.tr.x
+      bl_y = segment.aCoords.bl.y
 
       dir = 0
       for(var j=0;j<segment.height;j+=scale){
-        for(var k=0;k<segment.width;k+=scale){
-          dir % 2 == 0 ? x = tl_x + k :  x = tr_x - k
-          y = tl_y + j
-          var px = ctx.getImageData(x, y, 1, 1).data;
-          if (segment.type == "image"){
-            console.log(px)
+        if (dir % 2 == 0){
+          for(var k=0;k<segment.width;k++){
+            x = tl_x + k
+            y = tl_y + j
+            var px = ctx.getImageData(x, y, 1, 1).data;
+            pixelGcode(px)
           }
-          pixelGcode(px)
+        }else{
+          for(var k=0;k<segment.width;k++){
+            x = tr_x - k
+            y = tl_y + j
+            var px = ctx.getImageData(x, y, 1, 1).data;
+            pixelGcode(px)
+          }
         }
         dir++;
       }
@@ -231,6 +237,14 @@ GcodeWriter = {
       }
     }
 
+    function imagePixelGcode(px){
+      if (px[0] == 0 && px[1] == 0 && px[2] == 0 && px[3] == 255){
+        glist.push("G1 X"+(x * scale)+"Y"+((y - (8/scale)) * scale))
+      }else{
+        glist.push("G0 X"+(x * scale)+"Y"+((y - (8/scale)) * scale))
+      }
+    }
+
     function calBezierCurve(start_x, start_y, start_cx, start_cy, end_cx, end_cy, end_x, end_y){
       var t = 0.1;
       var offset_increment = 0.1;
@@ -241,6 +255,56 @@ GcodeWriter = {
         glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
         t  = t + offset_increment;
       }
+    }
+
+    function rasterizeImage(segment){
+      var tlx = segment.aCoords.tl.x
+      var trx = segment.aCoords.tr.x
+      var tly = segment.aCoords.tl.y + (8/scale)
+      var sw = segment.width * segment.scaleX
+      var sh = segment.height * segment.scaleY
+
+      var imagePixelData = ctx.getImageData(tlx, tly, sw, sh)
+      imagePixelData["data"] = floydSteinberg(imagePixelData.data, imagePixelData.width, imagePixelData.height)
+      ctx.putImageData(imagePixelData, tlx, tly)
+
+      for(var i=0; i<sh; i+=0.5){
+        var line = 0;
+        for(var j=0; j<sw; j+=0.5){
+          if (line % 2 == 0 ){
+            x = tlx + j
+            y = tly + i
+            var pixelData = ctx.getImageData(x, y, 1, 1).data
+            imagePixelGcode(pixelData)
+          }else{
+            x = trx - j
+            y = tly + i
+            var pixelData = ctx.getImageData(x, y, 1, 1).data
+            imagePixelGcode(pixelData)
+          }
+        }
+        line++;
+      }
+
+    }
+
+    function floydSteinberg(sb, w, h){
+      var i=0
+      while(i<sb.length){
+        for(var j=0; j<w; j++){
+           var ci = i*w+j;
+           var cc = sb[ci];
+           var rc = (cc<128?0:255);
+           var err = cc-rc;
+           sb[ci] = rc;
+           if(j+1<w) sb[ci  +1] += (err*7)>>4;
+           if(j>0) sb[ci+w-1] += (err*3)>>4;  
+                     sb[ci+w] += (err*5)>>4;  
+           if(j+1<w) sb[ci+w+1] += (err*1)>>4;
+        }
+        i++;
+      }
+      return sb;
     }
 
     glist = glist.filter(function(n){ return n != undefined }); 
