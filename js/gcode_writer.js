@@ -66,13 +66,26 @@ GcodeWriter = {
 
     function parseEllipse(segment){
       cSegment = segment.getCenterPoint()
+
       rx = segment.radius
       ry = segment.radius
-      x_center_ellipse = group.left + (group.width/2) + cSegment.x
-      y_center_ellipse = group.top + (group.height/2) + cSegment.y 
-      lastPoint = ""
 
-      for (var i = 0 * Math.PI; i <= 2.02 * Math.PI; i += 0.01 ) {
+      if (segment.type == "ellipse"){
+        rx = segment.rx
+        ry = segment.ry
+      }
+     
+      x_center_ellipse = segment.aCoords.tl.x + segment.width/2
+      y_center_ellipse = segment.aCoords.tl.y + segment.height/2
+
+      if ((segment.width/scale) < 10){
+        var incOffset = 0.1
+      }else{
+        var incOffset = 0.01
+      }
+      
+
+      for (var i = 0 * Math.PI; i <= 2.02 * Math.PI; i += incOffset ) {
         xPos = x_center_ellipse - (rx * Math.cos(i));
         yPos = y_center_ellipse + (ry * Math.sin(i));
 
@@ -83,6 +96,7 @@ GcodeWriter = {
           glist.push("G1 X"+(xPos * scale)+"Y"+(yPos * scale))
         }
       }
+
       glist.push(lastPoint)
     }
 
