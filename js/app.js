@@ -24,8 +24,12 @@ var enableLasing = false;
 var sendBatch = false;
 var linePath = [];
 var scale = 0.346020761245675
-
 var cwidth = 0
+var seekRate = ""
+var laseRate = ""
+var laseIntensity = ""
+var rulerLineGroup
+var isResumed = false;
 var canvas = new fabric.Canvas('canvas')
 var en_cut_canvas = document.getElementById("en-cut-canvas");
 var en_cut_ctx = en_cut_canvas.getContext("2d");
@@ -128,7 +132,7 @@ function addRuler(){
     }))
   }
 
-  var rulerLineGroup = new fabric.Group(rulerLine)
+  rulerLineGroup = new fabric.Group(rulerLine)
   rulerLineGroup.lockMovementX = true
   rulerLineGroup.lockMovementY = true
   rulerLineGroup.selectable = false
@@ -140,17 +144,41 @@ $('#device-select').hover(function(){
 })
 
 
-parser.on('data', function(data){
-  if (counter < gcodes.length && enableLasing){
-    port.write(gcodes[counter]+"\n")
-    port.write("?\n");
-   
-    var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
-    counter++
 
-    if (counter >= gcodes.length){
-      $("#lasing-button").button('reset');
-      port.close()
+parser.on('data', function(data){
+
+  if (counter < gcodes.length && enableLasing){
+    if(gcodes[counter].indexOf("S") > -1){
+      laseIntensity = gcodes[counter]
+    }
+
+    if(gcodes[counter].indexOf("G0 F") > -1){
+      seekRate = gcodes[counter]
+    }
+
+    if(gcodes[counter].indexOf("G1 F") > -1){
+      laseRate = gcodes[counter]
+    }
+
+    if(isResumed){
+      counter-=10
+      port.write(seekRate+"\n")
+      port.write(laseRate+"\n")
+      port.write(laseIntensity+"\n")
+      port.write(gcodes[counter].replace("G1", "G0")+"\n")
+      port.write("?\n")
+      isResumed = false;
+    }else{
+      port.write(gcodes[counter]+"\n")
+      port.write("?\n");
+     
+      var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
+      counter++
+
+      if (counter >= gcodes.length){
+        $("#lasing-button").button('reset');
+        port.close()
+      }
     }
   }
 
@@ -249,15 +277,17 @@ function hideAllView(){
 }
 
 function resizeCanvas() {
+  cwidth = $(".canvas-area").get(0).offsetWidth
   canvas.setWidth(cwidth)
-  canvas.renderAll()
   handleAddRuler();
 }
 
 function handleAddRuler(){
-  if (canvas._objects[0] != undefined){
-    canvas.remove(canvas._objects[0])
-  } 
+  canvas._objects.forEach(function(cGroup, index){
+    if(cGroup._objects.length == rulerLineGroup._objects.length){
+      canvas.remove(cGroup)
+    }
+  })
   addRuler();
 }
 
@@ -554,6 +584,7 @@ function pauseLasing(){
 
 function resumeLasing(){
   enableLasing = true;
+  isResumed = true;
   closeOpenPort();
 }
 

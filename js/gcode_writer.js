@@ -218,21 +218,20 @@ GcodeWriter = {
 
     function rasterizeObject(segment){
       tl_x = segment.aCoords.tl.x
-      tl_y = segment.aCoords.tl.y
+      tl_y = segment.aCoords.tl.y + (8/scale)
       tr_x = segment.aCoords.tr.x
-      bl_y = segment.aCoords.bl.y
 
       dir = 0
       for(var j=0;j<segment.height;j+=scale){
         if (dir % 2 == 0){
-          for(var k=0;k<segment.width;k++){
+          for(var k=0;k<segment.width;k+=scale){
             x = tl_x + k
             y = tl_y + j
             var px = ctx.getImageData(x, y, 1, 1).data;
             pixelGcode(px)
           }
         }else{
-          for(var k=0;k<segment.width;k++){
+          for(var k=0;k<segment.width;k+=scale){
             x = tr_x - k
             y = tl_y + j
             var px = ctx.getImageData(x, y, 1, 1).data;
@@ -245,9 +244,9 @@ GcodeWriter = {
 
     function pixelGcode(px){
       if (px[0] == 0 && px[1] == 0 && px[2] == 0 && px[3] == 255){
-        glist.push("G1 X"+(x * scale)+"Y"+(y * scale))
+        glist.push("G1 X"+(x * scale)+"Y"+((y - (8/scale)) * scale))
       }else{
-        glist.push("G0 X"+(x * scale)+"Y"+(y * scale))
+        glist.push("G0 X"+(x * scale)+"Y"+((y - (8/scale)) * scale))
       }
     }
 
