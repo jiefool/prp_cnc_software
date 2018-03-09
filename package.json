@@ -1,22 +1,54 @@
 {
   "name": "prpiwi_cnc_software",
   "version": "1.0.0",
-  "description": "",
+  "description": "A software for generating G-Code commands and sending ",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "author": "Jay Paul Aying",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.7.9",
-    "electron-rebuild": "^1.6.0",
     "jQuery": "^1.7.4",
     "line-reader": "^0.4.0",
     "png-js": "^0.1.1",
     "serialport": "^6.0.4"
   },
   "devDependencies": {
+    "electron": "^1.7.9",
+    "electron-rebuild": "^1.6.0",
+    "electron-builder": "^20.4.0",
     "electron-packager": "^10.1.0"
+  },
+  "build": {
+    "appId": "com.bagollabs.prpcncsoftware",
+    "productName": "PRP CNC Software",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
   }
 }

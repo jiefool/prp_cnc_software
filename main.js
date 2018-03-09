@@ -19,7 +19,8 @@ app.on('ready', function(){
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'mainWindow.html'),
     protocol: 'file:',
-    slashes: true
+    slashes: true,
+    icon: path.join(__dirname, 'images/logo_64x64.png')
   }))
 
   //Quit app when main window is close
