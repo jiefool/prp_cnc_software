@@ -20,8 +20,10 @@ app.on('ready', function(){
     pathname: path.join(__dirname, 'mainWindow.html'),
     protocol: 'file:',
     slashes: true,
-    icon: path.join(__dirname, 'images/logo_64x64.png')
+    icon: path.join(__dirname, 'images/logo_64x64.png'),
   }))
+
+  mainWindow.maximize();
 
   //Quit app when main window is close
   mainWindow.on('closed', function(){
