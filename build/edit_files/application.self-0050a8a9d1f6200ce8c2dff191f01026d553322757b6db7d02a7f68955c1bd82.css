@@ -1,0 +1,155 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ 
+
+
+
+
+
+ */
+
+
+
+
+#puffly{
+  opacity: 1 !important;
+  left: 70% !important;
+  min-width: 19% !important;
+  max-width: 38% !important;
+}
+
+.email-check-msg{
+  font-size: 0.8em;
+  color: red;
+}
+
+.gender-prompt{
+  font-size: 0.8em;
+  color: red;
+}
+
+.red_txt{
+  color: red;
+}
+
+#my_popup{
+  max-width: 44em; 
+  opacity: 1; 
+  visibility: hidden; 
+  display: inline-block; 
+  outline: none; 
+  text-align: left; 
+  position: relative; 
+  vertical-align: middle;
+  background-color: white; 
+  padding: 10px
+}
+
+#puffly{
+  opacity: 1 !important;
+  left: 70% !important;
+  min-width: 19% !important;
+  max-width: 38% !important;
+}
+
+.email-check-msg{
+  font-size: 0.8em;
+  color: red;
+}
+
+.gender-prompt{
+  font-size: 0.8em;
+  color: red;
+}
+
+.red_txt{
+  color: red;
+}
+
+#my_popup{
+  max-width: 44em; 
+  opacity: 1; 
+  visibility: hidden; 
+  display: inline-block; 
+  outline: none; 
+  text-align: left; 
+  position: relative; 
+  vertical-align: middle;
+  background-color: white; 
+  padding: 10px
+}
+
+.prompt-container{
+  padding-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  width: 400px;
+  background-color: white; 
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.4);
+    overflow-x: hidden; 
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    display: none;
+}
+
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PRP IWI</title>
+  <title>OPR8 1.0</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fontawesome.css">
@@ -10,118 +10,79 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 main-title">
-        <h1>PLASTIC RECYCLING PROJECT TO INCREASE WOMEN INCOME</h1>
+    <div class="row navigation">
+      <div class="col-md-8">
+        <div class="navigation-button">
+          <div id="app-banner"></div>
+        </div>
+
+        <div class="navigation-button">
+          <div id="main-menu-button"><p>Main Menu</p></div>
+        </div>
       </div>
-    </div>
-
-    
-    <div class="row">
-      <div class="col-md-12 breadcrumb">
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-          <span id="breadcrumb-1">MAIN</span>
-        </button>
-
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-          <span id="breadcrumb-2"></span>
-        </button>
-
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-          <span id="breadcrumb-3"></span>
-        </button>
+      <div class="col-md-4">
+        <div class="language-button">
+          <div id="english-language" class="language-selected">
+            English
+          </div>
+        </div>
+        <div class="language-button">
+          <div id="visayan-language">
+            Visayan
+          </div>
+        </div>
       </div>
     </div>
   
     <div class="row main-option">
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="laser">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>LASER OPERATIONS</p>
-            </span>
+      <div class="col-md-12">
+        <h4 class="main-menu-title">Main Selection Menu</h4>
+      </div>
+      <div class="col-md-5 col-sm-6 col-md-offset-1">
+        <div class="col-md-6 operation-select-wrapper">
+          <div class="col-md-12">
+            <div class="operation-select laser-file-preparation laser-operation">
+              File Preparation
+            </div>
           </div>
-          <div class="panel-body">
-            <img src="images/laser.png">
+          <div class="col-md-12">
+            <div class="operation-select laser-file-operation laser-operation">
+              Machine Operation
+            </div>
           </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="laser-option">
+          </div>
+          <h4 class="operation-label">LASER Cutter</h4>
         </div>
       </div>
       
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="milling">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>MILLING OPERATIONS</p>
-            </span>
+      <div class="col-md-5 col-sm-6">
+        <div class="col-md-6">
+          <div class="milling-option">
           </div>
-          <div class="panel-body">
-            <img src="images/milling.png">
+          <h4 class="operation-label">Milling Machine</h4>
+        </div>
+
+         <div class="col-md-6 operation-select-wrapper">
+          <div class="col-md-12">
+            <div class="operation-select milling-file-preparation milling-operation">
+              File Preparation
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="operation-select file-operation milling-operation">
+              Machine Operation
+            </div>
           </div>
         </div>
       </div>
     </div>
 
 
-    <!-- second level operation -->
-    <div class="row laser-option" style="display:none">
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="laser-setup">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>SETUP PARAMETERS</p>
-            </span>
-          </div>
-          <div class="panel-body">
-            <img src="images/laser.png">
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="laser-operate">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>ENGRAVING/CUTTING OPERATION</p>
-            </span>
-          </div>
-          <div class="panel-body">
-            <img src="images/laser.png">
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row milling-option" style="display:none">
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="milling-gcode">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>GENERATE G-CODE</p>
-            </span>
-          </div>
-          <div class="panel-body">
-            <img src="images/laser.png">
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-sm-6 col-md-offset-2">
-        <div class="panel panel-success" id="milling-operate">
-          <div class="panel-heading">
-            <span class="flow-text operation">
-              <p>MILLING OPERATION</p>
-            </span>
-          </div>
-          <div class="panel-body">
-            <img src="images/laser.png">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- third level operation -->
-    <div class="row laser-setup" style="display:none;margin-top: 0px">
+    <div class="row laser-setup" style="display:none">
       <div class="col-md-12 import-buttons">
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
         <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" />
@@ -197,11 +158,14 @@
 
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="js/jquery.min.js"></script>
+<script src="js/cookies.js"></script>
 <script src="js/fabric.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/fontawesome.js"></script>
 <script src="js/gcode_writer.js"></script>
 <script src="js/app.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/translation.js"></script>
 <script>if (window.module) module = window.module;</script>
 
 </body>

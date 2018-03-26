@@ -1,3 +1,191 @@
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('../fonts/roboto/Roboto-Regular.woff2') format('woff2');
+}
+
+body{
+  font-family: 'Roboto-Regular';
+}
+
+.navigation{
+  box-shadow: 0 0 3px #cccccc;
+  height: 50px;
+}
+
+.navigation div{
+  padding-left: 0;
+  background-color: #f2f2f2;
+}
+
+#app-banner{
+  width: 120px;
+  height: 35px;
+  background-image: url('../images/banner_logo.png');
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: 15px 5px;
+}
+
+#app-version{
+  font-size: 10px;
+}
+
+.navigation-button{
+  width: 130px;
+  height: 50px;
+  float: left;
+  box-shadow: inset 0 1px 1px #ccc;
+  padding: 14px 5px;  
+}
+
+.language-button{
+  width: 130px;
+  height: 50px;
+  float: left;
+  padding: 14px 5px;  
+}
+
+#main-menu-button{
+  width: 120px;
+  height: 35px;
+  background-image: url('../images/home.png');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: 10px 0px;
+  cursor: pointer;
+}
+
+#main-menu-button:hover{
+   background-image: url('../images/home_hover.png');
+}
+
+#main-menu-button:active{
+   background-image: url('../images/home_clicked.png');
+}
+.navigation-button div{
+  padding: ;
+}
+
+.navigation-button div p{
+  padding-left: 45px;
+  padding-top: 4px;
+}
+
+#english-language{
+  height: 25px;
+  width: 70px;
+  margin: 0px 50px;
+  padding-top: 2px;
+  padding-left: 2px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+#visayan-language{
+  height: 25px;
+  width: 70px;
+  padding-top: 2px;
+  margin: 0px 10px;
+  padding-left: 2px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+#english-language:hover, #visayan-language:hover{
+  color: white;
+  background-color: #939598;
+}
+
+.language-selected {
+  border: 1px solid black;
+  color: black;
+  background-color: #f2f2f2;
+}
+
+/*MAIN MENU OPTIONS*/
+
+.main-option{
+  margin: 100px auto;
+}
+
+.main-menu-title{
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.laser-option, .milling-option{
+  height: 250px;
+  width: 250px;
+  background-image: url('../images/laser_option.png');
+  background-size: 250px;
+}
+
+.laser-option.hover{
+  background-image: url('../images/laser_option_hover.png');
+}
+
+.laser-option.active{
+  background-image: url('../images/laser_option_clicked.png');
+}
+
+.milling-option{
+   background-image: url('../images/milling_option.png');
+}
+
+.milling-option.hover{
+  background-image: url('../images/milling_option_hover.png');
+}
+
+.milling-option.active{
+  background-image: url('../images/milling_option_clicked.png');
+}
+
+
+.operation-select-wrapper{
+  margin-top: 80px;
+}
+
+.operation-select{
+  height: 40px;
+  border: 1px solid #4285f4;
+  color: #4285f4;
+  text-align: center;
+  border-radius: 20px;
+  margin: 5px 0px;
+  padding-top: 10px;
+}
+
+.operation-select:hover{
+  background-color: #80b4ff;
+  color: white;
+  border: 1px solid #80b4ff;
+  cursor: pointer;
+}
+
+.operation-select:active{
+  background-color: #0059c1;
+  color: white;
+  border: 1px solid #0059c1;
+  cursor: pointer;
+}
+
+
+.laser-file-preparation{
+  width: 170px;
+  float: right;
+}
+
+.milling-file-preparation{
+  width: 170px;
+  float: left;
+}
+
+.operation-label{
+  text-align: center;
+}
+
+
+
 .flow-text{
   text-align: center;
 }

@@ -38,22 +38,7 @@ canvas.setHeight(620)
 
 window.addEventListener('resize', resizeCanvas, false)
 
-const mainOptionView = document.querySelector(".main-option")
-const breadCrumb1 = document.querySelector("#breadcrumb-1")
-const breadCrumb2 = document.querySelector("#breadcrumb-2")
-const breadCrumb3 = document.querySelector("#breadcrumb-3")
-const laser = document.querySelector("#laser")
-const laserOptionView = document.querySelector(".laser-option")
-const milling = document.querySelector("#milling")
-const millingOptionView = document.querySelector(".milling-option")
-const laserSetup = document.querySelector("#laser-setup")
-const laserSetupView = document.querySelector(".laser-setup")
-const laserOperate = document.querySelector("#laser-operate")
-const laserOperateView = document.querySelector(".laser-operate")
-const millingGcode = document.querySelector("#milling-gcode")
-const millingGcodeView = document.querySelector(".milling-gcode")
-const millingOperate = document.querySelector("#milling-operate")
-const millingOperateView = document.querySelector(".milling-operate")
+
 const hexLiteral = {10: "A", 11: "B", 12: "C", 13: "D", 14: "E", 15: "F"}
 const decLiteral = {A: 10, B: 11, C: 12, D: 13, E: 14, F: 15}
 
@@ -197,84 +182,6 @@ $('#device-select').change(function(){
   hasPortOpen = true;
   port.pipe(parser)
 })
-
-breadCrumb1.addEventListener('click', function(){
-  hideAllView()
-  mainOptionView.style.display = "block"
-  breadCrumb2.innerHTML = ""
-  breadCrumb3.innerHTML = ""
-})
-
-breadCrumb2.addEventListener('click', function(){
-  breadCrumbText = breadCrumb2.innerHTML
-
-  if (breadCrumbText == "LASER OPERATION"){
-    hideAllView()
-    laserOptionView.style.display = "block"
-  }else if(breadCrumbText == "MILLING OPERATION"){
-    hideAllView()
-    millingOptionView.style.display = "block"
-  }
-
-  breadCrumb3.innerHTML = ""
-
-})
-
-breadCrumb3.addEventListener('click', function(){
-  hideAllView()
-  mainOptionView.style.display = "block"
-})
-
-// second level
-laser.addEventListener('click', function(){
-  hideAllView()
-  laserOptionView.style.display = "block"
-  breadCrumb2.innerHTML = "LASER OPERATION"
-})
-
-milling.addEventListener('click', function(){
-  hideAllView()
-  millingOptionView.style.display = "block"
-  breadCrumb2.innerHTML = "MILLING OPERATION"
-})
-
-// third level
-laserSetup.addEventListener('click', function(){
-  hideAllView()
-  laserSetupView.style.display = "block"
-  breadCrumb3.innerHTML = "LASER SETUP PARAMS"
-  cwidth = $(".canvas-area").get(0).offsetWidth
-  resizeCanvas()
-})
-
-laserOperate.addEventListener('click', function(){
-  hideAllView()
-  laserOperateView.style.display = "block"
-  breadCrumb3.innerHTML = "LASER ENGRAVING/CUTTING"
-
-})
-
-millingGcode.addEventListener('click', function(){
-  hideAllView()
-  millingGcodeView.style.display = "block"
-  breadCrumb3.innerHTML = "GENERATE G-CODE"
-})
-
-millingOperate.addEventListener('click', function(){
-  hideAllView()
-  millingOperateView.style.display = "block"
-  breadCrumb3.innerHTML = "MILLING OPERATION"
-})
-
-function hideAllView(){
-  mainOptionView.style.display = "none"
-  laserOptionView.style.display = "none"
-  millingOptionView.style.display = "none"
-  laserSetupView.style.display = "none"
-  laserOperateView.style.display = "none"
-  millingGcodeView.style.display = "none"
-  millingOperateView.style.display = "none"
-}
 
 function resizeCanvas() {
   cwidth = $(".canvas-area").get(0).offsetWidth

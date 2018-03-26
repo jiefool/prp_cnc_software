@@ -1,0 +1,2299 @@
+/* line 1, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #545454;
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
+  border: 0px;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+/* line 15, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.ie-error {
+  width: 100%;
+  height: 20px;
+  z-index: 999;
+  color: red;
+  margin-top: 5px;
+}
+
+/* line 24, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* line 33, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#credicompadre_monthly_salary {
+  width: 100%;
+}
+
+/* line 37, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+:focus {
+  outline: 0;
+}
+
+/* line 41, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.left {
+  text-align: left;
+}
+
+/* line 45, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.right {
+  text-align: right;
+}
+
+/* line 49, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.center {
+  text-align: center;
+}
+
+/* line 53, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+img {
+  max-width: 100%;
+}
+
+/* line 59, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+input:required:invalid {
+  outline: none;
+}
+
+/* line 64, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+input,
+textarea,
+button,
+select,
+label,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* line 74, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+textarea,
+input.text,
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+.input-checkbox {
+  -webkit-appearance: none;
+}
+
+/* line 86, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.container {
+  max-width: 1100px !important;
+  border: 0px;
+}
+
+/*---------------------------------------------------- HEADER AREA ----------------------------------------------------*/
+/* line 98, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header {
+  color: #fff;
+  padding: 20px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+  background: rgba(255, 255, 255, 0);
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0);
+  transition: all 0.5s ease-in-out;
+}
+
+/* line 110, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.leveldown {
+  color: #34a8ef;
+  padding: 20px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+  background: white;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
+}
+
+/* line 122, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.active {
+  color: #34a8ef;
+  padding: 20px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+  background: white;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* line 136, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header .navbar-brand {
+  border: 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 56px 10px 0px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42px;
+  line-height: 38px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-align: left;
+  color: #fff;
+  background-image: url(/assets/amigocredi/logo-bg-99db5dcaeeb67050f59f6a325c7def4568694ef4a3b880fdd26885b2d9d92dd5.png);
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
+
+/* line 153, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header .navbar-brand .thin {
+  font-weight: 300;
+  color: #fff;
+}
+
+/* line 160, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.active .navbar-brand .thin {
+  font-weight: 300;
+  color: #60c9e1;
+}
+
+/* line 168, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header .navbar-brand:hover {
+  color: #fff;
+}
+
+/* line 175, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.active .navbar-brand {
+  color: #884688;
+}
+
+/* line 182, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.leveldown .navbar-brand {
+  border: 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 56px 10px 0px;
+  font-size: 42px;
+  line-height: 38px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-align: left;
+  color: #884688;
+  background-image: url(/assets/amigocredi/logo-bg-99db5dcaeeb67050f59f6a325c7def4568694ef4a3b880fdd26885b2d9d92dd5.png);
+  background-position: 100% 50%;
+}
+
+/* line 195, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.transparent-header.leveldown .navbar-brand .thin {
+  font-weight: 300;
+  color: #60c9e1;
+}
+
+/* line 208, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.secureTop {
+  border: 0px;
+  margin: -5px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+/* line 221, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.hamburger {
+  color: #fff;
+  border: 0px;
+  margin: 7px 0px 0px 0px;
+  background: #008bdf;
+}
+
+/* line 229, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.hamburger:focus {
+  border: none;
+  outline: none;
+}
+
+/* line 236, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.navUlContainer {
+  border: 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 10px 0px;
+}
+
+/* line 243, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#navbarNav a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: #008bdf;
+  border: 0px;
+  margin: 0px;
+  padding: 6px 22px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* line 255, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#navbarNav a:hover {
+  color: #404244;
+}
+
+/* line 260, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#navbarNav a.app {
+  text-align: center;
+  margin: 0px;
+  border: 1px solid #008bdf;
+  padding: 6px 15px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/*---------------------------------------------------- SPLASH AREA ----------------------------------------------------*/
+/* line 279, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashArea {
+  width: 100%;
+  height: 755px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0)), url(/assets/amigocredi/splash1-ccbf8ee30c1e2144ae27b9d799c85ab7b963279a1e8e8f4b3479aae764936940.jpg);
+  background-position: top right;
+  background-size: cover;
+  position: relative;
+}
+
+/* line 292, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 65px;
+  line-height: 65px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -2px;
+  color: #fff;
+  padding: 280px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 308, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashTitle2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 65px;
+  line-height: 65px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -2px;
+  color: #fff;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 323, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashTitle3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 34px;
+  line-height: 34px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #fff;
+  padding: 25px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 341, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashFormContainer {
+  text-align: center;
+  margin: 30px auto;
+  border: 0px;
+  padding: 30px;
+  color: #505050;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* line 353, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashFormContainer h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 0px 0px 20px 0px;
+}
+
+/* line 364, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashFormContainer h2 {
+  font-size: 33px;
+  color: #505050;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 0px 0px 20px 0px;
+}
+
+/* line 374, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.loanAmount {
+  font-size: 33px;
+  font-weight: 900;
+  color: #008bdf;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 0px 0px 20px 0px;
+}
+
+/* line 387, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.sliderFigureOne {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+/* line 395, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.sliderFigureTwo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0px;
+  text-align: right;
+}
+
+/* line 405, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashFormContainer label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 0px 0px 8px 0px;
+}
+
+/* line 417, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.select {
+  display: block;
+  width: 100%;
+  height: 40px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  color: #555555;
+  font-size: 14px;
+  margin: 0px 0px 0px 0px;
+  border: 1px solid #cccccc;
+  padding: 0px 0px 0px 8px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+  background: #fff url(/assets/amigocredi/select-arrow-22bfa287ba18dea3876153623edaa827bfd120b081845ec9f57d1fa6450be65a.png);
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  cursor: pointer;
+}
+
+/* line 446, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+select::-ms-expand {
+  display: none;
+}
+
+/* line 451, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashButtonWrapper {
+  padding: 24px 0px 0px 0px;
+  text-align: center;
+  margin: 0px;
+}
+
+/* line 458, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashButton {
+  display: block;
+  width: 100%;
+  height: 40px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 4px solid #60c9e1;
+  text-decoration: none;
+  padding: 2px 0px 0px 0px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #60c9e1;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 487, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #884688;
+  border: 4px solid #884688;
+}
+
+/* line 497, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom {
+  width: 100%;
+  padding: 30px 0px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-position: center center;
+  background-size: cover;
+}
+
+/* line 511, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom .col-4 {
+  text-align: center;
+}
+
+/* line 515, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom h1 {
+  display: inline-block;
+  text-align: left;
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0px auto;
+  border: 0px;
+  text-decoration: none;
+  padding: 0px;
+}
+
+/* line 529, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom h1 i {
+  color: #60c9e1;
+  padding-right: 5px;
+}
+
+/* line 540, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.taeArea {
+  text-align: center;
+  margin: 10px auto;
+  border: 0px;
+  padding: 10px 10px 0px 10px;
+  font-size: 12px;
+  color: #fff;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  border-radius: 9px;
+  background: rgba(96, 96, 96, 0);
+}
+
+/* line 553, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.taeArea h1 {
+  font-size: 14px;
+  font-weight: 700;
+  padding-bottom: 2px;
+}
+
+/* line 570, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom {
+  width: 100%;
+  padding: 30px 0px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-position: center center;
+  background-size: cover;
+}
+
+/* line 584, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom .col-4 {
+  text-align: center;
+}
+
+/* line 588, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom h1 {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0px auto;
+  border: 0px;
+  text-decoration: none;
+  padding: 0px;
+}
+
+/* line 602, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.splashBottom h1 i {
+  color: #884688;
+  font-size: 42px;
+  display: block;
+  padding-bottom: 8px;
+  text-align: center;
+}
+
+/*---------------------------------------------------- PAGE RoW ----------------------------------------------------*/
+/* line 624, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageRow {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  padding: 50px 0px;
+  margin: 60px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 634, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageRow h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-align: center !important;
+  color: #60c9e1;
+  padding: 0px 0px 40px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 647, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageRow h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #505050;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 659, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageRow h3 {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #884688;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 673, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.twoCols .intro {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  text-align: left;
+  padding: 20px 0px 5px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 686, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.twoCols h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #884688;
+  padding: 20px 0px 5px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 699, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.bulletPanel {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px 0px 0px 0px;
+  border: 1px solid #e3e3e3;
+  padding: 20px 20px 4px 20px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* line 713, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.bulletPanel ul {
+  list-style: none;
+  padding: 15px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 400;
+}
+
+/* line 723, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.bulletPanel li {
+  text-align: left;
+  background-image: url(/assets/amigocredi/tick1-02764bde2a592d80185ba4d402e823785b12f96d0b85e9ba663b0f1aaf26f71b.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-left: 26px;
+  /* space for the image */
+  padding-top: 0px;
+  /* space for the image */
+  padding-bottom: 14px;
+  /* space for the image */
+  border: 0px;
+}
+
+/* line 740, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.usps {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* line 746, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.uspsImg {
+  font-size: 55px;
+  text-align: center;
+}
+
+/* line 751, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.uspsTxt {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+/* line 759, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.usps h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #505050;
+  padding: 0px 0px 6px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 772, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.usps i {
+  font-size: 66px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #884688;
+  padding: 0px 0px 12px 0px;
+  margin: 0px auto;
+  border: 0px;
+}
+
+/* line 787, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.security {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  color: #505050;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 10px 0px 20px 0px;
+}
+
+/* line 798, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.security i {
+  color: #884688;
+  padding-right: 10px;
+}
+
+/*---------------------------------------------------- Grey RoW ----------------------------------------------------*/
+/* line 810, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.greyRow {
+  background: #f5f5f5;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  padding: 70px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 820, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.greyRow h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #60c9e1;
+  padding: 0px 0px 40px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 833, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.greyRow h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #505050;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 845, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.greyRow h3 {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #884688;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 858, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButtonWrapper {
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
+  display: block;
+}
+
+/* line 865, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton {
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  padding: 20px 50px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #884688;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 892, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton i {
+  padding-left: 5px;
+}
+
+/* line 897, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #60c9e1;
+  border: 0px;
+}
+
+/* line 909, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton {
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  padding: 20px 50px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #884688;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 936, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton i {
+  padding-left: 5px;
+}
+
+/* line 941, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.pageButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #60c9e1;
+  border: 0px;
+}
+
+/* line 958, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.vert {
+  margin-left: -70px;
+}
+
+/*---------------------------------------------------- Map RoW ----------------------------------------------------*/
+/* line 969, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mapRow {
+  background: #60c9e1;
+  background: -moz-linear-gradient(top, #60c9e1 0%, #884688 100%);
+  background: -webkit-linear-gradient(top, #60c9e1 0%, #884688 100%);
+  background: linear-gradient(to bottom, #60c9e1 0%, #884688 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#60c9e1', endColorstr='#884688',GradientType=0 );
+  font-size: 13px;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  padding: 70px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 984, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mapWrapper {
+  display: block;
+  padding: 20px 0px 0px 0px;
+  margin: 0px auto;
+  border: 0px;
+}
+
+/* line 994, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mapRow h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #fff;
+  padding: 0px 0px 40px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1007, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mapRow h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #505050;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1019, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mapRow h3 {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #884688;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/*---------------------------------------------------- Footer RoW ----------------------------------------------------*/
+/* line 1037, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.footerRow {
+  background: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  padding: 70px 0px;
+  margin: 0px 0px 0px 0px;
+  border-top: 1px solid #e3e3e3;
+}
+
+/* line 1047, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.footerRow a {
+  padding: 0px 5px;
+}
+
+/*---------------------------------------------------- FORM AREA ----------------------------------------------------*/
+/* line 1062, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.stepsContainer {
+  text-align: center;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  border: 1px solid #bdc3c7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 1073, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.shs {
+  width: 50%;
+  height: 90px;
+  float: left;
+  text-align: center;
+  padding: 20px 20px 0px 20px;
+  position: relative;
+  border-left: 1px solid #bdc3c7;
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+}
+
+/* line 1085, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+html.ie6 .shs,
+html.ie7 .shs {
+  width: 174px;
+  position: relative;
+  z-index: 100;
+}
+
+/* line 1092, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.shs.step1 {
+  border-left: 0;
+}
+
+/* line 1094, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+html.ie7 .shs.step1,
+html.ie7 .shs.step2 {
+  width: 280px;
+}
+
+/* .shs.step2 {width: 34%;} */
+/* line 1101, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.shs.active {
+  background: #e0f3ff;
+}
+
+/* line 1106, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.step {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #3498db;
+  padding: 0 0 0px;
+}
+
+/* line 1114, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.arrow-right {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid #bdc3c7;
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  margin-top: -7px;
+  z-index: 1;
+}
+
+/* line 1128, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+html.ie6 .arrow-right,
+html.ie7 .arrow-right {
+  display: none;
+}
+
+/* line 1132, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.arrow-right.inner {
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid #fff;
+  z-index: 2;
+  right: -7px;
+  margin-top: -7px;
+}
+
+/* line 1140, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+html.ie6 .arrow-right.inner,
+html.ie7 .arrow-right.inner {
+  display: none;
+}
+
+/* line 1144, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.shs.active .arrow-right.inner {
+  border-left: 7px solid #e0f3ff;
+}
+
+/* line 1150, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formContainer {
+  text-align: left;
+  margin: 30px 0px 0px 0px;
+  padding: 20px;
+  position: relative;
+  border: 1px solid #bdc3c7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #eef2f3;
+}
+
+/* line 1162, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formSectionHeader {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #34a8ef;
+  padding: 0px 0px 25px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1174, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formSectionHeader2 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #505050;
+  padding: 0px 0px 30px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1187, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFields {
+  padding-bottom: 16px;
+}
+
+/* line 1191, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFields [class*="col-"] {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+/* line 1197, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFields [class*="col-"]:first-child {
+  padding-left: 15px;
+}
+
+/* line 1201, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFields [class*="col-"]:last-child {
+  padding-right: 15px;
+}
+
+/* line 1206, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  text-align: left;
+  color: #5f5f5f;
+  font-size: 14px;
+  margin: 0px 0px 0px 0px;
+  border: 1px solid #cccccc;
+  padding: 0px 0px 0px 8px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 4px 5px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* line 1233, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+label.Lrg {
+  color: #4d4d4d;
+  display: block;
+  font-size: 22px;
+  line-height: 22px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1246, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+label {
+  color: #4d4d4d;
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px 0px 6px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1257, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+label .selectLabel {
+  color: #4d4d4d;
+  display: block;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px 0px 6px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1269, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+/* line 1276, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+select::-ms-expand {
+  display: none;
+}
+
+/* line 1284, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkboxTxt {
+  display: inline-block;
+  padding-top: 13px;
+  padding-right: 10px;
+  font-size: 14px;
+}
+
+/* line 1292, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox {
+  display: inline;
+  float: left;
+}
+
+/* line 1299, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox label:after,
+.radio label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* line 1306, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox .cr,
+.radio .cr {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #cccccc;
+  border-radius: .25em;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+  margin-right: .3em;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* line 1320, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.radio .cr {
+  border-radius: 50%;
+}
+
+/* line 1324, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+  position: absolute;
+  font-size: .8em;
+  line-height: 0;
+  top: 50%;
+  left: 20%;
+  color: #34a8ef;
+}
+
+/* line 1334, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.radio .cr .cr-icon {
+  margin-left: 0.04em;
+}
+
+/* line 1338, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+  display: none;
+}
+
+/* line 1343, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+
+/* line 1350, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+
+/* line 1356, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+  opacity: .5;
+}
+
+/* line 1363, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #d2d2d2;
+  font-weight: 300;
+}
+
+/* line 1367, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #d2d2d2;
+  font-weight: 300;
+}
+
+/* line 1371, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #d2d2d2;
+  font-weight: 300;
+}
+
+/* line 1375, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #d2d2d2;
+  font-weight: 300;
+}
+
+/* line 1382, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+[placeholder]:focus::-webkit-input-placeholder {
+  transition: opacity 0.2s 0.2s ease;
+  opacity: 0;
+}
+
+/* line 1388, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.form-control:focus {
+  border-color: #cccccc;
+  padding-top: 0px;
+}
+
+/* line 1403, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formDivider {
+  height: 1px;
+  border-top: 1px dashed #9c9c9c;
+  margin: 10px 0px 20px;
+}
+
+/* line 1413, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButtonWrapper {
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+  margin: 0px;
+}
+
+/* line 1420, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton {
+  display: inline;
+  height: 90px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  padding: 2px 40px 0px 40px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #884688;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 1448, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #60c9e1;
+  border: 0px;
+}
+
+/* line 1458, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton {
+  display: inline;
+  height: 90px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  padding: 2px 40px 0px 40px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #ff5a00;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 1486, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #ffa200;
+  border: 0px;
+}
+
+/* line 1503, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton2Wrapper {
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+  margin: 0px;
+}
+
+/* line 1510, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton2 {
+  display: inline;
+  height: 90px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 4px solid #ff7200;
+  text-decoration: none;
+  padding: 2px 40px 0px 40px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #ff7200;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 1538, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButton2:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #ff9600;
+  border: 4px solid #ffc46f;
+}
+
+/* line 1552, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButtonBackWrapper {
+  padding: 20px 0px 20px 0px;
+  text-align: left;
+  margin: 0px;
+}
+
+/* line 1558, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButtonBack {
+  display: inline;
+  width: 100%;
+  height: 90px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 4px solid #8d9397;
+  text-decoration: none;
+  padding: 2px 40px 0px 40px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #8d9397;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 1587, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formButtonBack:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #9fa5aa;
+  border: 4px solid #b8bec3;
+}
+
+/* line 1600, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel {
+  text-align: center;
+  margin: 0px 0px 20px 0px;
+  padding: 16px;
+  border: 1px solid #bdc3c7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #eef2f3;
+}
+
+/* line 1612, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel .security {
+  line-height: 22px;
+}
+
+/* line 1616, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel .security i {
+  display: block;
+  font-size: 53px;
+  text-align: center;
+  color: #008bdf;
+  padding: 0px;
+}
+
+/* line 1624, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel img {
+  width: 100px;
+}
+
+/* line 1629, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 {
+  text-align: left;
+  margin: 0px 0px 20px 0px;
+  padding: 4px 14px 24px 14px;
+  border: 1px solid #bdc3c7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+/* line 1641, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 .icons {
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #505050;
+  letter-spacing: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+  padding: 10px 0px 0px 0px;
+}
+
+/* line 1653, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 .icons i {
+  display: block;
+  font-size: 43px;
+  text-align: center;
+  color: #884688;
+  padding: 7px;
+}
+
+/* line 1663, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 .starHeader {
+  padding-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* line 1673, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 .stars {
+  text-align: center;
+}
+
+/* line 1678, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 .stars i {
+  display: inline-block;
+  font-size: 23px;
+  text-align: center;
+  color: #ffcc00;
+  padding: 10px;
+}
+
+/* line 1688, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 ul {
+  font-size: 13px;
+  list-style: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1697, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formRightPanel2 li {
+  text-align: left;
+  background-image: url(/assets/amigocredi/tick1-02764bde2a592d80185ba4d402e823785b12f96d0b85e9ba663b0f1aaf26f71b.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-left: 23px;
+  /* space for the image */
+  padding-top: 0px;
+  /* space for the image */
+  padding-bottom: 17px;
+  /* space for the image */
+  border: 0px;
+}
+
+/* line 1711, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFooterTxt {
+  padding: 10px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* line 1719, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.formFooterTxtHheader {
+  padding: 10px 0px;
+  font-family: 'Montserrat', sans-serif;
+  color: #008bdf;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* line 1730, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.appButtonTxtTop {
+  color: #4f4f4f;
+  display: block;
+  font-size: 14px;
+  text-align: center;
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1741, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.appButtonTxtBot {
+  color: #4eae40;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1759, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#leveldown .pageRow h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #60c9e1;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1772, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#leveldown .pageRow h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #884688;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 1784, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#leveldown .pageRow h3 {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #884688;
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/*---------------------------------------------------- THANKYOU ----------------------------------------------------*/
+/* line 1801, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.thankyouTxt {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #474747;
+  padding-top: 20px;
+}
+
+/* line 1810, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.thankyouTxtHeader {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-size: 36px;
+  line-height: 38px;
+  color: #34a8ef;
+  padding-bottom: 14px;
+}
+
+/* line 1819, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.thankyouTxtHeader2 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-size: 42px;
+  line-height: 36px;
+  color: #17b891;
+  padding: 14px 0px 0px 0px;
+}
+
+/* line 1828, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.thankyouTxtHeader3 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: normal;
+  font-size: 36px;
+  line-height: 38px;
+  color: #000936;
+  padding-bottom: 14px;
+  text-align: left;
+}
+
+/* line 1838, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.leveldownContainerPanel {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 20px;
+  padding: 25px;
+  margin: 20px 0px 20px 0px;
+  border: 0px;
+  background: #fff;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* line 1853, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.leveldownContainerPanel a {
+  font-family: 'Montserrat', sans-serif;
+  color: #ff8400;
+}
+
+/* line 1862, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.leveldownContainerPanel2 {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 20px;
+  padding: 0px;
+  margin: 20px 0px 20px 0px;
+  border: 0px;
+  background: #fff;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/* line 1877, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.timer {
+  display: inline-block;
+  padding: 20px;
+  margin: 20px auto;
+  border: 0px;
+  background: #17b891;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  line-height: 28px;
+  color: #fff;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/* line 1893, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.congratsLogo {
+  display: inline-block;
+  padding: 20px;
+  margin: 20px auto;
+  border: 2px solid #17b891;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #11427a;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/* line 1914, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table {
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  padding: 5px;
+  margin-top: -14px;
+}
+
+/* line 1924, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .productpanel {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  margin-bottom: 15px;
+}
+
+/* line 1933, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .row {
+  padding-bottom: 25px;
+  padding-top: 25px;
+  border-bottom: 1px solid #ababab;
+}
+
+/* line 1940, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.tableHeader {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #17b891;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #fff;
+}
+
+/* line 1951, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.tableAmount {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  line-height: 21px;
+  color: #36b4ef;
+  text-align: center;
+  padding-bottom: 4px;
+}
+
+/* line 1960, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.tableAmountHead {
+  display: none;
+}
+
+/* line 1965, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.tableBenefitsHead {
+  display: none;
+}
+
+/* line 1970, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton {
+  display: block;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px auto;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  text-decoration: none;
+  padding: 16px 10px 12px 10px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: background-color 400ms ease-out;
+  -moz-transition: background-color 400ms ease-out;
+  transition: background-color 400ms ease-out;
+  background: #ff7200;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 1997, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton:hover {
+  color: #fff;
+  background: #ff9c00;
+  text-decoration: none;
+}
+
+/* line 2004, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* line 2005, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton a:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 2006, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 2007, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButton a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 2011, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButtonTwo a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #93a4db;
+}
+
+/* line 2012, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButtonTwo a:active {
+  color: #93a4db;
+  text-decoration: none;
+}
+
+/* line 2013, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButtonTwo a:hover {
+  color: #93a4db;
+  text-decoration: none;
+}
+
+/* line 2014, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.table .tableButtonTwo a:visited {
+  color: #93a4db;
+  text-decoration: none;
+}
+
+/* line 2018, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel {
+  opacity: 0.2;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+/* line 2023, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-body {
+  padding: 30px;
+}
+
+/* line 2026, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.accordion {
+  margin-bottom: 60px;
+}
+
+/* line 2029, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.accordion .collapsed,
+.toggle .collapsed {
+  display: none;
+}
+
+/* line 2033, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .panel {
+  border: none;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* line 2037, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .panel + .panel {
+  margin-top: 10px;
+}
+
+/* line 2040, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .panel-heading {
+  position: relative;
+  padding: 0;
+  border-radius: 0;
+  display: block;
+}
+
+/* line 2046, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .panel-heading > a {
+  background: #eee;
+  font-weight: 700;
+  display: block;
+  padding: 18px 15px;
+  text-decoration: none;
+}
+
+/* line 2053, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .panel-title {
+  color: #333;
+  font-size: 13px;
+  padding-bottom: 0px;
+}
+
+/* line 2058, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group a[aria-expanded='true'] {
+  background: #34a8ef;
+  background: -moz-linear-gradient(left, #34a8ef 0%, #884688 100%);
+  background: -webkit-linear-gradient(left, #34a8ef 0%, #884688 100%);
+  background: linear-gradient(to right, #34a8ef 0%, #884688 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34a8ef', endColorstr='#17b891',GradientType=1 );
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+/* line 2067, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group a[aria-expanded='true'] .panel-title {
+  color: #fff;
+}
+
+/* line 2070, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group .accordion-toggle-icon {
+  font-size: 16px;
+  line-height: 50px;
+  position: absolute;
+  top: 0;
+  right: 12px;
+  -webkit-transition: -webkit-transform 0.4s ease-out;
+  transition: -webkit-transform 0.4s ease-out;
+  transition: transform 0.4s ease-out;
+  transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
+  color: #333;
+}
+
+/* line 2082, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.panel-group [aria-expanded='true'] .accordion-toggle-icon {
+  color: #fff;
+  -webkit-transform: rotate(180deg) translateZ(0);
+  transform: rotate(180deg) translateZ(0);
+}
+
+/*---------------------------------------------------- XSELL V7 ----------------------------------------------------*/
+/* line 2096, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+/* line 2105, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mexicoPic {
+  text-align: right;
+}
+
+/* line 2110, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.mexPicMob {
+  display: none;
+}
+
+/* line 2118, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  line-height: 34px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #34a8ef;
+  padding: 20px 0px 15px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 2132, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .title2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 37px;
+  line-height: 37px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #884688;
+  padding: 0px 0px 15px 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+/* line 2147, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .panelHeader {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #fff;
+  background: #34a8ef;
+  padding: 12px 20px 10px 20px;
+  margin: 16px 0px 0px 0px;
+  border: 0px;
+  border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  -webkit-border-radius: 6px 6px 0px 0px;
+}
+
+/* line 2164, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .panelHeaderHighlighted {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #fff;
+  background: #ff5a00;
+  padding: 12px 20px 10px 20px;
+  margin: 16px 0px 0px 0px;
+  border: 0px;
+  border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  -webkit-border-radius: 6px 6px 0px 0px;
+}
+
+/* line 2181, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .xsellPanel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #fff;
+  background: #cee6f5;
+  padding: 22px 20px 22px 20px;
+  margin: 0px 0px 10px 0px;
+  border: 0px;
+  border-radius: 0px 0px 6px 6px;
+  -moz-border-radius: 0px 0px 6px 6px;
+  -webkit-border-radius: 0px 0px 6px 6px;
+}
+
+/* line 2199, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .xsellImg {
+  text-align: center;
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+/* line 2209, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.xsellButton {
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  /*text-shadow: 0px -1px 1px rgba(0, 0, 0, 1);*/
+  box-sizing: border-box;
+  /* REMOVES PADDING WITH 100% WiDTHS */
+  color: #fff;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  padding: 20px 0px 17px 0px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  -moz-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  background-color: #ff5a00;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 2237, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.xsellButton:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #ffa200;
+  border: 0px;
+}
+
+/* line 2246, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell ul {
+  list-style: none;
+  padding: 15px 0px 10px 0px;
+  margin: 0px;
+  border: 0px;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 400;
+  color: #545454;
+}
+
+/* line 2257, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell li {
+  text-align: left;
+  background-image: url(/assets/amigocredi/tick1-02764bde2a592d80185ba4d402e823785b12f96d0b85e9ba663b0f1aaf26f71b.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-left: 26px;
+  /* space for the image */
+  padding-top: 0px;
+  /* space for the image */
+  padding-bottom: 14px;
+  /* space for the image */
+  border: 0px;
+}
+
+/* line 2272, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#xsell .xsellSecureTxt {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #545454;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
+}
+
+/* line 2289, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.congratsLogo-lendon {
+  display: inline-block;
+  margin: 10px auto;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #11427a;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/* line 2303, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.thankyouTxtHeader-lendon {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 38px;
+  color: #34a8ef;
+  padding-bottom: 14px;
+}
+
+/* line 2312, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.lendon-holder {
+  padding: 0px 0px 0px 0px;
+}
+
+/* line 2316, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.green-circle {
+  width: 15px;
+  height: 15px;
+  background-color: #62b983;
+  border-radius: 15px;
+  margin-right: 10px;
+  float: left;
+  margin-top: 15px;
+}
+
+/* line 2326, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.lendon-steps {
+  text-align: left;
+  padding-left: 30px;
+}
+
+/* line 2331, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+#lendon_iframe {
+  height: 1690px;
+}
+
+@media screen and (max-width: 949px) {
+  /* line 2336, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+  #lendon_iframe {
+    height: 1100px;
+  }
+}
+/* line 2341, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.lendon_level_down {
+  width: 200%;
+}
+
+/* line 2345, /Users/jaypaulaying/rails_studio/lead_generation_websites/app/assets/stylesheets/amigocredi/layout.scss */
+.err-msg {
+  font-size: 12px;
+  color: red;
+  margin-top: 10px;
+}
