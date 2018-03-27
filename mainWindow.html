@@ -19,6 +19,16 @@
         <div class="navigation-button">
           <div id="main-menu-button"><p>Main Menu</p></div>
         </div>
+
+        <div class="current-window">
+          <div class="laser-setup-window">
+            <p>Laser Cutter / File Preparation</p>
+          </div>
+          <div class="laser-operate-window">
+            <p>Laser Cutter / Machine Operation</p>
+          </div>
+        </div>
+
       </div>
       <div class="col-md-4">
         <div class="language-button">
@@ -85,7 +95,17 @@
     <div class="row laser-setup" style="display:none">
       <div class="col-md-12 import-buttons">
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
-        <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" />
+
+        <!-- <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" /> -->
+
+        <div class="laser-setup-buttons-wrapper">
+          <div class="add-file-button">
+          </div>
+
+          <div class="clear-button">
+          </div>
+        </div>
+
       </div>
       <div class="col-md-8">
         <div class="canvas-area">

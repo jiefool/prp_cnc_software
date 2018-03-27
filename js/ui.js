@@ -35,14 +35,24 @@ $(document).ready(function(){
 
   $(".laser-file-preparation").click(function(){
     showLaserSetup();
+    $(".laser-setup-window").show();
+    $(".laser-operate-window").hide();
   })
 
   $("#main-menu-button").click(function(){
     showMainMenu();
+    $(".laser-setup-window").hide();
+    $(".laser-operate-window").hide();
   })
 
   $(".laser-file-operation").click(function(){
     showLaserOperate();
+    $(".laser-setup-window").hide();
+    $(".laser-operate-window").show();
+  })
+
+  $(".add-file-button").click(function(){
+    svgSelectFile();
   })
 })
 

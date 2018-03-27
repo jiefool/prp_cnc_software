@@ -60,10 +60,7 @@ body{
 }
 
 #main-menu-button:active{
-   background-image: url('../images/home_clicked.png');
-}
-.navigation-button div{
-  padding: ;
+  background-image: url('../images/home_clicked.png');
 }
 
 .navigation-button div p{
@@ -186,6 +183,88 @@ body{
 
 
 
+/* laser file preparation page */
+.laser-setup{
+  margin-top: 30px;
+}
+
+.add-file-button{
+  width: 110px;
+  height: 39px;
+  float: left;
+  background-image: url('../images/add_file.png');
+  background-repeat: no-repeat;
+  background-size: 110px;
+  margin-right: 10px;
+}
+
+.add-file-button:hover{
+  background-image: url('../images/add_file_hover.png');
+}
+
+.add-file-button:active{
+  background-image: url('../images/add_file_clicked.png');
+}
+
+.clear-button{
+  width: 122px;
+  height: 39px;
+  float:left;
+  background-image: url('../images/clear.png');
+  background-repeat: no-repeat;
+  background-size: 120px;
+}
+
+.clear-button:hover{
+  background-image: url('../images/clear_hover.png');
+}
+
+.clear-button:active{
+  background-image: url('../images/clear_clicked.png');
+}
+
+.laser-setup-buttons-wrapper{
+  margin-left: 40px;
+}
+
+.current-window{
+  float: left;
+  margin-left: 10px;
+}
+
+.laser-setup-window{
+  height: 40px;
+  margin-top: 6px;
+  background-image: url('../images/laser_icon.png');
+  background-position: 20px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  display:none;
+}
+
+.laser-setup-window p{
+  padding-left: 45px;
+  padding-top: 10px;
+}
+
+.laser-operate-window{
+  height: 40px;
+  margin-top: 6px;
+  background-image: url('../images/laser_icon.png');
+  background-position: 20px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  display:none;
+}
+
+.laser-operate-window p{
+  padding-left: 45px;
+  padding-top: 10px;
+}
+
+
+
+
 .flow-text{
   text-align: center;
 }
@@ -241,3 +320,9 @@ p{
 .import-buttons{
   margin-bottom: 10px;
 }
+
+.current-window{
+
+}
+
+
