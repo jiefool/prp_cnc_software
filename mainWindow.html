@@ -48,42 +48,32 @@
       <div class="col-md-12">
         <h4 class="main-menu-title">Main Selection Menu</h4>
       </div>
-      <div class="col-md-5 col-sm-6 col-md-offset-1">
-        <div class="col-md-6 operation-select-wrapper">
-          <div class="col-md-12">
-            <div class="operation-select laser-file-preparation laser-operation">
+
+      <div class="col-md-12">
+        <div class="machine-menu">
+          <div class="menu-section laser-menu">
+            <div class="prp-button laser-file-preparation laser-operation">
               File Preparation
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="operation-select laser-file-operation laser-operation">
+            <div class="prp-button laser-file-operation laser-operation">
               Machine Operation
             </div>
           </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="laser-option">
+          <div class="menu-section laser-image">
+            <div class="laser-option">
+            </div>
+             <div class="operation-label">LASER Cutter</div>
           </div>
-          <h4 class="operation-label">LASER Cutter</h4>
-        </div>
-      </div>
-      
-      <div class="col-md-5 col-sm-6">
-        <div class="col-md-6">
-          <div class="milling-option">
+          <div class="menu-section milling-image">
+            <div class="milling-option">
+            </div>
+             <div class="operation-label">Milling Machine</div>
           </div>
-          <h4 class="operation-label">Milling Machine</h4>
-        </div>
-
-         <div class="col-md-6 operation-select-wrapper">
-          <div class="col-md-12">
-            <div class="operation-select milling-file-preparation milling-operation">
+          <div class="menu-section milling-menu">
+            <div class="prp-button milling-file-preparation milling-operation">
               File Preparation
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="operation-select file-operation milling-operation">
+            <div class="prp-button milling-file-operation milling-operation">
               Machine Operation
             </div>
           </div>
@@ -99,10 +89,12 @@
         <!-- <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" /> -->
 
         <div class="laser-setup-buttons-wrapper">
-          <div class="add-file-button">
+          <div class="lp-add-file-button prp-button">
+            Add File
           </div>
 
-          <div class="clear-button">
+          <div class="lp-clear-button prp-button">
+            Clear Board
           </div>
         </div>
 
@@ -113,12 +105,24 @@
         </div>
       </div>
       <div class="col-md-4">
-        <h4>Parameters Setting</h4>
-        <div class="speed-power-params"></div>
-        <hr/>
+        <div class="laser-params-left-panel-wrapper">
+          <div class="laser-params-left-panel">
+            <p>File Parameters Setting</p>
+          </div>
 
-        <button type="button" class="btn btn-primary btn-lg generate-gcode" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Generating...">Generate & Save G-Code</button>
+          <div class="speed-power-params"></div>
 
+          <div class="laser-params-buttons">
+           <!--  <button type="button" class="btn btn-primary btn-lg generate-gcode" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Generating...">Generate & Save G-Code</button> -->
+           <div class="lp-generate-button prp-button">
+              Generate G-Code
+            </div>
+            <div class="lp-clear-button prp-button">
+              Clear Settings
+            </div>
+          </div>
+
+        </div>
         <!-- <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/> -->
       </div>
     </div>

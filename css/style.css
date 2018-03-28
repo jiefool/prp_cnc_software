@@ -3,9 +3,38 @@
   src: url('../fonts/roboto/Roboto-Regular.woff2') format('woff2');
 }
 
+/*GENERAL REUSABLE STYLES*/
+
 body{
   font-family: 'Roboto-Regular';
 }
+
+.prp-button{
+  text-align: center;
+  color: #0059c1;
+  height: 35px;
+  border-radius: 17px;
+  float: left;
+  font-size: 12px;
+  border: solid 1px #0059c1;
+  padding-top: 9px;
+  margin: 8px 10px;
+}
+
+.prp-button:hover, 
+.prp-button:hover{
+  border: solid 1px #80b4ff;
+  background-color: #80b4ff;
+  color: white;
+}
+
+.prp-button:active, 
+.prp-button:active{
+  border: solid 1px #0059c1;
+  background-color: #0059c1;
+  color: white;
+}
+
 
 .navigation{
   box-shadow: 0 0 3px #cccccc;
@@ -101,21 +130,92 @@ body{
 
 /*MAIN MENU OPTIONS*/
 
+.machine-menu{
+  max-width: 990px;
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.menu-section{
+  float: left;
+  height: 200px;
+}
+
+.laser-menu,
+.milling-image{
+  margin-right: 60px;
+}
+
+.laser-image{
+  margin-right: 80px;
+}
+
+.laser-menu,
+.milling-menu{
+  width: 195px;
+  padding: 50px 0px;
+}
+
+.laser-image,
+.milling-image{
+  width: 200px;
+}
+
+.laser-file-preparation,
+.milling-file-preparation{
+  width: 165px;
+  float: right;
+}
+
+.laser-file-operation,
+.milling-file-operation{
+  width: 195px;
+  float: right;
+}
+
+.milling-operation,
+.laser-operation{
+  height: 45px;
+  border-radius: 23px;
+  padding-top: 12px;
+  font-size: 14px;
+  margin: 8px 0px;
+}
+
+.milling-operation{
+  float: left;
+}
+
+.operation-label{
+  margin-top: 40px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.laser-option, .milling-option{
+  height: 200px;
+  width: 200px;
+  background-image: url('../images/laser_option.png');
+  background-size: 200px;
+}
+
+.milling-option{
+   background-image: url('../images/milling_option.png');
+}
+
 .main-option{
   margin: 100px auto;
 }
 
 .main-menu-title{
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
-.laser-option, .milling-option{
-  height: 250px;
-  width: 250px;
-  background-image: url('../images/laser_option.png');
-  background-size: 250px;
-}
+
+
+
 
 .laser-option.hover{
   background-image: url('../images/laser_option_hover.png');
@@ -123,10 +223,6 @@ body{
 
 .laser-option.active{
   background-image: url('../images/laser_option_clicked.png');
-}
-
-.milling-option{
-   background-image: url('../images/milling_option.png');
 }
 
 .milling-option.hover{
@@ -137,49 +233,11 @@ body{
   background-image: url('../images/milling_option_clicked.png');
 }
 
-
 .operation-select-wrapper{
   margin-top: 80px;
 }
 
-.operation-select{
-  height: 40px;
-  border: 1px solid #4285f4;
-  color: #4285f4;
-  text-align: center;
-  border-radius: 20px;
-  margin: 5px 0px;
-  padding-top: 10px;
-}
 
-.operation-select:hover{
-  background-color: #80b4ff;
-  color: white;
-  border: 1px solid #80b4ff;
-  cursor: pointer;
-}
-
-.operation-select:active{
-  background-color: #0059c1;
-  color: white;
-  border: 1px solid #0059c1;
-  cursor: pointer;
-}
-
-
-.laser-file-preparation{
-  width: 170px;
-  float: right;
-}
-
-.milling-file-preparation{
-  width: 170px;
-  float: left;
-}
-
-.operation-label{
-  text-align: center;
-}
 
 
 
@@ -188,39 +246,13 @@ body{
   margin-top: 30px;
 }
 
-.add-file-button{
+.lp-add-file-button{
   width: 110px;
-  height: 39px;
-  float: left;
-  background-image: url('../images/add_file.png');
-  background-repeat: no-repeat;
-  background-size: 110px;
-  margin-right: 10px;
+  padding-left: 30px;
 }
 
-.add-file-button:hover{
-  background-image: url('../images/add_file_hover.png');
-}
-
-.add-file-button:active{
-  background-image: url('../images/add_file_clicked.png');
-}
-
-.clear-button{
+.lp-clear-button{
   width: 122px;
-  height: 39px;
-  float:left;
-  background-image: url('../images/clear.png');
-  background-repeat: no-repeat;
-  background-size: 120px;
-}
-
-.clear-button:hover{
-  background-image: url('../images/clear_hover.png');
-}
-
-.clear-button:active{
-  background-image: url('../images/clear_clicked.png');
 }
 
 .laser-setup-buttons-wrapper{
@@ -262,8 +294,45 @@ body{
   padding-top: 10px;
 }
 
+.laser-params-left-panel-wrapper{
+  height: 620px;
+  border: solid 1px solid;
+  width: 100%;
+  box-shadow: 0px 0px 4px #cccccc;
+}
 
+.laser-params-left-panel{
+  width: 100%;
+  height: 65px;
+  box-shadow: 0px 4px 4px #cccccc;
+  background-image: url('../images/laser_icon.png');
+  background-position: 25px 23px;
+  background-size: 25px;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
 
+.laser-params-left-panel p{
+  padding-top: 25px;
+  padding-left: 60px;
+}
+
+.speed-power-params{
+  padding: 20px;
+}
+
+.laser-params-buttons{
+  width: 260px;
+  margin: 0px auto;
+}
+
+.lp-generate-button{
+  width: 115px;
+} 
+
+.lp-clear-button{
+  width: 105px;
+}
 
 .flow-text{
   text-align: center;

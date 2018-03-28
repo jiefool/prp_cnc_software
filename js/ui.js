@@ -51,7 +51,7 @@ $(document).ready(function(){
     $(".laser-operate-window").show();
   })
 
-  $(".add-file-button").click(function(){
+  $(".lp-add-file-button").click(function(){
     svgSelectFile();
   })
 })
