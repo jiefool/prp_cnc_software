@@ -133,6 +133,10 @@
       </div>
 
       <div class="col-md-10 col-md-offset-1">
+
+        <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
+        <input type="button" class="btn btn-default" value="IMPORT GCODE" onclick="document.getElementById('gcodeFileSelect').click();" />
+        <input type="button" class="btn btn-default" id="clear-cut-en-canvas" value="Clear" onclick="clearCutEngraveCanvas()"/>
            
         <select class="form-control" id="device-select" class="prp-button">
           <option value="" disabled selected>Select LASER Machine</option>
@@ -160,7 +164,7 @@
         </div>
            
       </div>
-      
+
     </div>
 
   </div>
