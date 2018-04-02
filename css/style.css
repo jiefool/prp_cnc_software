@@ -249,10 +249,27 @@ body{
 .lp-add-file-button{
   width: 110px;
   padding-left: 30px;
+  background-image: url('../images/add_file.png');
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: 15px;
+}
+
+.lp-add-file-button:hover{
+  background-image: url('../images/add_file_hover.png');
 }
 
 .lp-clear-button{
-  width: 122px;
+  width: 115px;;
+  padding-left: 20px;
+  background-image: url('../images/clear.png');
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+
+.lp-clear-button:hover{
+  background-image: url('../images/clear_hover.png');
 }
 
 .laser-setup-buttons-wrapper{
@@ -330,9 +347,18 @@ body{
   width: 115px;
 } 
 
-.lp-clear-button{
+.lp-clear-settings{
   width: 105px;
 }
+
+
+
+
+/* laser operate */
+.laser-operate{
+  margin-top: 50px;
+}
+
 
 .flow-text{
   text-align: center;
@@ -383,15 +409,16 @@ p{
 
 .canvas-area{
   background-color: #f5f5f5;
-  width: 100%;
+  width: 900px;
+  margin: 0 auto;
 }
 
 .import-buttons{
   margin-bottom: 10px;
 }
 
-.current-window{
-
+#device-select{
+  width: 200px;
 }
 
 

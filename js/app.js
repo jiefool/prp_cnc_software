@@ -296,7 +296,7 @@ function svgImport(){
 function addStrokeSpeedPowerParams(){
   Object.keys(objectStrokeColors).forEach(function(stroke){
     stroke_n = stroke.replace("#","")
-    html_text = '<div class="input-group" style="height: 50px"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+';border-radius:5px"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed" style="height: 50px"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power" style="height: 50px">'
+    html_text = '<div class="input-group" style="height: 30px"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+';border-radius:8px"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed" style="height: 35px"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power" style="height: 35px">'
     if (stroke == "#000000" || stroke == "#000"){
       html_text += '<span class="input-group-addon" id="basic-addon1">Raster</span> <span class="input-group-addon"><input type="checkbox" aria-label="" id="'+stroke_n+'-raster"></div><br/>'
     }else{

@@ -117,7 +117,7 @@
            <div class="lp-generate-button prp-button">
               Generate G-Code
             </div>
-            <div class="lp-clear-button prp-button">
+            <div class="lp-clear-settings prp-button">
               Clear Settings
             </div>
           </div>
@@ -128,42 +128,39 @@
     </div>
 
     <div class="row laser-operate" style="display:none">
-      <div class="col-md-12 import-buttons">
-        <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
-        <input type="button" class="btn btn-default" value="IMPORT GCODE" onclick="document.getElementById('gcodeFileSelect').click();" />
-        <input type="button" class="btn btn-default" id="clear-cut-en-canvas" value="Clear" onclick="clearCutEngraveCanvas()"/>
-        <span id="gcode-path"></span>
+      <div class="canvas-area">
+        <canvas id="en-cut-canvas" width="900" height="570"></canvas>
       </div>
-      <div class="col-md-9">
-        <div class="canvas-area">
-          <canvas id="en-cut-canvas" width="930" height="620"></canvas>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="row">
-          <div class="col-md-12">
-            <select class="form-control" id="device-select">
-              <option value="" disabled selected>Select LASER Machine</option>
-            </select>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-md-12">
-            <button type="button" id="lasing-button" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Lasing...">Start Lasing</button>
-            <input type="button" class="btn btn-warning" value="Pause" onclick="pauseLasing()"/>
-            <input type="button" class="btn btn-success" value="Resume" onclick="resumeLasing()"/>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-md-12">
-            <input type="button" class="btn btn-danger" value="Stop" onclick="stopLasing()"/>
-            <input type="button" class="btn btn-success" value="Home" onclick="gantryHome()"/>
+
+      <div class="col-md-10 col-md-offset-1">
            
-          </div>
+        <select class="form-control" id="device-select" class="prp-button">
+          <option value="" disabled selected>Select LASER Machine</option>
+        </select>
+
+    
+        <div class="prp-button">
+          Start Lasing
         </div>
+
+        <div class="prp-button" onclick="pauseLasing()">
+          Pause
+        </div>
+
+        <div class="prp-button" onclick="resumeLasing()">
+          Resume
+        </div>
+
+        <div class="prp-button" onclick="stopLasing()">
+          Stop
+        </div>
+
+        <div class="prp-button" onclick="gantryHome()">
+          Home
+        </div>
+           
       </div>
+      
     </div>
 
   </div>
