@@ -11,78 +11,59 @@
 <body>
   <div class="container-fluid">
     <div class="row navigation">
-      <div class="col-md-8">
-        <div class="navigation-button">
-          <div id="app-banner"></div>
-        </div>
-
-        <div class="navigation-button">
-          <div id="main-menu-button"><p>Main Menu</p></div>
-        </div>
-
-        <div class="current-window">
-          <div class="laser-setup-window">
-            <p>Laser Cutter / File Preparation</p>
-          </div>
-          <div class="laser-operate-window">
-            <p>Laser Cutter / Machine Operation</p>
-          </div>
-        </div>
-
+      <div class="col-md-2">
+        <div id="app-banner"></div>
       </div>
-      <div class="col-md-4">
-        <div class="language-button">
-          <div id="english-language" class="language-selected">
-            English
-          </div>
-        </div>
-        <div class="language-button">
-          <div id="visayan-language">
-            Visayan
-          </div>
-        </div>
+      <div class="col-md-1 col-md-offset-8 nav-text-menu">
+          Language
+      </div>
+      <div class="col-md-1 nav-text-menu">
+        Help
       </div>
     </div>
   
-    <div class="row main-option">
-      <div class="col-md-12">
-        <h4 class="main-menu-title">Main Selection Menu</h4>
-      </div>
+    <div class="row main">
+      <div id="machine-selection">
+        <div class="col-md-12">
+          <h2 class="main-menu-title">Which machine do you want to use?</h2>
+        </div>
 
-      <div class="col-md-12">
-        <div class="machine-menu">
-          <div class="menu-section laser-menu">
-            <div class="prp-button laser-file-preparation laser-operation">
-              File Preparation
+        <div class="col-md-12">
+          <div class="machine-select-container">
+            <div class="machine-container">
+              <div class="machine-image">
+                <image src="images/milling_machine.png" width="230">
+              </div>
+              <h2>Milling Machine</h2>
+              <button class="prp-button" id="milling-operation">
+                Select
+              </button>
             </div>
-            <div class="prp-button laser-file-operation laser-operation">
-              Machine Operation
+
+            <div class="machine-container">
+              <div class="machine-image">
+                <image src="images/laser_cutter.png" width="230">
+              </div>
+              <h2>Laser Cutter</h2>
+              <button class="prp-button" id="laser-operation">
+                Select
+              </button>
             </div>
-          </div>
-          <div class="menu-section laser-image">
-            <div class="laser-option">
-            </div>
-             <div class="operation-label">LASER Cutter</div>
-          </div>
-          <div class="menu-section milling-image">
-            <div class="milling-option">
-            </div>
-             <div class="operation-label">Milling Machine</div>
-          </div>
-          <div class="menu-section milling-menu">
-            <div class="prp-button milling-file-preparation milling-operation">
-              File Preparation
-            </div>
-            <div class="prp-button milling-file-operation milling-operation">
-              Machine Operation
+
+            <div class="machine-container">
+              <div class="machine-image">
+                <image src="images/3d_printer.png" width="230">
+              </div>
+              <h2>3D Printer</h2>
+              <button class="prp-button" id="3d-operation">
+                Select
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-
-    <div class="row laser-setup" style="display:none">
+      <div class="row laser-setup" style="display:none">
       <div class="col-md-12 import-buttons">
         <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
 
@@ -167,6 +148,31 @@
 
     </div>
 
+      <div class="col-md-12">
+        <div class="operation-step-wrapper">
+          <div class="prev-container">
+            <div class="prev-next-arrow"><img src="images/prev_arrow.png" width="30"></div>
+            <div class="operation-step os-no-margin">2</div>
+          </div>
+          <div class="operation-step-container">
+            <div class="operation-step current-step">1</div>
+            <div class="operation-step next-step">2</div>
+            <div class="operation-step">3</div>
+            <div class="operation-step">4</div>
+          </div>
+          <div class="next-container">
+            <div class="prev-next-arrow"><img src="images/next_arrow.png" width="30"></div>
+            <div class="operation-step os-no-fx current-step">2</div>
+          </div>
+        </div>
+        <div class="operation-step-container">
+          <div class="operation-label ol-current">Machine Selection</div>
+          <div class="operation-label ol-next">Machine Actions</div>
+          <div class="operation-label">File Preparation</div>
+          <div class="operation-label">Machine Operation</div>
+        </div>
+      </div> 
+    </div>
   </div>
 
   <div class="container milling-gcode" style="display:none">

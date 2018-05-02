@@ -12,47 +12,67 @@ body{
 .prp-button{
   text-align: center;
   color: #0059c1;
-  height: 35px;
-  border-radius: 17px;
-  float: left;
-  font-size: 12px;
-  border: solid 1px #0059c1;
-  padding-top: 9px;
-  margin: 8px 10px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 5px 50px;
+  border: solid 1px #ab47bc;
+  font-weight: bold;
+  background-color: #ab47bc;
+  color: white;
+  letter-spacing: 1px;
 }
 
 .prp-button:hover, 
 .prp-button:hover{
-  border: solid 1px #80b4ff;
-  background-color: #80b4ff;
+  border: solid 1px #ce93d8;
+  background-color: #ce93d8;
   color: white;
 }
 
 .prp-button:active, 
 .prp-button:active{
-  border: solid 1px #0059c1;
-  background-color: #0059c1;
+  border: solid 1px #6a1b9a;
+  background-color: #6a1b9a;
   color: white;
 }
 
-
-.navigation{
-  box-shadow: 0 0 3px #cccccc;
-  height: 50px;
+.nav-text-menu{
+  padding-top: 20px;
 }
 
-.navigation div{
-  padding-left: 0;
-  background-color: #f2f2f2;
+.machine-image{
+  height: 308px;
+  width: 230px;
+  background-color: #0059c1;
 }
+
+.machine-select-container{
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.machine-container{
+  float: left;
+  margin: 15px;
+  text-align:center;
+  color: #939598;
+}
+
+.machine-container h2{
+  margin: 40px 0px 20px 0px;
+  font-size: 25px;
+}
+
 
 #app-banner{
-  width: 120px;
-  height: 35px;
+  width: 200px;
+  height: 50px;
   background-image: url('../images/banner_logo.png');
   background-repeat: no-repeat;
-  background-size: 100px;
-  background-position: 15px 5px;
+  background-size: 170px;
+  background-position: 15px 15px;
 }
 
 #app-version{
@@ -64,13 +84,6 @@ body{
   height: 50px;
   float: left;
   box-shadow: inset 0 1px 1px #ccc;
-  padding: 14px 5px;  
-}
-
-.language-button{
-  width: 130px;
-  height: 50px;
-  float: left;
   padding: 14px 5px;  
 }
 
@@ -97,35 +110,74 @@ body{
   padding-top: 4px;
 }
 
-#english-language{
-  height: 25px;
-  width: 70px;
-  margin: 0px 50px;
-  padding-top: 2px;
-  padding-left: 2px;
-  text-align: center;
-  border-radius: 30px;
+
+/* operation step */
+.operation-step-container{
+  width: 440px;
+  margin: 0px auto 0px auto;
 }
 
-#visayan-language{
-  height: 25px;
-  width: 70px;
-  padding-top: 2px;
-  margin: 0px 10px;
-  padding-left: 2px;
-  text-align: center;
-  border-radius: 30px;
-}
 
-#english-language:hover, #visayan-language:hover{
+.operation-step{
+  background-color: #f0f2f7;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  float:left;
+  margin: 35px 30px 0px 30px;
+  text-align: center;
+  padding-top: 12px;
+  font-size: 20px;
+  font-weight: bold;
   color: white;
-  background-color: #939598;
 }
 
-.language-selected {
-  border: 1px solid black;
-  color: black;
-  background-color: #f2f2f2;
+.current-step{
+  background-color: #ab47bc;
+  box-shadow: 0px -3px 1px #6a1b9a;
+}
+
+.next-step{
+  background-color: #97969c;
+  box-shadow: 0px 2px 1px #69686e;
+}
+
+.prev-next-arrow{
+  margin-top: 8px;
+}
+
+.os-no-fx{
+  margin: 0px;
+  box-shadow: none;
+}
+
+.operation-label{
+  float: left;
+  width: 110px;
+  font-size: 11px;
+  margin-top: 5px;
+  text-align: center;
+  color: #e4e5e6;
+}
+
+.ol-current{
+  color: #ab47bc;
+}
+
+.ol-next{
+  color: #97969c;
+}
+
+.prev-container{
+  display: none;
+}
+
+.prev-container div{
+  float:left;
+}
+
+.next-container div{
+  float:right;
 }
 
 /*MAIN MENU OPTIONS*/
@@ -187,12 +239,6 @@ body{
   float: left;
 }
 
-.operation-label{
-  margin-top: 40px;
-  font-size: 16px;
-  text-align: center;
-}
-
 .laser-option, .milling-option{
   height: 200px;
   width: 200px;
@@ -204,13 +250,14 @@ body{
    background-image: url('../images/milling_option.png');
 }
 
-.main-option{
-  margin: 100px auto;
+.main{
+  margin: 80px auto 0px auto;
 }
 
 .main-menu-title{
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+  color: #6a1b9a;
 }
 
 
