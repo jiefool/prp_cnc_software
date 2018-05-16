@@ -9,6 +9,13 @@ body{
   font-family: 'Roboto-Regular';
 }
 
+.main{
+  min-height: 650px;
+  height: 100%;
+  padding-top: 70px;
+}
+
+
 .prp-button{
   text-align: center;
   color: #0059c1;
@@ -23,18 +30,21 @@ body{
   letter-spacing: 1px;
 }
 
-.prp-button:hover, 
 .prp-button:hover{
   border: solid 1px #ce93d8;
   background-color: #ce93d8;
   color: white;
 }
-
-.prp-button:active, 
+ 
 .prp-button:active{
   border: solid 1px #6a1b9a;
   background-color: #6a1b9a;
   color: white;
+}
+
+.machine{
+  width: 270px;
+  margin: 0px auto;
 }
 
 .nav-text-menu{
@@ -130,11 +140,6 @@ body{
   font-size: 20px;
   font-weight: bold;
   color: white;
-}
-
-.current-step{
-  background-color: #ab47bc;
-  box-shadow: 0px -3px 1px #6a1b9a;
 }
 
 .next-step{
@@ -239,19 +244,39 @@ body{
   float: left;
 }
 
-.laser-option, .milling-option{
-  height: 200px;
-  width: 200px;
-  background-image: url('../images/laser_option.png');
-  background-size: 200px;
+.laser-setting,
+.machine-select,
+.laser-option{
+  height: 550px;
+}
+
+.laser-option{
+  height: 557px;
+}
+
+.laser-option div{
+  margin-top: 20px;
+}
+
+.laser-option h1{
+  margin-left: 14px;
+  color: #ab47bc;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.laser-option p{
+  margin-left: 14px;
+  color: #939598;
+  font-size: 30px;
+}
+
+.laser-option .action-pane{
+  margin-top: 120px;
 }
 
 .milling-option{
    background-image: url('../images/milling_option.png');
-}
-
-.main{
-  margin: 80px auto 0px auto;
 }
 
 .main-menu-title{
@@ -261,63 +286,15 @@ body{
 }
 
 
-
-
-
-.laser-option.hover{
-  background-image: url('../images/laser_option_hover.png');
-}
-
-.laser-option.active{
-  background-image: url('../images/laser_option_clicked.png');
-}
-
-.milling-option.hover{
-  background-image: url('../images/milling_option_hover.png');
-}
-
-.milling-option.active{
-  background-image: url('../images/milling_option_clicked.png');
-}
-
-.operation-select-wrapper{
-  margin-top: 80px;
-}
-
-
-
-
-
 /* laser file preparation page */
 .laser-setup{
-  margin-top: 30px;
+  height: 554px;
 }
 
-.lp-add-file-button{
-  width: 110px;
-  padding-left: 30px;
-  background-image: url('../images/add_file.png');
-  background-size: 25px;
-  background-repeat: no-repeat;
-  background-position: 15px;
+.laser-setup h2{
+  margin-top: 0px;
 }
 
-.lp-add-file-button:hover{
-  background-image: url('../images/add_file_hover.png');
-}
-
-.lp-clear-button{
-  width: 115px;;
-  padding-left: 20px;
-  background-image: url('../images/clear.png');
-  background-size: 18px;
-  background-repeat: no-repeat;
-  background-position: 10px;
-}
-
-.lp-clear-button:hover{
-  background-image: url('../images/clear_hover.png');
-}
 
 .laser-setup-buttons-wrapper{
   margin-left: 40px;
@@ -359,10 +336,20 @@ body{
 }
 
 .laser-params-left-panel-wrapper{
-  height: 620px;
+  height: 500px;
   border: solid 1px solid;
   width: 100%;
+  text-align: center;
+  background-color: #f2f1e6;
   box-shadow: 0px 0px 4px #cccccc;
+}
+
+.laser-params-left-panel-wrapper button{
+  margin: 5px auto;
+}
+
+.laser-params-left-panel-wrapper .step-prompt{
+  padding: 20px 0px 30px 0px;
 }
 
 .laser-params-left-panel{
@@ -402,10 +389,6 @@ body{
 
 
 /* laser operate */
-.laser-operate{
-  margin-top: 50px;
-}
-
 
 .flow-text{
   text-align: center;
@@ -455,9 +438,7 @@ p{
 }
 
 .canvas-area{
-  background-color: #f5f5f5;
-  width: 900px;
-  margin: 0 auto;
+  background-color: #f2f1e6;
 }
 
 .import-buttons{
@@ -465,7 +446,214 @@ p{
 }
 
 #device-select{
-  width: 200px;
+  width: 100%;
+  padding: 0px 10px;
 }
 
+.preparation-text-wrapper,
+.operation-text-wrapper{
+  width: 100%;
+  color: #ab47bc;
+}
+
+.preparation-text-prev,
+.operation-text-prev{
+  float:left;
+}
+
+.preparation-text-next,
+.operation-text-next{
+  float:right;
+}
+
+.laser-file{
+  padding-top: 20px;
+}
+
+.laser-file-action-step{
+  width: 100%;
+  height: 65px;
+  padding: 0px 10px;
+}
+
+.laser-file-action-1,
+.laser-file-action-2{
+  max-height: 410px;
+  height: 100%;
+}
+
+
+.preparation-step-small-wrapper,
+.preparation-step-small-wrapper-operate,
+.operation-step-small-wrapper,
+.operation-step-small-wrapper-operate{
+  width: 92px;
+  height: 22px;
+  margin: 0px auto;
+  color: white;
+}
+
+.preparation-step-small-wrapper-operate,
+.operation-step-small-wrapper-operate{
+  width: 138px;
+  margin-top: 10px;
+}
+
+.preparation-step-small,
+.operation-step-small{
+  width: 26px;
+  height: 26px;
+  margin: 30px 10px 10px 10px;
+  float: left;
+  border-radius: 13px;
+  padding-top: 3px;
+  text-align: center;
+  background-color: #bcbec0;
+}
+
+.current-step{
+  background-color: #ab47bc;
+  box-shadow: 0px -3px 1px #6a1b9a;
+}
+
+.laser-operate-step-1 button,
+.laser-operate-step-2 button,
+.laser-operate-step-3 button{
+  display: block;
+  margin: 10px auto;
+}
+
+.laser-operate-step-1 h4,
+.laser-operate-step-2 h4,
+.laser-operate-step-3 h4{
+  text-align: center;
+}
+
+.panel-wrapper{
+  padding: 10px 0px;
+  height: 415px;
+  max-height: 415px;
+}
+
+.laser-operate-panel{
+  background-color: #f2f1e6;
+  height: 355px;
+}
+
+.laser-operate{
+  width: 100%;
+}
+
+.text-center{
+  text-align:center;
+}
+
+.params-field{
+  height: 30px;
+}
+
+.params-stroke{
+  height: 20px;
+  width:20px;
+  background-color:black;
+  border-radius:8px;
+  margin: 5px auto;
+}
+
+.speed-power-params{
+  overflow-y: scroll;
+  height: 200px
+}
+
+.lasing-time{
+  width:200px;
+  font-size:25px;
+  background-color: white;
+  margin: 0px auto;
+  height: 35px;
+  padding-top: 1px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.cut-wrapper{
+  text-align: center;
+  color: #4caf50;
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.cut-button{
+  height: 120px;
+  width: 120px;
+  background-color: red;
+  margin: 0px auto;
+  background-image: url('../images/cut_button_active.png');
+  background-size: 120px 120px;
+  border-radius: 60px;
+}
+
+.cut-button:hover{
+  background-image: url('../images/cut_button_hovered.png');
+}
+
+.cut-button:active{
+  background-image: url('../images/cut_button_clicked.png');
+}
+
+.stop-button,
+.pause-button{
+  height: 80px;
+  width: 80px;
+  background-color: black;
+  background-size: 80px 80px;
+  border-radius: 40px;
+}
+
+.stop-wrapper{
+  width: 80px;
+  float: right;
+  text-align:center;
+  color: #f44336;
+  font-size: 15px;
+  margin-top: -15px;
+}
+
+.stop-button{
+  background-image: url('../images/stop_button_active.png');
+}
+
+.stop-button:hover{
+  background-image: url('../images/stop_button_hovered.png');
+}
+
+.stop-button:active{
+  background-image: url('../images/stop_button_clicked.png');
+}
+
+.pause-wrapper{
+  width: 80px;
+  float: left;
+  text-align:center;
+  color: #ffc107;
+  font-size: 15px;
+  margin-top: -15px;
+}
+
+.pause-button{
+  background-image: url('../images/pause_button_active.png');
+}
+
+.pause-button:hover{
+  background-image: url('../images/pause_button_hovered.png');
+}
+
+.pause-button:active{
+  background-image: url('../images/pause_button_clicked.png');
+}
+
+.ps-wrapper{
+  width: 250px;
+  margin: 0 auto;
+}
 

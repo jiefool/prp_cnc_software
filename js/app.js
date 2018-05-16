@@ -31,9 +31,10 @@ var laseIntensity = ""
 var rulerLineGroup
 var isResumed = false;
 var canvas = new fabric.Canvas('canvas')
+canvas.setWidth(748);
 var en_cut_canvas = document.getElementById("en-cut-canvas");
 var en_cut_ctx = en_cut_canvas.getContext("2d");
-canvas.setHeight(620)
+canvas.setHeight(500)
 
 
 window.addEventListener('resize', resizeCanvas, false)
@@ -49,19 +50,6 @@ var hasImportedGcode = false;
 var hasPortOpen = false;
 
 $(document).ready(function(){
-
-  $('.generate-gcode').on('click', function() {
-    if (hasImportedDesign){
-      var $this = $(this);
-      $this.button('loading');
-      canvasToGcode();
-    }else{
-      alert("Please import a design first.")
-    }
-    
-  });
-
-
   $('#lasing-button').on('click', function() {
     if (hasImportedGcode){
       var $this = $(this);
@@ -85,7 +73,7 @@ function addRuler(){
   rulerLine.push(new fabric.Rect({
     left: 0,
     top: 0,
-    fill: 'black',
+    fill: "#ab47bc",
     width: canvas.width,
     height: 8/scale
   }))
@@ -96,7 +84,7 @@ function addRuler(){
       left: i/scale,
       top: 0,
       stroke: 'white',
-      strokeWidth: 0.5
+      strokeWidth: 1.5
     }))
 
     rulerLine.push(new fabric.Text(String(i), { 
@@ -113,7 +101,7 @@ function addRuler(){
       left: i/scale,
       top: 0,
       stroke: 'white',
-      strokeWidth: 0.5
+      strokeWidth: 1.5
     }))
   }
 
@@ -124,9 +112,9 @@ function addRuler(){
   canvas.add(rulerLineGroup)
 }
 
-$('#device-select').hover(function(){
-  appendSerialDevice()
-})
+// $('#device-select').hover(function(){
+//   appendSerialDevice()
+// })
 
 
 
@@ -161,7 +149,7 @@ parser.on('data', function(data){
       counter++
 
       if (counter >= gcodes.length){
-        $("#lasing-button").button('reset');
+        stopTime();
         port.close()
       }
     }
@@ -174,15 +162,6 @@ parser.on('data', function(data){
 })
 
 
-$('#device-select').change(function(){
-  port = new sp($(this).val(), {
-    baudRate: 57600
-  })
-
-  hasPortOpen = true;
-  port.pipe(parser)
-})
-
 function resizeCanvas() {
   cwidth = $(".canvas-area").get(0).offsetWidth
   canvas.setWidth(cwidth)
@@ -190,6 +169,7 @@ function resizeCanvas() {
 }
 
 function handleAddRuler(){
+  canvas.setWidth($(".canvas-area").width())
   canvas._objects.forEach(function(cGroup, index){
     if(cGroup._objects.length == rulerLineGroup._objects.length){
       canvas.remove(cGroup)
@@ -200,6 +180,8 @@ function handleAddRuler(){
 
 function svgImport(){ 
   var svgFile = document.getElementById("selectedFile").files[0].path
+
+  console.log(svgFile)
 
   fabric.loadSVGFromURL(svgFile, function(objects, options) {
     svgObjects = []
@@ -296,12 +278,21 @@ function svgImport(){
 function addStrokeSpeedPowerParams(){
   Object.keys(objectStrokeColors).forEach(function(stroke){
     stroke_n = stroke.replace("#","")
-    html_text = '<div class="input-group" style="height: 30px"><span class="input-group-addon" id="'+stroke+'"><div style="height: 20px;width:20px;background-color:'+stroke+';border-radius:8px"></div></span><span class="input-group-addon" id="basic-addon1">Speed</span> <input type="text" class="form-control" placeholder="0000" aria-describedby="basic-addon1" id="'+stroke_n+'-speed" style="height: 35px"> <span class="input-group-addon" id="basic-addon1">Power</span> <input type="text" class="form-control" placeholder="100%" aria-describedby="basic-addon1" id="'+stroke_n+'-power" style="height: 35px">'
-    if (stroke == "#000000" || stroke == "#000"){
-      html_text += '<span class="input-group-addon" id="basic-addon1">Raster</span> <span class="input-group-addon"><input type="checkbox" aria-label="" id="'+stroke_n+'-raster"></div><br/>'
-    }else{
-      html_text += '</div><br/>'
-    }
+    $(".speed-power-params").html("");
+    html_text = `
+        <div  style="height: 30px">
+          <div class="col-md-2">
+            <div style="height: 20px;width:20px;background-color:`+stroke+`;border-radius:8px;margin: 5px auto"></div>
+          </div>
+          <div class="col-md-5">
+            <input type="text" class="form-control ps-params" placeholder="100%" aria-describedby="basic-addon1" id="`+stroke_n+`-power" style="height: 30px">
+          </div>
+          <div class="col-md-5">
+            <input type="text" class="form-control ps-params" placeholder="0000" aria-describedby="basic-addon1" id="`+stroke_n+`-speed" style="height: 30px"> 
+          </div>
+        </div>
+        <br/>
+    `
     $(".speed-power-params").append(html_text)
   })
 }
@@ -435,10 +426,9 @@ function appendSerialDevice(){
       if (port.manufacturer != undefined ){
         if (laserDevices.indexOf(port.comName) === -1){
           laserDevices.push(port.comName)
-          $('#device-select').append($('<option>', {
-              value: port.comName,
-              text: port.comName + '('+port.manufacturer+')'
-          }))
+          $("#laser-port").append(port.comName)
+          // console.log(port.comName);
+          // $('#device-select').append('<button class="prp-button machine" onclick="openPort(\''+port.comName+'\')">'+port.comName+'</button>')
         }
       }
     })
@@ -535,4 +525,66 @@ function closeOpenPort(){
       });
     })
   })
+}
+
+function clearCanvas(){
+  canvas.clear();
+  addRuler();
+  $("#selectedFile").val("");
+}
+
+function checkForImportedFile(){
+  if (canvas._objects.length > 1){
+    return true
+  }else{
+    return false
+  }
+}
+
+function goToStepThree(){
+  operationStep++;
+  operationStepController(operationStep);
+  setOperationView(operationStep);
+}
+
+function openPort(bdRate){
+  port = new sp(laserDevices[0], {
+    baudRate: bdRate
+  })
+
+  hasPortOpen = true;
+  $("#connection-status").append("Device connected.")
+  port.pipe(parser)
+}
+
+var lasingTimer;
+function startTime(){
+  lasingTimer = setInterval(laseTimerFunc, 1000)
+}
+
+var elapsedLasingTime = 0;
+function laseTimerFunc(){
+  elapsedLasingTime++;
+
+  var sec = elapsedLasingTime % 60
+  var min = Math.floor(elapsedLasingTime/60)
+  var hour = Math.floor(min/60)
+
+  var secStr = addLeadingZero(sec)
+  var minStr = addLeadingZero(min)
+  var hourStr = addLeadingZero(hour)
+  
+  $(".lasing-time").html(hourStr + ':' + minStr + ':' + secStr )
+}
+
+function stopTime(){
+  clearInterval(lasingTimer)
+}
+
+function addLeadingZero(num){
+  if (num > 9){
+    return num
+  }else{
+    return "0" + num
+  }
 }

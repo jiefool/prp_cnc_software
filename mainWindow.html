@@ -10,7 +10,9 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row navigation">
+
+
+    <div class="row header">
       <div class="col-md-2">
         <div id="app-banner"></div>
       </div>
@@ -21,9 +23,11 @@
         Help
       </div>
     </div>
+
+
   
     <div class="row main">
-      <div id="machine-selection">
+      <div id="machine-select" style="display:block">
         <div class="col-md-12">
           <h2 class="main-menu-title">Which machine do you want to use?</h2>
         </div>
@@ -63,129 +67,229 @@
         </div>
       </div>
 
-      <div class="row laser-setup" style="display:none">
-      <div class="col-md-12 import-buttons">
-        <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
 
-        <!-- <input type="button" class="btn btn-default" value="SVG" onclick="svgSelectFile()" /> -->
+      <!-- ######## LASER ######## -->
+      <div class="laser-operation-wrapper">
 
-        <div class="laser-setup-buttons-wrapper">
-          <div class="lp-add-file-button prp-button">
-            Add File
-          </div>
-
-          <div class="lp-clear-button prp-button">
-            Clear Board
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-8">
-        <div class="canvas-area">
-          <canvas id="canvas"></canvas>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="laser-params-left-panel-wrapper">
-          <div class="laser-params-left-panel">
-            <p>File Parameters Setting</p>
-          </div>
-
-          <div class="speed-power-params"></div>
-
-          <div class="laser-params-buttons">
-           <!--  <button type="button" class="btn btn-primary btn-lg generate-gcode" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Generating...">Generate & Save G-Code</button> -->
-           <div class="lp-generate-button prp-button">
-              Generate G-Code
-            </div>
-            <div class="lp-clear-settings prp-button">
-              Clear Settings
+        <div id="laser-operation-select" class="laser-option" style="display:none">
+          <div class="col-md-12">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="col-md-4">
+                <image src="images/laser_cutter.png" width="300" />
+              </div>
+              <div class="col-md-8 action-pane">
+                <h1>Laser Cutter</h1>
+                <p>What would you want to do with the Laser Cutter?</p>
+                <div class="col-md-12">
+                  <button class="prp-button" id="laser-prepare-file">Prepare a File</button>
+                  <button class="prp-button" id="laser-cut-material">Cut a Material</button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+
+
+        <div class="laser-setup" id="laser-setup" style="display:none">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
+              <h2>Laser Cutter</h2>
+            </div>
+
+            <div class="laser-setup-params">
+              <div class="col-md-8">
+                <div class="canvas-area">
+                  <canvas id="canvas"></canvas>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="laser-params-left-panel-wrapper">
+                  <div class="laser-file laser-file-action-1" >
+                    <h4>Step 1: Open File</h4>
+                    <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
+                    <button class="prp-button" id="laser-import-svg">Add File</button>
+                    <button class="prp-button" id="laser-clear-canvas">Clear Board</button>
+                  </div>
+
+                  <div class="laser-file laser-file-action-2" style="display:none">
+                    <h4>Step 2: Set Parameters</h4>
+                    <div>
+                      <div class="col-md-12">
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-5 text-center">Power</div>
+                        <div class="col-md-5 text-center">Speed</div>
+                      </div>
+
+                      <div class="col-md-12 speed-power-params"></div>
+
+                      <div class="laser-params-buttons">
+                        <button class="prp-button" id="generate-gcode-btn">
+                          Generate G-Code
+                        </button>
+                        <button class="prp-button">
+                          Clear Settings
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="laser-file-action-step" style="padding: 0px 10px">
+                    <div class="preparation-text-wrapper">
+                      <div class="preparation-text-prev" style="display: none">
+                        <img src="images/prev_arrow.png" width="15"/>
+                        Back
+                      </div>
+
+                      <div class="preparation-text-next">
+                        Next
+                        <img src="images/next_arrow.png" width="15"/>
+                      </div>
+                    </div>
+
+                    <div class="preparation-step-small-wrapper">
+                      <div class="preparation-step-small current-step" id="laser-prep-step-1">1</div>
+                      <div class="preparation-step-small" id="laser-prep-step-2">2</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div id="laser-operate" class="row laser-operate" style="display:none">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
+              <h2>Laser Cutter</h2>
+            </div>
+
+            <div class="col-md-4">
+              <div class="laser-operate-panel" style="height: 505px">
+                <div class="panel-wrapper">
+                  <div class="laser-operations laser-operate-step-1 file-import" style="display:none">
+                    <h4>Step 1: Open File</h4>
+                    <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
+                    <button class="prp-button" onclick="document.getElementById('gcodeFileSelect').click();">IMPORT GCODE</button>
+                    <button class="prp-button" id="clear-cut-en-canvas" onclick="clearCutEngraveCanvas()">Clear</button>
+                    <div style="padding: 10px">
+                    <p>Imported Gcode:</p>
+                    <p id="gcode-path"></p>
+                    </div>
+                  </div>
+
+                  <div class="laser-operations laser-operate-step-2" id="device-select" style="display:block">
+                    <h4>Step 2: Select Machine</h4>
+                    <button class="prp-button machine" onclick="openPort(57600)">Fabool Laser Mini</button>
+                    <button class="prp-button machine" onclick="openPort()">Fabool Laser C02</button>
+                    <button class="prp-button machine" onclick="">PRP IWI Laser</button>
+                    <br/>
+                    <p id="laser-port">
+                      Laser device in port:
+                    </p>
+                    <br/>
+                    <p id="connection-status">
+                      Connection status:
+                    </p>
+                  </div>
+
+                  <div class="laser-operations laser-operate-step-3 laser-actions" style="display:none">
+                    <h4>Step 3: Open File</h4>
+                    <div class="lasing-time">
+                      00:00:00
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="cut-wrapper">
+                        <div class="cut-button"></div>
+                        Cut
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="ps-wrapper">
+                        <div class="pause-wrapper">
+                          <div class="pause-button"></div>
+                          Pause
+                        </div>
+                        <div class="stop-wrapper">
+                          <div class="stop-button"></div>
+                          Stop
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="laser-file-action-step">
+                  <div class="operation-text-wrapper">
+                    <div class="operation-text-prev">
+                      <img src="images/prev_arrow.png" width="15"/>
+                      Back
+                    </div>
+
+                    <div class="operation-text-next">
+                      Next
+                      <img src="images/next_arrow.png" width="15"/>
+                    </div>
+                  </div>
+
+                  <div class="operation-step-small-wrapper-operate">
+                    <div class="operation-step-small oss-1 current-step">1</div>
+                    <div class="operation-step-small oss-2 ">2</div>
+                    <div class="operation-step-small oss-3 ">3</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-md-8 canvas-area">
+              <canvas id="en-cut-canvas" width="200" height="500"></canvas>
+            </div>
+          </div>
 
         </div>
-        <!-- <input type="button" class="btn btn-default" value="Generate G-code" onclick="canvasToGcode()"/> -->
+
       </div>
+      <!-- ######## LASER ######## -->
+
+
     </div>
 
-    <div class="row laser-operate" style="display:none">
-      <div class="canvas-area">
-        <canvas id="en-cut-canvas" width="900" height="570"></canvas>
-      </div>
-
-      <div class="col-md-10 col-md-offset-1">
-
-        <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
-        <input type="button" class="btn btn-default" value="IMPORT GCODE" onclick="document.getElementById('gcodeFileSelect').click();" />
-        <input type="button" class="btn btn-default" id="clear-cut-en-canvas" value="Clear" onclick="clearCutEngraveCanvas()"/>
-           
-        <select class="form-control" id="device-select" class="prp-button">
-          <option value="" disabled selected>Select LASER Machine</option>
-        </select>
-
-    
-        <div class="prp-button">
-          Start Lasing
-        </div>
-
-        <div class="prp-button" onclick="pauseLasing()">
-          Pause
-        </div>
-
-        <div class="prp-button" onclick="resumeLasing()">
-          Resume
-        </div>
-
-        <div class="prp-button" onclick="stopLasing()">
-          Stop
-        </div>
-
-        <div class="prp-button" onclick="gantryHome()">
-          Home
-        </div>
-           
-      </div>
-
-    </div>
-
-      <div class="col-md-12">
+    <div class="row footer">
+     <div class="col-md-12">
         <div class="operation-step-wrapper">
           <div class="prev-container">
             <div class="prev-next-arrow"><img src="images/prev_arrow.png" width="30"></div>
-            <div class="operation-step os-no-margin">2</div>
+            <div class="operation-step os-no-fx current-step prev-num">2</div>
           </div>
           <div class="operation-step-container">
-            <div class="operation-step current-step">1</div>
-            <div class="operation-step next-step">2</div>
-            <div class="operation-step">3</div>
-            <div class="operation-step">4</div>
+            <div class="operation-step current-step" id="step-num-1">1</div>
+            <div class="operation-step next-step" id="step-num-2">2</div>
+            <div class="operation-step" id="step-num-3">3</div>
+            <div class="operation-step" id="step-num-4">4</div>
           </div>
           <div class="next-container">
             <div class="prev-next-arrow"><img src="images/next_arrow.png" width="30"></div>
-            <div class="operation-step os-no-fx current-step">2</div>
+            <div class="operation-step os-no-fx current-step next-num">2</div>
           </div>
         </div>
         <div class="operation-step-container">
-          <div class="operation-label ol-current">Machine Selection</div>
-          <div class="operation-label ol-next">Machine Actions</div>
-          <div class="operation-label">File Preparation</div>
-          <div class="operation-label">Machine Operation</div>
+          <div class="operation-label ol-current" id="step-label-1">Machine Selection</div>
+          <div class="operation-label ol-next" id="step-label-2">Machine Actions</div>
+          <div class="operation-label" id="step-label-3">File Preparation</div>
+          <div class="operation-label" id="step-label-4">Machine Operation</div>
         </div>
       </div> 
     </div>
+
+
   </div>
 
-  <div class="container milling-gcode" style="display:none">
-    <div class="row">
-      <h1>Milling G-Code</h1>
-    </div>
-  </div>
 
-  <div class="container milling-operate" style="display:none">
-    <div class="row">
-      <h1>Milling Operate</h1>
-    </div>
-  </div>
 
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="js/jquery.min.js"></script>

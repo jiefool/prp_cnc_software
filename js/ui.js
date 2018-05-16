@@ -1,58 +1,117 @@
 $(document).ready(function(){
-  $(".laser-operation").mouseover(function(){
-    $(".laser-option").addClass("hover")
+
+  $("#laser-clear-canvas").click(function(){
+    clearCanvas();
   })
 
-  $(".laser-operation").mouseout(function(){
-    $(".laser-option").removeClass("hover")
-    $(".laser-option").removeClass("active")
+  $("#laser-import-svg").click(function(){
+    $("#selectedFile").click()
   })
 
-  $(".laser-operation").mousedown(function(){
-    $(".laser-option").addClass("active")
+  $("#laser-cut-material").click(function(){
+    viewController("laser-operate")
+    navigationController(4)
   })
 
-  $(".laser-operation").mouseup(function(){
-    $(".laser-option").removeClass("active")
+  $("#laser-prepare-file").click(function(){
+    viewController("laser-setup")
+    navigationController(3);
+    handleAddRuler();
   })
 
-  $(".milling-operation").mouseover(function(){
-    $(".milling-option").addClass("hover")
+  $(".prev-container").click(function(){
+    var currentStep = parseInt($(".prev-num").html());
+    viewController(viewWindows[currentStep - 1])
+    navigationController(currentStep)
+  });
+
+  $(".next-container").click(function(){
+    var currentStep = parseInt($(".next-num").html());
+    if (currentStep > 2 && currentStep <= 4){
+      viewController(viewWindows[currentStep - 1])
+      navigationController(currentStep)
+    }
+  });
+
+
+  $("#generate-gcode-btn").click(function(){
+    console.log(checkForInput());
+    if (checkForInput()){
+      canvasToGcode();
+    }else{
+      alert("Please input some value to the power and speed fields.");
+    }
   })
 
-  $(".milling-operation").mouseout(function(){
-    $(".milling-option").removeClass("hover")
-    $(".milling-option").removeClass("active")
+   $(".preparation-text-prev").click(function(){
+    $(".preparation-text-prev").hide();
+    $(".laser-file-action-2").hide();
+    $(".laser-file-action-1").show();
+    $(".preparation-text-next").show();
+    $("#laser-prep-step-2").removeClass("current-step");
+    $("#laser-prep-step-1").addClass("current-step");
   })
 
-  $(".milling-operation").mousedown(function(){
-    $(".milling-option").addClass("active")
+  $(".preparation-text-next").click(function(){
+    if (checkForImportedFile()){
+      $(".laser-file-action-1").hide();
+      $(".laser-file-action-2").show();
+      $(".preparation-text-prev").show();
+      $(".preparation-text-next").hide();
+      $("#laser-prep-step-1").removeClass("current-step");
+      $("#laser-prep-step-2").addClass("current-step");
+    }else{
+      alert("Must import a file.")
+    }
   })
 
-  $(".milling-operation").mouseup(function(){
-    $(".milling-option").removeClass("active")
+  var operationStep = 1;
+  $(".operation-text-next").click(function(){
+    if (operationStep == 1 && hasImportedGcode){
+      operationStep++;
+    }else{
+      alert("Must import Gcode.")
+    }
+
+    if (operationStep == 2 && hasPortOpen){
+      console.log("port added");
+      appendSerialDevice();
+    }else{
+      alert("Must connect a device.")
+    }
+    
+    operationStepController(operationStep);
+    setOperationView(operationStep);
+
   })
 
-  $(".laser-file-preparation").click(function(){
-    showLaserSetup();
-    $(".laser-setup-window").show();
-    $(".laser-operate-window").hide();
+  $(".operation-text-prev").click(function(){
+    if (operationStep > 1){
+      operationStep--;
+    }
+    operationStepController(operationStep);
+    setOperationView(operationStep);
   })
 
-  $("#main-menu-button").click(function(){
-    showMainMenu();
-    $(".laser-setup-window").hide();
-    $(".laser-operate-window").hide();
+  $("#laser-operation").click(function(){
+    viewController("laser-operation-select")
+    navigationController(2)
   })
 
-  $(".laser-file-operation").click(function(){
-    showLaserOperate();
-    $(".laser-setup-window").hide();
-    $(".laser-operate-window").show();
+
+  $(".cut-button").click(function(){
+    // lasingCommand();
+    startTime();
   })
 
-  $(".lp-add-file-button").click(function(){
-    svgSelectFile();
+  $(".stop-button").click(function(){
+    // stopLasing();
+    stopTime();
+  })
+
+  $(".pause-button").click(function(){
+    // pauseLasing();
+    stopTime();
   })
 })
 
@@ -72,8 +131,107 @@ function showLaserOperate(){
   $(".laser-operate").show();
 }
 
+
+var viewWindows = ["machine-select","laser-operation-select","laser-setup","laser-operate"]
+
 function hideAllView(){
-  $(".main-option").hide();
-  $(".laser-setup").hide();
-  $(".laser-operate").hide();
+  $.each( viewWindows, function( key, value ) {
+   $("#"+value).hide();
+  });
 }
+
+function showView( view ){
+  $("#"+view).show();
+}
+
+function viewController( view ){
+  hideAllView();
+  showView( view );
+}
+
+function removeNavClass(){
+  for(var i=1;i<5;i++){
+    $("#step-num-"+i).removeClass("current-step")
+    $("#step-num-"+i).removeClass("next-step")
+    $("#step-label-"+i).removeClass("ol-current")
+    $("#step-label-"+i).removeClass("ol-next")
+  }
+ 
+}
+
+function navigationController( step ){
+  removeNavClass();
+  switch(step){
+    case 1:
+      $("#step-num-1").addClass("current-step")
+      $("#step-num-2").addClass("next-step")
+      $("#step-label-1").addClass("ol-current")
+      $("#step-label-2").addClass("ol-next")
+      $(".prev-container").hide();
+      $(".next-num").html(step + 1);
+    break;
+    case 2:
+      $("#step-num-2").addClass("current-step")
+      $("#step-num-3").addClass("next-step")
+      $("#step-label-2").addClass("ol-current")
+      $("#step-label-3").addClass("ol-next")
+      $(".prev-container").show();
+      $(".next-container").show();
+      $(".prev-num").html(step - 1);
+      $(".next-num").html(step + 1);
+    break;
+    case 3:
+      $("#step-num-3").addClass("current-step")
+      $("#step-num-4").addClass("next-step")
+      $("#step-label-3").addClass("ol-current")
+      $("#step-label-4").addClass("ol-next")
+      $(".prev-container").show();
+      $(".next-container").show();
+      $(".prev-num").html(step - 1);
+      $(".next-num").html(step + 1);
+    break;
+    case 4:
+      $("#step-num-4").addClass("current-step")
+      $("#step-label-4").addClass("ol-current")
+      $(".prev-container").show();
+      $(".next-container").hide();
+      $(".prev-num").html(step - 1);
+    break;
+  }
+}
+
+function checkForInput(){
+  var hasInput = true;
+
+  $(".ps-params").each(function(){
+    if ($(this).val() == null || $(this).val() == ""){
+      hasInput = false;
+    }
+  })
+
+  return hasInput;
+}
+
+
+function clearOperationStepClass(){
+  $(".operation-step-small").removeClass("current-step")
+}
+
+function operationStepController(stepNum){
+  clearOperationStepClass();
+  setOperationStep(stepNum);
+}
+
+function setOperationStep(stepNum){
+  $(".oss-"+stepNum).addClass("current-step")
+}
+
+function hideAllOperationViews(){
+  $(".laser-operations").hide();
+}
+
+function setOperationView(viewNum){
+  hideAllOperationViews();
+  $(".laser-operate-step-"+viewNum).show();
+}
+
