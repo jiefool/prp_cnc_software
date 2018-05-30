@@ -28,6 +28,7 @@ body{
   background-color: #ab47bc;
   color: white;
   letter-spacing: 1px;
+  width: 230px;
 }
 
 .prp-button:hover{
@@ -40,6 +41,11 @@ body{
   border: solid 1px #6a1b9a;
   background-color: #6a1b9a;
   color: white;
+}
+
+.disable-btn, .disable-btn:hover, .disable-btn:active{
+  border: solid 1px #f0f2f7;
+  background-color: #f0f2f7;
 }
 
 .machine{
@@ -140,6 +146,19 @@ body{
   font-size: 20px;
   font-weight: bold;
   color: white;
+  box-shadow: 0px 2px 1px #69686e;
+}
+
+.operation-step:hover{
+  background-color: #ce93d8;
+  box-shadow: 0px 2px 1px #69686e;
+}
+
+.os-disable, 
+.os-disable:hover, 
+.os-disable:active{
+  background-color: #97969c;
+  box-shadow: 0px 2px 1px #69686e;
 }
 
 .next-step{
@@ -147,13 +166,12 @@ body{
   box-shadow: 0px 2px 1px #69686e;
 }
 
-.prev-next-arrow{
-  margin-top: 8px;
+.dir-arrow{
+  margin-top: 6px;
 }
 
 .os-no-fx{
   margin: 0px;
-  box-shadow: none;
 }
 
 .operation-label{
@@ -385,8 +403,12 @@ body{
   width: 105px;
 }
 
-
-
+#import-gcode-btn,
+#clear-cut-en-canvas,
+#clear-settings-btn,
+#generate-gcode-btn{
+  width: 255px;
+}
 
 /* laser operate */
 
@@ -438,6 +460,7 @@ p{
 }
 
 .canvas-area{
+  padding: 0px;
   background-color: #f2f1e6;
 }
 
@@ -459,11 +482,18 @@ p{
 .preparation-text-prev,
 .operation-text-prev{
   float:left;
+  font-size: 18px;
+}
+
+.preparation-text-prev:hover,
+.preparation-text-next:hover{
+  color:#ce93d8;
 }
 
 .preparation-text-next,
 .operation-text-next{
   float:right;
+  font-size: 18px;
 }
 
 .laser-file{
@@ -487,7 +517,7 @@ p{
 .preparation-step-small-wrapper-operate,
 .operation-step-small-wrapper,
 .operation-step-small-wrapper-operate{
-  width: 92px;
+  width: 102px;
   height: 22px;
   margin: 0px auto;
   color: white;
@@ -495,18 +525,18 @@ p{
 
 .preparation-step-small-wrapper-operate,
 .operation-step-small-wrapper-operate{
-  width: 138px;
+  width: 152px;
   margin-top: 10px;
 }
 
 .preparation-step-small,
 .operation-step-small{
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   margin: 30px 10px 10px 10px;
   float: left;
-  border-radius: 13px;
-  padding-top: 3px;
+  border-radius: 15px;
+  padding-top: 5px;
   text-align: center;
   background-color: #bcbec0;
 }
@@ -601,6 +631,13 @@ p{
   background-image: url('../images/cut_button_clicked.png');
 }
 
+
+.cb-disabled,
+.cb-disabled:hover,
+.cb-disabled:active{
+  background-image: url('../images/cut_button_disabled.png');
+}
+
 .stop-button,
 .pause-button{
   height: 80px;
@@ -631,6 +668,12 @@ p{
   background-image: url('../images/stop_button_clicked.png');
 }
 
+.sb-disabled,
+.sb-disabled:hover,
+.sb-disabled:active{
+  background-image: url('../images/stop_button_disabled.png');
+}
+
 .pause-wrapper{
   width: 80px;
   float: left;
@@ -652,8 +695,31 @@ p{
   background-image: url('../images/pause_button_clicked.png');
 }
 
+.pb-disabled,
+.pb-disabled:hover,
+.pb-disabled:active{
+  background-image: url('../images/pause_button_disabled.png');
+}
+
 .ps-wrapper{
   width: 250px;
   margin: 0 auto;
 }
+
+.footer-breadcrumb{
+  padding: 0 60px;
+}
+
+#connection-status{
+  margin-left: 30%;
+}
+
+.status-wrapper{
+  margin-top: -20px;
+  width: 100%;
+  border: 1px solid #bfbeb2;
+  padding: 0px 10px;
+  color: #bfbeb2;
+}
+
 

@@ -14,7 +14,10 @@ var port
 var checkGantryPosition
 var gantryPosition
 var gcodes = []
+var bCodes = []
+var checkBoundary = false;
 var counter = 0
+var bCounter = 0
 var group
 var x_center_group = 0
 var y_center_group = 0
@@ -35,6 +38,7 @@ canvas.setWidth(748);
 var en_cut_canvas = document.getElementById("en-cut-canvas");
 var en_cut_ctx = en_cut_canvas.getContext("2d");
 canvas.setHeight(500)
+canvas.hoverCursor = 'default';
 
 
 window.addEventListener('resize', resizeCanvas, false)
@@ -112,45 +116,54 @@ function addRuler(){
   canvas.add(rulerLineGroup)
 }
 
-// $('#device-select').hover(function(){
-//   appendSerialDevice()
-// })
-
-
-
 parser.on('data', function(data){
-
-  if (counter < gcodes.length && enableLasing){
-    if(gcodes[counter].indexOf("S") > -1){
-      laseIntensity = gcodes[counter]
+  if (checkBoundary){
+    var line = bCodes[bCounter].replace("BB ", "")
+    port.write(line+"\n")
+    port.write("?\n")
+    if (bCounter >= bCodes.length){
+      checkBoundary = false;
+      bCounter = 0;
     }
+    bCounter++;
+  }
 
-    if(gcodes[counter].indexOf("G0 F") > -1){
-      seekRate = gcodes[counter]
-    }
 
-    if(gcodes[counter].indexOf("G1 F") > -1){
-      laseRate = gcodes[counter]
-    }
+  if (!checkBoundary){
+    if (counter < gcodes.length && enableLasing){
+      if(gcodes[counter].indexOf("S") > -1){
+        laseIntensity = gcodes[counter]
+      }
 
-    if(isResumed){
-      counter-=10
-      port.write(seekRate+"\n")
-      port.write(laseRate+"\n")
-      port.write(laseIntensity+"\n")
-      port.write(gcodes[counter].replace("G1", "G0")+"\n")
-      port.write("?\n")
-      isResumed = false;
-    }else{
-      port.write(gcodes[counter]+"\n")
-      port.write("?\n");
-     
-      var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
-      counter++
+      if(gcodes[counter].indexOf("G0 F") > -1){
+        seekRate = gcodes[counter]
+      }
 
-      if (counter >= gcodes.length){
-        stopTime();
-        port.close()
+      if(gcodes[counter].indexOf("G1 F") > -1){
+        laseRate = gcodes[counter]
+      }
+
+      if(isResumed){
+        counter-=10
+        port.write(seekRate+"\n")
+        port.write(laseRate+"\n")
+        port.write(laseIntensity+"\n")
+        port.write(gcodes[counter].replace("G1", "G0")+"\n")
+        port.write("?\n")
+        isResumed = false;
+      }else{
+        port.write(gcodes[counter]+"\n")
+        port.write("?\n");
+       
+        var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
+        counter++
+
+        if (counter >= gcodes.length){
+          $(".cut-button").removeClass("cb-disabled")
+          stopTime();
+          port.close()
+          alert("Lasing Job is done.")
+        }
       }
     }
   }
@@ -285,10 +298,10 @@ function addStrokeSpeedPowerParams(){
             <div style="height: 20px;width:20px;background-color:`+stroke+`;border-radius:8px;margin: 5px auto"></div>
           </div>
           <div class="col-md-5">
-            <input type="text" class="form-control ps-params" placeholder="100%" aria-describedby="basic-addon1" id="`+stroke_n+`-power" style="height: 30px">
+            <input type="text" maxlength="3" class="form-control ps-params" placeholder="0-100" aria-describedby="basic-addon1" id="`+stroke_n+`-power" style="height: 30px">
           </div>
           <div class="col-md-5">
-            <input type="text" class="form-control ps-params" placeholder="0000" aria-describedby="basic-addon1" id="`+stroke_n+`-speed" style="height: 30px"> 
+            <input type="text" maxlength="4" class="form-control ps-params" placeholder="0-5000" aria-describedby="basic-addon1" id="`+stroke_n+`-speed" style="height: 30px"> 
           </div>
         </div>
         <br/>
@@ -389,6 +402,8 @@ function canvasToGcode(){
   var shapeObjects = []
   gcodes = []
 
+  addBoundaryGcode();
+
   Object.keys(objectStrokeColors).forEach(function(stroke){
     stroke = parseRGBValue(stroke)
     speed_id = stroke + "-speed" 
@@ -450,7 +465,11 @@ function gcodeImport(){
 
   if (file != undefined){
     lineReader.eachLine(file.path, function(line, last) {
-      gcodes.push(line)
+      if (line.indexOf("BB ") > -1 ){
+        bCodes.push(line)
+      }else{
+        gcodes.push(line)
+      }
     })
 
     $("#gcode-path").html(file.path)
@@ -550,11 +569,11 @@ function goToStepThree(){
 function openPort(bdRate){
   port = new sp(laserDevices[0], {
     baudRate: bdRate
+  }, function(){
+    hasPortOpen = true;
+    $("#connection-status").append("Device connected.")
+    port.pipe(parser)
   })
-
-  hasPortOpen = true;
-  $("#connection-status").append("Device connected.")
-  port.pipe(parser)
 }
 
 var lasingTimer;
@@ -588,3 +607,17 @@ function addLeadingZero(num){
     return "0" + num
   }
 }
+
+function addBoundaryGcode(){
+  gcodes.push("BB G0 X"+(group.aCoords.tl.x * scale)+ "Y"+(group.aCoords.tl.y * scale))
+  gcodes.push("BB G0 X"+(group.aCoords.tr.x * scale)+ "Y"+(group.aCoords.tr.y * scale))
+  gcodes.push("BB G0 X"+(group.aCoords.br.x * scale)+ "Y"+(group.aCoords.br.y * scale))
+  gcodes.push("BB G0 X"+(group.aCoords.bl.x * scale)+ "Y"+(group.aCoords.bl.y * scale))
+  gcodes.push("BB G0 X"+(group.aCoords.tl.x * scale)+ "Y"+(group.aCoords.tl.y * scale))
+}
+
+function checkBoundary(){
+  checkBoundary = true;
+  port.write("?\n")
+}
+

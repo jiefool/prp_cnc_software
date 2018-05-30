@@ -17,10 +17,19 @@
         <div id="app-banner"></div>
       </div>
       <div class="col-md-1 col-md-offset-8 nav-text-menu">
-          Language
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="text_language">Language</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="javascript: setLanguage('english')">English</a></li>
+            <li><a href="javascript: setLanguage('bisaya')">Bisaya</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="col-md-1 nav-text-menu">
-        Help
+      <div class="col-md-1 nav-text-menu" style="padding-top: 28px">
+        <span class="text_help">Help</span>
       </div>
     </div>
 
@@ -39,7 +48,7 @@
                 <image src="images/milling_machine.png" width="230">
               </div>
               <h2>Milling Machine</h2>
-              <button class="prp-button" id="milling-operation">
+              <button class="prp-button disable-btn" id="milling-operation" disabled>
                 Select
               </button>
             </div>
@@ -59,7 +68,7 @@
                 <image src="images/3d_printer.png" width="230">
               </div>
               <h2>3D Printer</h2>
-              <button class="prp-button" id="3d-operation">
+              <button class="prp-button disable-btn" id="3d-operation" disabled>
                 Select
               </button>
             </div>
@@ -118,8 +127,8 @@
                     <div>
                       <div class="col-md-12">
                         <div class="col-md-2"> </div>
-                        <div class="col-md-5 text-center">Power</div>
-                        <div class="col-md-5 text-center">Speed</div>
+                        <div class="col-md-5 text-center">Power(%)</div>
+                        <div class="col-md-5 text-center">Speed(mm/s)</div>
                       </div>
 
                       <div class="col-md-12 speed-power-params"></div>
@@ -128,7 +137,7 @@
                         <button class="prp-button" id="generate-gcode-btn">
                           Generate G-Code
                         </button>
-                        <button class="prp-button">
+                        <button class="prp-button" id="clear-settings-btn">
                           Clear Settings
                         </button>
                       </div>
@@ -148,10 +157,10 @@
                       </div>
                     </div>
 
-                    <div class="preparation-step-small-wrapper">
+                   <!--  <div class="preparation-step-small-wrapper">
                       <div class="preparation-step-small current-step" id="laser-prep-step-1">1</div>
                       <div class="preparation-step-small" id="laser-prep-step-2">2</div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -170,30 +179,18 @@
             <div class="col-md-4">
               <div class="laser-operate-panel" style="height: 505px">
                 <div class="panel-wrapper">
-                  <div class="laser-operations laser-operate-step-1 file-import" style="display:none">
+                  <div class="laser-operations laser-operate-step-1 file-import" style="display:block">
                     <h4>Step 1: Open File</h4>
                     <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
-                    <button class="prp-button" onclick="document.getElementById('gcodeFileSelect').click();">IMPORT GCODE</button>
+                    <button class="prp-button" id="import-gcode-btn" onclick="document.getElementById('gcodeFileSelect').click();">IMPORT GCODE</button>
                     <button class="prp-button" id="clear-cut-en-canvas" onclick="clearCutEngraveCanvas()">Clear</button>
-                    <div style="padding: 10px">
-                    <p>Imported Gcode:</p>
-                    <p id="gcode-path"></p>
-                    </div>
                   </div>
 
-                  <div class="laser-operations laser-operate-step-2" id="device-select" style="display:block">
+                  <div class="laser-operations laser-operate-step-2" id="device-select" style="display:none">
                     <h4>Step 2: Select Machine</h4>
                     <button class="prp-button machine" onclick="openPort(57600)">Fabool Laser Mini</button>
                     <button class="prp-button machine" onclick="openPort()">Fabool Laser C02</button>
                     <button class="prp-button machine" onclick="">PRP IWI Laser</button>
-                    <br/>
-                    <p id="laser-port">
-                      Laser device in port:
-                    </p>
-                    <br/>
-                    <p id="connection-status">
-                      Connection status:
-                    </p>
                   </div>
 
                   <div class="laser-operations laser-operate-step-3 laser-actions" style="display:none">
@@ -211,11 +208,11 @@
                     <div class="col-md-12">
                       <div class="ps-wrapper">
                         <div class="pause-wrapper">
-                          <div class="pause-button"></div>
+                          <div class="pause-button pb-disabled"></div>
                           Pause
                         </div>
                         <div class="stop-wrapper">
-                          <div class="stop-button"></div>
+                          <div class="stop-button sb-disabled"></div>
                           Stop
                         </div>
                       </div>
@@ -225,7 +222,7 @@
 
                 <div class="laser-file-action-step">
                   <div class="operation-text-wrapper">
-                    <div class="operation-text-prev">
+                    <div class="operation-text-prev" style="display:none">
                       <img src="images/prev_arrow.png" width="15"/>
                       Back
                     </div>
@@ -236,18 +233,31 @@
                     </div>
                   </div>
 
-                  <div class="operation-step-small-wrapper-operate">
+                <!--   <div class="operation-step-small-wrapper-operate">
                     <div class="operation-step-small oss-1 current-step">1</div>
                     <div class="operation-step-small oss-2 ">2</div>
                     <div class="operation-step-small oss-3 ">3</div>
-                  </div>
+                  </div> -->
                 </div>
 
               </div>
             </div>
 
             <div class="col-md-8 canvas-area">
-              <canvas id="en-cut-canvas" width="200" height="500"></canvas>
+              <canvas id="en-cut-canvas" width="771" height="500"></canvas>
+              <div class="status-wrapper device-status" style="display:none">
+                  <span id="laser-port">
+                    Laser device in port:
+                  </span>
+                    
+                  <span id="connection-status">
+                    Connection status:
+                  </span>
+              </div>
+              <div class="status-wrapper import-gcode-status">
+                <span>Imported Gcode:</span>
+                <span id="gcode-path"></span>
+              </div>
             </div>
           </div>
 
@@ -260,28 +270,28 @@
     </div>
 
     <div class="row footer">
-     <div class="col-md-12">
+     <div class="col-md-12 footer-breadcrumb">
         <div class="operation-step-wrapper">
           <div class="prev-container">
-            <div class="prev-next-arrow"><img src="images/prev_arrow.png" width="30"></div>
+            <div class="dir-arrow prev-arrow"><img src="images/prev_arrow.png" width="30"></div>
             <div class="operation-step os-no-fx current-step prev-num">2</div>
           </div>
           <div class="operation-step-container">
-            <div class="operation-step current-step" id="step-num-1">1</div>
+            <div class="operation-step next-step current-step" id="step-num-1">1</div>
             <div class="operation-step next-step" id="step-num-2">2</div>
-            <div class="operation-step" id="step-num-3">3</div>
-            <div class="operation-step" id="step-num-4">4</div>
+            <div class="operation-step next-step" id="step-num-3">3</div>
+            <div class="operation-step next-step" id="step-num-4">4</div>
           </div>
-          <div class="next-container">
-            <div class="prev-next-arrow"><img src="images/next_arrow.png" width="30"></div>
-            <div class="operation-step os-no-fx current-step next-num">2</div>
+          <div class="next-container ">
+            <div class="dir-arrow next-arrow"><img src="images/next_arrow_disabled.png" width="30"></div>
+            <div class="operation-step os-no-fx next-num os-disable">2</div>
           </div>
         </div>
         <div class="operation-step-container">
-          <div class="operation-label ol-current" id="step-label-1">Machine Selection</div>
+          <div class="operation-label ol-next ol-current" id="step-label-1">Machine Selection</div>
           <div class="operation-label ol-next" id="step-label-2">Machine Actions</div>
-          <div class="operation-label" id="step-label-3">File Preparation</div>
-          <div class="operation-label" id="step-label-4">Machine Operation</div>
+          <div class="operation-label ol-next" id="step-label-3">File Preparation</div>
+          <div class="operation-label ol-next" id="step-label-4">Machine Operation</div>
         </div>
       </div> 
     </div>

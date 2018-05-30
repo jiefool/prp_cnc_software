@@ -79,7 +79,7 @@ GcodeWriter = {
       y_center_ellipse = segment.aCoords.tl.y + segment.height/2
 
       if ((segment.width/scale) < 10){
-        var incOffset = 0.1
+        var incOffset = 0.2
       }else{
         var incOffset = 0.01
       }

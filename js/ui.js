@@ -23,6 +23,14 @@ $(document).ready(function(){
     var currentStep = parseInt($(".prev-num").html());
     viewController(viewWindows[currentStep - 1])
     navigationController(currentStep)
+
+    console.log(currentStep)
+    if(currentStep == 1){
+      $(".next-num").addClass("os-disable")
+      $(".next-num").removeClass("current-step")
+      $(".next-arrow").html('')
+      $(".next-arrow").html('<img src="images/next_arrow_disabled.png" width="30">')
+    }
   });
 
   $(".next-container").click(function(){
@@ -31,6 +39,33 @@ $(document).ready(function(){
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
     }
+  });
+
+  $(".next-container").hover(function(){
+    var nextNum = parseInt($(".next-num").html())
+    if (nextNum > 2){
+      $(".next-arrow").html('')
+      $(".next-arrow").html('<img src="images/next_arrow_hovered.png" width="30">')
+    }
+  });
+
+   $(".next-container").mouseout(function(){
+    var nextNum = parseInt($(".next-num").html())
+    if (nextNum > 2){
+      $(".next-arrow").html('')
+      $(".next-arrow").html('<img src="images/next_arrow.png" width="30">')
+    }
+  });
+
+
+  $(".prev-container").hover(function(){
+    $(".prev-arrow").html('')
+    $(".prev-arrow").html('<img src="images/prev_arrow_hovered.png" width="30">')
+  });
+
+   $(".prev-container").mouseout(function(){
+    $(".prev-arrow").html('')
+    $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30">')
   });
 
 
@@ -65,19 +100,45 @@ $(document).ready(function(){
     }
   })
 
+  $(".preparation-text-prev").hover(function(){
+    $(this).html('<img src="images/prev_arrow_hovered.png" width="15"/> Back')
+  })
+
+   $(".preparation-text-prev").mouseout(function(){
+    $(this).html('<img src="images/prev_arrow.png" width="15"/> Back')
+  })
+
+  $(".preparation-text-next").hover(function(){
+    $(this).html('Next <img src="images/next_arrow_hovered.png" width="15"/>')
+  })
+
+   $(".preparation-text-next").mouseout(function(){
+    $(this).html('Next <img src="images/next_arrow.png" width="15"/>')
+  })
+
   var operationStep = 1;
   $(".operation-text-next").click(function(){
-    if (operationStep == 1 && hasImportedGcode){
-      operationStep++;
-    }else{
-      alert("Must import Gcode.")
+    if (operationStep == 1 ){
+      if (hasImportedGcode){
+        appendSerialDevice();
+        operationStep++;
+      }else{
+        alert("Must import gcode.")
+      }
+    }else if (operationStep == 2){
+      // if (hasPortOpen){
+        operationStep++;
+      // }else{
+        // alert("Must connect a device.")
+      // }
+    }   
+   
+    if (operationStep > 1){
+      $(".operation-text-prev").show();
     }
 
-    if (operationStep == 2 && hasPortOpen){
-      console.log("port added");
-      appendSerialDevice();
-    }else{
-      alert("Must connect a device.")
+    if (operationStep == 3){
+      $(".operation-text-next").hide();
     }
     
     operationStepController(operationStep);
@@ -89,30 +150,65 @@ $(document).ready(function(){
     if (operationStep > 1){
       operationStep--;
     }
+
+    if (operationStep == 1){
+      $(".operation-text-prev").hide();
+    }
+
+    if (operationStep < 3){
+      $(".operation-text-next").show();
+    }
+
     operationStepController(operationStep);
     setOperationView(operationStep);
   })
 
+
   $("#laser-operation").click(function(){
+    $(".next-num").addClass("current-step")
+    $(".next-num").removeClass("os-disable")
+    $(".next-arrow").html('')
+    $(".next-arrow").html('<img src="images/next_arrow.png" width="30">')
     viewController("laser-operation-select")
     navigationController(2)
   })
 
 
   $(".cut-button").click(function(){
-    // lasingCommand();
-    startTime();
+    if (!enableLasing){
+      $(this).addClass("cb-disabled")
+      $(".pause-button").removeClass("pb-disabled")
+      $(".stop-button").removeClass("sb-disabled")
+      lasingCommand();
+      startTime();
+    }
   })
 
   $(".stop-button").click(function(){
-    // stopLasing();
-    stopTime();
+    if (enableLasing){
+      $(this).addClass("sb-disabled")
+      $(".pause-button").addClass("pb-disabled")
+      $(".cut-button").removeClass("cb-disabled")
+      stopLasing();
+      stopTime();
+    }
   })
 
   $(".pause-button").click(function(){
-    // pauseLasing();
-    stopTime();
+    if (enableLasing){
+      $(this).addClass("pb-disabled")
+      $(".stop-button").addClass("sb-disabled")
+      $(".cut-button").removeClass("cb-disabled")
+      pauseLasing();
+      stopTime();
+    }
   })
+
+
+  $("#clear-settings-btn").click(function(){
+    $(".ps-params").val('')
+  })
+
 })
 
 
@@ -152,9 +248,9 @@ function viewController( view ){
 function removeNavClass(){
   for(var i=1;i<5;i++){
     $("#step-num-"+i).removeClass("current-step")
-    $("#step-num-"+i).removeClass("next-step")
+    // $("#step-num-"+i).removeClass("next-step")
     $("#step-label-"+i).removeClass("ol-current")
-    $("#step-label-"+i).removeClass("ol-next")
+    // $("#step-label-"+i).removeClass("ol-next")
   }
  
 }
@@ -223,6 +319,14 @@ function operationStepController(stepNum){
 }
 
 function setOperationStep(stepNum){
+  if (stepNum == 1){
+    $(".import-gcode-status").show()
+    $(".device-status").hide()
+  }else{
+    $(".import-gcode-status").hide()
+    $(".device-status").show()
+  }
+
   $(".oss-"+stepNum).addClass("current-step")
 }
 
