@@ -20,16 +20,17 @@ $(document).ready(function(){
   })
 
   $(".prev-container").click(function(){
-    var currentStep = parseInt($(".prev-num").html());
-    viewController(viewWindows[currentStep - 1])
-    navigationController(currentStep)
+    if (!enableLasing){
+      var currentStep = parseInt($(".prev-num").html());
+      viewController(viewWindows[currentStep - 1])
+      navigationController(currentStep)
 
-    console.log(currentStep)
-    if(currentStep == 1){
-      $(".next-num").addClass("os-disable")
-      $(".next-num").removeClass("current-step")
-      $(".next-arrow").html('')
-      $(".next-arrow").html('<img src="images/next_arrow_disabled.png" width="30">')
+      if(currentStep == 1){
+        $(".next-num").addClass("os-disable")
+        $(".next-num").removeClass("current-step")
+        $(".next-arrow").html('')
+        $(".next-arrow").html('<img src="images/next_arrow_disabled.png" width="30">')
+      }
     }
   });
 
@@ -44,6 +45,7 @@ $(document).ready(function(){
   $(".next-container").hover(function(){
     var nextNum = parseInt($(".next-num").html())
     if (nextNum > 2){
+      $("div.next-container > div.operation-step").addClass("operation-step-hover")
       $(".next-arrow").html('')
       $(".next-arrow").html('<img src="images/next_arrow_hovered.png" width="30">')
     }
@@ -52,6 +54,7 @@ $(document).ready(function(){
    $(".next-container").mouseout(function(){
     var nextNum = parseInt($(".next-num").html())
     if (nextNum > 2){
+      $("div.next-container > div.operation-step").removeClass("operation-step-hover")
       $(".next-arrow").html('')
       $(".next-arrow").html('<img src="images/next_arrow.png" width="30">')
     }
@@ -59,13 +62,19 @@ $(document).ready(function(){
 
 
   $(".prev-container").hover(function(){
-    $(".prev-arrow").html('')
-    $(".prev-arrow").html('<img src="images/prev_arrow_hovered.png" width="30">')
+    if (!enableLasing){
+      $("div.prev-container > div.operation-step").addClass("operation-step-hover")
+      $(".prev-arrow").html('')
+      $(".prev-arrow").html('<img src="images/prev_arrow_hovered.png" width="30">')
+    }
   });
 
    $(".prev-container").mouseout(function(){
-    $(".prev-arrow").html('')
-    $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30">')
+    if (!enableLasing){
+      $("div.prev-container > div.operation-step").removeClass("operation-step-hover")
+      $(".prev-arrow").html('')
+      $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30">')
+    }
   });
 
 
@@ -104,7 +113,7 @@ $(document).ready(function(){
     $(this).html('<img src="images/prev_arrow_hovered.png" width="15"/> Back')
   })
 
-   $(".preparation-text-prev").mouseout(function(){
+  $(".preparation-text-prev").mouseout(function(){
     $(this).html('<img src="images/prev_arrow.png" width="15"/> Back')
   })
 
@@ -147,7 +156,7 @@ $(document).ready(function(){
   })
 
   $(".operation-text-prev").click(function(){
-    if (operationStep > 1){
+    if (operationStep > 1 && !enableLasing){
       operationStep--;
     }
 
@@ -179,8 +188,20 @@ $(document).ready(function(){
       $(this).addClass("cb-disabled")
       $(".pause-button").removeClass("pb-disabled")
       $(".stop-button").removeClass("sb-disabled")
+
+      $("div.prev-container > div.operation-step").removeClass("current-step")
+      $("div.prev-container > div.operation-step").addClass("next-step")
+      $(".prev-arrow").html('')
+      $(".prev-arrow").html('<img src="images/prev_arrow_disabled.png" width="30"/>')
+
+      $(".operation-text-prev").css("color", "#97969c")
+      $(".operation-text-prev").html('<img src="images/prev_arrow_disabled.png" width="15"/> Back')
+
       lasingCommand();
       startTime();
+
+
+      
     }
   })
 
@@ -189,6 +210,18 @@ $(document).ready(function(){
       $(this).addClass("sb-disabled")
       $(".pause-button").addClass("pb-disabled")
       $(".cut-button").removeClass("cb-disabled")
+
+
+      $("div.prev-container > div.operation-step").addClass("current-step")
+      $("div.prev-container > div.operation-step").removeClass("next-step")
+      $(".prev-arrow").html('')
+      $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30"/>')
+
+
+      $(".operation-text-prev").css("color", "#ab47bc")
+      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> Back')
+
+
       stopLasing();
       stopTime();
     }
@@ -199,6 +232,17 @@ $(document).ready(function(){
       $(this).addClass("pb-disabled")
       $(".stop-button").addClass("sb-disabled")
       $(".cut-button").removeClass("cb-disabled")
+
+
+      $("div.prev-container > div.operation-step").addClass("current-step")
+      $("div.prev-container > div.operation-step").removeClass("next-step")
+      $(".prev-arrow").html('')
+      $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30"/>')
+
+
+      $(".operation-text-prev").css("color", "#ab47bc")
+      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> Back')
+
       pauseLasing();
       stopTime();
     }
