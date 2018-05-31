@@ -71,19 +71,27 @@ $(document).ready(function(){
 })
 
 
-function addRuler(){
+function addRuler(targetCanvas){
   var rulerLine = []
 
   rulerLine.push(new fabric.Rect({
     left: 0,
     top: 0,
     fill: "#ab47bc",
-    width: canvas.width,
+    width: targetCanvas.width,
     height: 8/scale
   }))
 
+  rulerLine.push(new fabric.Rect({
+    left: 0,
+    top: 0,
+    fill: "#ab47bc",
+    width: 8/scale,
+    height: targetCanvas.width 
+  }))
 
-  for(var i=0;i<canvas.width;i+=10){
+
+  for(var i=10;i<targetCanvas.width;i+=10){
     rulerLine.push(new fabric.Line([i, 0, i, 8/scale], {
       left: i/scale,
       top: 0,
@@ -100,10 +108,36 @@ function addRuler(){
     }))
   }
 
-  for(var i=5;i<canvas.width;i+=10){
+  for(var i=10;i<targetCanvas.height;i+=10){
+    rulerLine.push(new fabric.Line([0, i, 8/scale, i], {
+      left: 0,
+      top: i/scale,
+      stroke: 'white',
+      strokeWidth: 1.5
+    }))
+
+    rulerLine.push(new fabric.Text(String(i), { 
+      left: 2/scale,
+      top: i/scale, 
+      fill: 'white',
+      fontSize: 10,
+      textAlign: 'center'
+    }))
+  }
+
+  for(var i=5;i<targetCanvas.width;i+=10){
     rulerLine.push(new fabric.Line([i, 0, i, 2.5/scale], {
       left: i/scale,
       top: 0,
+      stroke: 'white',
+      strokeWidth: 1.5
+    }))
+  }
+
+  for(var i=5;i<targetCanvas.height;i+=10){
+    rulerLine.push(new fabric.Line([ 0, i, 2.5/scale, i], {
+      left: 0,
+      top: i/scale,
       stroke: 'white',
       strokeWidth: 1.5
     }))
@@ -113,7 +147,7 @@ function addRuler(){
   rulerLineGroup.lockMovementX = true
   rulerLineGroup.lockMovementY = true
   rulerLineGroup.selectable = false
-  canvas.add(rulerLineGroup)
+  targetCanvas.add(rulerLineGroup)
 }
 
 parser.on('data', function(data){
@@ -178,17 +212,17 @@ parser.on('data', function(data){
 function resizeCanvas() {
   cwidth = $(".canvas-area").get(0).offsetWidth
   canvas.setWidth(cwidth)
-  handleAddRuler();
+  handleAddRuler(canvas);
 }
 
-function handleAddRuler(){
-  canvas.setWidth($(".canvas-area").width())
-  canvas._objects.forEach(function(cGroup, index){
+function handleAddRuler(targetCanvas){
+  targetCanvas.setWidth($(".canvas-area").width())
+  targetCanvas._objects.forEach(function(cGroup, index){
     if(cGroup._objects.length == rulerLineGroup._objects.length){
-      canvas.remove(cGroup)
+      targetCanvas.remove(cGroup)
     }
   })
-  addRuler();
+  addRuler(targetCanvas);
 }
 
 function svgImport(){ 
@@ -464,16 +498,29 @@ function gcodeImport(){
   file = document.getElementById("gcodeFileSelect").files[0]
 
   if (file != undefined){
+
     lineReader.eachLine(file.path, function(line, last) {
       if (line.indexOf("BB ") > -1 ){
         bCodes.push(line)
       }else{
         gcodes.push(line)
       }
+
+      if (last){
+        $("#gcode-path").html(file.path)
+        hasImportedGcode = true;
+        canvasDrawLine()
+        return false; // stop reading
+      }
+      
     })
 
-    $("#gcode-path").html(file.path)
-    hasImportedGcode = true;
+  }
+}
+
+function canvasDrawLine(){
+  for(var i=0;i<gcodes.length;i++){
+    drawLasingPath(gcodes[i], gcodes[i+1], "#0000ff")
   }
 }
 
@@ -508,13 +555,13 @@ function gantryHome(){
   port.write("G30\n")
 }
 
-function drawLasingPath(previousPoint, nextPoint){
+function drawLasingPath(previousPoint, nextPoint, color){
   var prevVal = getGcodeCommand(previousPoint)
   var nextVal = getGcodeCommand(nextPoint)
 
   if (prevVal != undefined && nextVal != undefined){
     if((prevVal[1] == "G0" && nextVal[1] == "G1") || (prevVal[1] == "G1" && nextVal[1] == "G1")){
-      return lowDrawLine(prevVal[2]/scale, prevVal[3]/scale, nextVal[2]/scale, nextVal[3]/scale);
+      return lowDrawLine(prevVal[2]/scale, prevVal[3]/scale, nextVal[2]/scale, nextVal[3]/scale, color);
     }
   }
 }
@@ -528,8 +575,8 @@ function getGcodeCommand(val){
   }
 }
 
-function lowDrawLine(x1, y1, x2, y2){
-  en_cut_ctx.strokeStyle="#FF0000";
+function lowDrawLine(x1, y1, x2, y2, color="#FF0000"){
+  en_cut_ctx.strokeStyle=color;
   en_cut_ctx.beginPath();
   en_cut_ctx.moveTo(x1,y1);
   en_cut_ctx.lineTo(x2,y2);

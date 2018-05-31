@@ -16,7 +16,7 @@ $(document).ready(function(){
   $("#laser-prepare-file").click(function(){
     viewController("laser-setup")
     navigationController(3);
-    handleAddRuler();
+    handleAddRuler(canvas);
   })
 
   $(".prev-container").click(function(){
