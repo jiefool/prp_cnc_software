@@ -575,6 +575,11 @@ p{
   width: 100%;
 }
 
+.laser-operate h2,
+.laser-setup h2{
+  color: #ab47bc;
+}
+
 .text-center{
   text-align:center;
 }
