@@ -11,6 +11,8 @@ $(document).ready(function(){
   $("#laser-cut-material").click(function(){
     viewController("laser-operate")
     navigationController(4)
+    // console.log(en_cut_canvas_fabric)
+    handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
   })
 
   $("#laser-prepare-file").click(function(){

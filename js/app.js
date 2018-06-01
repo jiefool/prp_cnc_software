@@ -35,8 +35,14 @@ var rulerLineGroup
 var isResumed = false;
 var canvas = new fabric.Canvas('canvas')
 canvas.setWidth(748);
+
+
 var en_cut_canvas = document.getElementById("en-cut-canvas");
 var en_cut_ctx = en_cut_canvas.getContext("2d");
+
+var en_cut_canvas_fabric = new fabric.Canvas('en-cut-canvas');
+en_cut_canvas_fabric.setWidth(748)
+
 canvas.setHeight(500)
 canvas.hoverCursor = 'default';
 
@@ -215,8 +221,8 @@ function resizeCanvas() {
   handleAddRuler(canvas);
 }
 
-function handleAddRuler(targetCanvas){
-  targetCanvas.setWidth($(".canvas-area").width())
+function handleAddRuler(targetCanvas, canvasArea=".canvas-area"){
+  targetCanvas.setWidth($(canvasArea).width())
   targetCanvas._objects.forEach(function(cGroup, index){
     if(cGroup._objects.length == rulerLineGroup._objects.length){
       targetCanvas.remove(cGroup)

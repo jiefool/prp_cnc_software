@@ -716,7 +716,9 @@ p{
 
 .status-wrapper{
   margin-top: -20px;
+  margin-left: 20px;
   width: 100%;
+  max-width: 760px;
   border: 1px solid #bfbeb2;
   padding: 0px 10px;
   color: #bfbeb2;
