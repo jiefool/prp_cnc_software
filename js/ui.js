@@ -11,7 +11,6 @@ $(document).ready(function(){
   $("#laser-cut-material").click(function(){
     viewController("laser-operate")
     navigationController(4)
-    // console.log(en_cut_canvas_fabric)
     handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
   })
 
@@ -41,6 +40,9 @@ $(document).ready(function(){
     if (currentStep > 2 && currentStep <= 4){
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
+      if (currentStep == 4){
+        handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
+      }
     }
   });
 
