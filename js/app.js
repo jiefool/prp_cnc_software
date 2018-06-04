@@ -323,9 +323,14 @@ function svgImport(){
         })
       }
     })
-
     addStrokeSpeedPowerParams();
   })
+ 
+  showTextNext(); 
+}
+
+function showTextNext(){
+  $(".preparation-text-next").show();
 }
 
 function addStrokeSpeedPowerParams(){
@@ -601,7 +606,7 @@ function closeOpenPort(){
 
 function clearCanvas(){
   canvas.clear();
-  addRuler();
+  handleAddRuler(canvas);
   $("#selectedFile").val("");
 }
 

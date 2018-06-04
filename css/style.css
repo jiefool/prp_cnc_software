@@ -10,9 +10,9 @@ body{
 }
 
 .main{
-  min-height: 650px;
+  max-height: 580px;
   height: 100%;
-  padding-top: 70px;
+  padding-top: 20px;
 }
 
 
@@ -65,7 +65,7 @@ body{
 
 .machine-select-container{
   width: 100%;
-  max-width: 780px;
+  max-width: 804px;
   margin: 0 auto;
 }
 
@@ -575,8 +575,8 @@ p{
   width: 100%;
 }
 
-.laser-operate h2,
-.laser-setup h2{
+.laser-operate h3,
+.laser-setup h3{
   color: #ab47bc;
 }
 
@@ -728,6 +728,54 @@ p{
   border: 1px solid #bfbeb2;
   padding: 0px 10px;
   color: #bfbeb2;
+}
+
+.back-home-btns-wrapper div{
+  float: left;
+  margin: 0 10px;
+  border: 1px solid #ab47bc;
+  padding: 5px;
+  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+}
+
+.tooltip button{
+  font-weight: normal !important;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    margin-top: 5px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.machine-selected{
+  border: 2px solid #6a1b9a;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 

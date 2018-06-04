@@ -2,6 +2,7 @@ $(document).ready(function(){
 
   $("#laser-clear-canvas").click(function(){
     clearCanvas();
+    $(".preparation-text-next").hide();
   })
 
   $("#laser-import-svg").click(function(){
@@ -27,10 +28,7 @@ $(document).ready(function(){
       navigationController(currentStep)
 
       if(currentStep == 1){
-        $(".next-num").addClass("os-disable")
-        $(".next-num").removeClass("current-step")
-        $(".next-arrow").html('')
-        $(".next-arrow").html('<img src="images/next_arrow_disabled.png" width="30">')
+        $(".next-container").hide();
       }
     }
   });
@@ -80,6 +78,27 @@ $(document).ready(function(){
       $(".prev-arrow").html('<img src="images/prev_arrow.png" width="30">')
     }
   });
+
+  $(".main-back-btn").click(function(){
+    if (!enableLasing){
+      var currentStep = parseInt($(".prev-num").html());
+      viewController(viewWindows[currentStep - 1])
+      navigationController(currentStep)
+
+      if(currentStep == 1){
+        $(".next-container").hide();
+      }
+    }
+  })
+
+  $(".main-home-btn").click(function(){
+    if (!enableLasing){
+      currentStep = 0
+      viewController(viewWindows[currentStep])
+      navigationController(currentStep+1)
+      $(".next-container").hide();
+    }
+  })
 
 
   $("#generate-gcode-btn").click(function(){
@@ -255,6 +274,15 @@ $(document).ready(function(){
 
   $("#clear-settings-btn").click(function(){
     $(".ps-params").val('')
+  })
+
+  $(".machine-select-btn").click(function(){
+    $(this).parent().toggleClass("machine-selected")
+    if ($(this).html().indexOf("Selected") > -1){
+      $(this).html('Select')
+    }else{
+      $(this).html('Selected')
+    }
   })
 
 })
