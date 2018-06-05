@@ -37,11 +37,11 @@
       <div class="col-md-10 col-md-offset-2 back-home-btns-wrapper">
         <div class="main-back-btn">
           <image src="images/prev_arrow.png" height="30">
-          Back
+          <span class="text_back">Back</span>
         </div>
         <div class="main-home-btn">
           <image src="images/home_btn.png" height="28">
-          Home
+          <span class="text_home">Home</span>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
     <div class="row main">
       <div id="machine-select" style="display:block">
         <div class="col-md-12">
-          <h2 class="main-menu-title">Which machine do you want to use?</h2>
+          <h2 class="main-menu-title"><span class="text_which_machine">Which machine do you want to use?</span></h2>
         </div>
 
         <div class="col-md-12">
@@ -58,9 +58,9 @@
               <div class="machine-image">
                 <image src="images/milling_machine.png" width="230">
               </div>
-              <h2>Milling Machine</h2>
+              <h2><span class="text_milling_machine">Milling Machine</span></h2>
               <button class="prp-button disable-btn machine-select-btn" id="milling-operation" disabled>
-                Select
+                <span class="text_select">Select</span>
               </button>
             </div>
 
@@ -68,9 +68,9 @@
               <div class="machine-image">
                 <image src="images/laser_cutter.png" width="230">
               </div>
-              <h2>Laser Cutter</h2>
+              <h2><span class="text_laser_cutter">Laser Cutter</span></h2>
               <button class="prp-button machine-select-btn" id="laser-operation">
-                Select
+                <span class="text_select">Select</span>
               </button>
             </div>
 
@@ -78,9 +78,9 @@
               <div class="machine-image">
                 <image src="images/3d_printer.png" width="230">
               </div>
-              <h2>3D Printer</h2>
+              <h2><span class="text_3d_printer">3D Printer</span></h2>
               <button class="prp-button disable-btn machine-select-btn" id="3d-operation" disabled>
-                Select
+                <span class="text_select">Select</span>
               </button>
             </div>
           </div>
@@ -98,16 +98,16 @@
                 <image src="images/laser_cutter.png" width="300" />
               </div>
               <div class="col-md-8 action-pane">
-                <h1>Laser Cutter</h1>
-                <p>What would you want to do with the Laser Cutter?</p>
+                <h1><span class="text_laser_cutter">Laser Cutter</span></h1>
+                <p><span class="text_laser_what_to_do">What would you want to do with the Laser Cutter?</span></p>
                 <div class="col-md-12">
                   <div class="tooltip">
-                    <button class="prp-button" id="laser-prepare-file">Prepare a File</button>
-                    <span class="tooltiptext">3 | File Preparation</span>
+                    <button class="prp-button" id="laser-prepare-file"><span class="text_prepare_file">Prepare a File</span></button>
+                    <span class="tooltiptext">3 | <span class="text_file_preparation">File Preparation</span></span>
                   </div>
                   <div class="tooltip">
-                    <button class="prp-button" id="laser-cut-material">Cut a Material</button>
-                    <span class="tooltiptext">4 | Machine Operation</span>
+                    <button class="prp-button" id="laser-cut-material"><span class="text_cut_material">Cut a Material</span></button>
+                    <span class="tooltiptext">4 | <span class="text_machine_operation">Machine Operation</span></span>
                   </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@
         <div class="laser-setup" id="laser-setup" style="display:none">
           <div class="col-md-10 col-md-offset-1">
             <div class="col-md-12">
-              <h3>Laser Cutter | File Preparation</h3>
+              <h3><span class="text_laser_cutter">Laser Cutter</span> | <span class="text_file_preparation">File Preparation</span></h3>
             </div>
 
             <div class="laser-setup-params">
@@ -133,29 +133,29 @@
               <div class="col-md-4">
                 <div class="laser-params-left-panel-wrapper">
                   <div class="laser-file laser-file-action-1" >
-                    <h4>Step 1: Open File</h4>
+                    <h4><span class="text_step">Step</span> 1: <span class="text_open_file">Open File</span></h4>
                     <input type="file" id="selectedFile" style="display: none;" accept="image/svg" onchange="svgImport()" />
-                    <button class="prp-button" id="laser-import-svg">Add File</button>
-                    <button class="prp-button" id="laser-clear-canvas">Clear Board</button>
+                    <button class="prp-button" id="laser-import-svg"><span class="text_add_file">Add File</span></button>
+                    <button class="prp-button" id="laser-clear-canvas"><span class="text_clear_board">Clear Board</span></button>
                   </div>
 
                   <div class="laser-file laser-file-action-2" style="display:none">
-                    <h4>Step 2: Set Parameters</h4>
+                    <h4><span class="text_step">Step</span> 2: <span class="text_set_parameters">Set Parameters</span></h4>
                     <div>
                       <div class="col-md-12">
-                        <div class="col-md-2"> </div>
-                        <div class="col-md-5 text-center">Power(%)</div>
-                        <div class="col-md-5 text-center">Speed(mm/s)</div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5 text-center"><span class="text_power">Power</span>(%)</div>
+                        <div class="col-md-5 text-center"><span class="text_speed">Speed</span>(mm/s)</div>
                       </div>
 
                       <div class="col-md-12 speed-power-params"></div>
 
                       <div class="laser-params-buttons">
                         <button class="prp-button" id="generate-gcode-btn">
-                          Generate G-Code
+                          <span class="text_generate_gcode">Generate G-Code</span>
                         </button>
                         <button class="prp-button" id="clear-settings-btn">
-                          Clear Settings
+                          <span class="text_clear_settings">Clear Settings</span>
                         </button>
                       </div>
                     </div>
@@ -165,11 +165,11 @@
                     <div class="preparation-text-wrapper">
                       <div class="preparation-text-prev" style="display: none">
                         <img src="images/prev_arrow.png" width="15"/>
-                        Back
+                        <span class="text_back">Back</span>
                       </div>
 
                       <div class="preparation-text-next" style="display:none">
-                        Next
+                        <span class="text_next">Next</span>
                         <img src="images/next_arrow.png" width="15"/>
                       </div>
                     </div>
@@ -191,28 +191,28 @@
         <div id="laser-operate" class="row laser-operate" style="display:none">
           <div class="col-md-10 col-md-offset-1">
             <div class="col-md-12">
-              <h3>Laser Cutter | Laser Operation</h3>
+              <h3><span class="text_laser_cutter">Laser Cutter</span> | <span class="text_laser_operation">Laser Operation</span></h3>
             </div>
 
             <div class="col-md-4">
               <div class="laser-operate-panel" style="height: 505px">
                 <div class="panel-wrapper">
                   <div class="laser-operations laser-operate-step-1 file-import" style="display:block">
-                    <h4>Step 1: Open File</h4>
+                    <h4><span class="text_step">Step</span> 1: <span class="text_open_file">Open File</span></h4>
                     <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
-                    <button class="prp-button" id="import-gcode-btn" onclick="document.getElementById('gcodeFileSelect').click();">IMPORT GCODE</button>
-                    <button class="prp-button" id="clear-cut-en-canvas" onclick="clearCutEngraveCanvas()">Clear</button>
+                    <button class="prp-button" id="import-gcode-btn" onclick="document.getElementById('gcodeFileSelect').click();"><span class="text_import_gcode">IMPORT GCODE</span></button>
+                    <button class="prp-button" id="clear-cut-en-canvas" onclick="clearCutEngraveCanvas()"><span class="text_clear">Clear</span></button>
                   </div>
 
                   <div class="laser-operations laser-operate-step-2" id="device-select" style="display:none">
-                    <h4>Step 2: Select Machine</h4>
+                    <h4><span class="text_step">Step</span> 2: <span class="text_select_machine">Select Machine</span></h4>
                     <button class="prp-button machine" onclick="openPort(57600)">Fabool Laser Mini</button>
                     <button class="prp-button machine" onclick="openPort()">Fabool Laser C02</button>
                     <button class="prp-button machine" onclick="">PRP IWI Laser</button>
                   </div>
 
                   <div class="laser-operations laser-operate-step-3 laser-actions" style="display:none">
-                    <h4>Step 3: Open File</h4>
+                    <h4><span class="text_step">Step</span> 3: <span class="text_open_file">Open File</span></h4>
                     <div class="lasing-time">
                       00:00:00
                     </div>
@@ -220,18 +220,18 @@
                     <div class="col-md-12">
                       <div class="cut-wrapper">
                         <div class="cut-button"></div>
-                        <span id="cut-span">Cut</span>
+                        <span id="cut-span" class="text_cut">Cut</span>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="ps-wrapper">
                         <div class="pause-wrapper">
                           <div class="pause-button pb-disabled"></div>
-                          Pause
+                          <span class="text_pause">Pause</span>
                         </div>
                         <div class="stop-wrapper">
                           <div class="stop-button sb-disabled"></div>
-                          Stop
+                          <span class="text_stop">Stop</span>
                         </div>
                       </div>
                     </div>
@@ -242,11 +242,11 @@
                   <div class="operation-text-wrapper">
                     <div class="operation-text-prev" style="display:none">
                       <img src="images/prev_arrow.png" width="15"/>
-                      Back
+                      <span class="text_back">Back</span>
                     </div>
 
                     <div class="operation-text-next" style="display:none">
-                      Next
+                      <span class="text_next">Next</span>
                       <img src="images/next_arrow.png" width="15"/>
                     </div>
                   </div>
@@ -264,16 +264,16 @@
             <div class="col-md-8 canvas-area cut-canvas-area">
               <canvas id="en-cut-canvas" width="771" height="500"></canvas>
               <div class="status-wrapper device-status" style="display:none">
-                  <span id="laser-port">
+                  <span id="laser-port" class="text_laser_device_port">
                     Laser device in port:
                   </span>
                     
-                  <span id="connection-status">
+                  <span id="connection-status" class="text_connection_status">
                     Connection status:
                   </span>
               </div>
               <div class="status-wrapper import-gcode-status">
-                <span>Imported Gcode:</span>
+                <span class="text_imported_gcode">Imported Gcode:</span></span>
                 <span id="gcode-path"></span>
               </div>
             </div>
@@ -306,10 +306,10 @@
           </div>
         </div>
         <div class="operation-step-container">
-          <div class="operation-label ol-next ol-current" id="step-label-1">Machine Selection</div>
-          <div class="operation-label ol-next" id="step-label-2">Machine Actions</div>
-          <div class="operation-label ol-next" id="step-label-3">File Preparation</div>
-          <div class="operation-label ol-next" id="step-label-4">Machine Operation</div>
+          <div class="operation-label ol-next ol-current" id="step-label-1"><span class="text_machine_selection">Machine Selection</span></div>
+          <div class="operation-label ol-next" id="step-label-2"><span class="text_machine_actions">Machine Actions</span></div>
+          <div class="operation-label ol-next" id="step-label-3"><span class="text_file_preparation">File Preparation</span></div>
+          <div class="operation-label ol-next" id="step-label-4"><span class="text_machine_operation">Machine Operation</span></div>
         </div>
       </div> 
     </div>

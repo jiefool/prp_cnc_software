@@ -67,11 +67,11 @@ $(document).ready(function(){
         $this.button('loading');
         lasingCommand();
       }else{
-         alert("No laser device connected.")
+         alert(translateData['text_no_laser_device_connected'])
       }
       
     }else{
-      alert("Please import a gcode first.")
+      alert(translateData['text_please_import_gcode'])
     }
   });
 })
@@ -202,7 +202,7 @@ parser.on('data', function(data){
           $(".cut-button").removeClass("cb-disabled")
           stopTime();
           port.close()
-          alert("Lasing Job is done.")
+          alert(translateData['text_lasing_job_done'])
         }
       }
     }
@@ -432,10 +432,10 @@ function saveGcodeToFile(){
 
     fs.writeFile(fileName, gcodes.join("\n"), (err) => {
         if(err){
-          alert("An error ocurred creating the file "+ err.message)
+          alert(translateData['text_error_saving']+ err.message)
         }
         $(".generate-gcode").button('reset');
-        alert("Done saving G-Codes to "+ fileName)
+        alert(translateData['text_done_saving']+ fileName)
     });
   }); 
 }

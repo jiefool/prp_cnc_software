@@ -106,7 +106,7 @@ $(document).ready(function(){
     if (checkForInput()){
       canvasToGcode();
     }else{
-      alert("Please input some value to the power and speed fields.");
+      alert(translateData['text_input_some_value']);
     }
   })
 
@@ -128,24 +128,24 @@ $(document).ready(function(){
       $("#laser-prep-step-1").removeClass("current-step");
       $("#laser-prep-step-2").addClass("current-step");
     }else{
-      alert("Must import a file.")
+      alert(translateData['text_import_file'])
     }
   })
 
   $(".preparation-text-prev").hover(function(){
-    $(this).html('<img src="images/prev_arrow_hovered.png" width="15"/> Back')
+    $(this).html('<img src="images/prev_arrow_hovered.png" width="15"/> '+translateData['text_back'])
   })
 
   $(".preparation-text-prev").mouseout(function(){
-    $(this).html('<img src="images/prev_arrow.png" width="15"/> Back')
+    $(this).html('<img src="images/prev_arrow.png" width="15"/> '+translateData['text_back'])
   })
 
   $(".preparation-text-next").hover(function(){
-    $(this).html('Next <img src="images/next_arrow_hovered.png" width="15"/>')
+    $(this).html(translateData['text_next']+' <img src="images/next_arrow_hovered.png" width="15"/>')
   })
 
    $(".preparation-text-next").mouseout(function(){
-    $(this).html('Next <img src="images/next_arrow.png" width="15"/>')
+    $(this).html(translateData['text_next']+' <img src="images/next_arrow.png" width="15"/>')
   })
 
   var operationStep = 1;
@@ -155,13 +155,13 @@ $(document).ready(function(){
         appendSerialDevice();
         operationStep++;
       }else{
-        alert("Must import gcode.")
+        alert(translateData['text_please_import_gcode'])
       }
     }else if (operationStep == 2){
       // if (hasPortOpen){
         operationStep++;
       // }else{
-        // alert("Must connect a device.")
+        // alert(translateData['text_connect_device'])
       // }
     }   
    
@@ -221,7 +221,7 @@ $(document).ready(function(){
       $(".prev-arrow").html('<img src="images/prev_arrow_disabled.png" width="30"/>')
 
       $(".operation-text-prev").css("color", "#97969c")
-      $(".operation-text-prev").html('<img src="images/prev_arrow_disabled.png" width="15"/> Back')
+      $(".operation-text-prev").html('<img src="images/prev_arrow_disabled.png" width="15"/> '+translateData['text_back'])
 
       lasingCommand();
       startTime();
@@ -236,7 +236,7 @@ $(document).ready(function(){
       $(".pause-button").addClass("pb-disabled")
       $(".cut-button").removeClass("cb-disabled")
       $(".cut-wrapper").css("color", "#4caf50")
-      $("#cut-span").html("Cut")
+      $("#cut-span").html(translateData["text_cut"])
 
 
       $("div.prev-container > div.operation-step").addClass("current-step")
@@ -246,7 +246,7 @@ $(document).ready(function(){
 
 
       $(".operation-text-prev").css("color", "#ab47bc")
-      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> Back')
+      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> '+translateData['text_back'])
 
 
       stopLasing();
@@ -259,7 +259,7 @@ $(document).ready(function(){
       $(this).addClass("pb-disabled")
       $(".pause-wrapper").css("color", "#dce1ea")
       $(".cut-button").removeClass("cb-disabled")
-      $("#cut-span").html("Continue")
+      $("#cut-span").html(translateData['text_continue'])
       $(".cut-wrapper").css("color", "#4caf50")
 
 
@@ -270,7 +270,7 @@ $(document).ready(function(){
 
 
       $(".operation-text-prev").css("color", "#ab47bc")
-      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> Back')
+      $(".operation-text-prev").html('<img src="images/prev_arrow.png" width="15"/> '+translateData['text_back'])
 
       pauseLasing();
       stopTime();
@@ -285,9 +285,9 @@ $(document).ready(function(){
   $(".machine-select-btn").click(function(){
     $(this).parent().toggleClass("machine-selected")
     if ($(this).html().indexOf("Selected") > -1){
-      $(this).html('Select')
+      $(this).html(translateData['text_select'])
     }else{
-      $(this).html('Selected')
+      $(this).html(translateData['text_selected'])
     }
   })
 
