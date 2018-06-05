@@ -521,12 +521,17 @@ function gcodeImport(){
         $("#gcode-path").html(file.path)
         hasImportedGcode = true;
         canvasDrawLine()
-        return false; // stop reading
+        showNextText()
+        return false; 
       }
       
     })
 
   }
+}
+
+function showNextText(){
+  $(".operation-text-next").show();
 }
 
 function canvasDrawLine(){
@@ -547,7 +552,6 @@ function svgSelectFile(){
 function stopLasing(){
   enableLasing = false;
   counter = 0;
-  $("#lasing-button").button('reset');
   closeOpenPort();
 }
 

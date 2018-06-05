@@ -209,7 +209,10 @@ $(document).ready(function(){
   $(".cut-button").click(function(){
     if (!enableLasing){
       $(this).addClass("cb-disabled")
+      $(".cut-wrapper").css("color", "#dce1ea")
+      $(".pause-wrapper").css("color", "#ffc107")
       $(".pause-button").removeClass("pb-disabled")
+      $(".stop-wrapper").css("color", "#f44336")
       $(".stop-button").removeClass("sb-disabled")
 
       $("div.prev-container > div.operation-step").removeClass("current-step")
@@ -222,17 +225,18 @@ $(document).ready(function(){
 
       lasingCommand();
       startTime();
-
-
-      
     }
   })
 
   $(".stop-button").click(function(){
     if (enableLasing){
       $(this).addClass("sb-disabled")
+      $(".stop-wrapper").css("color", "#dce1ea")
+      $(".pause-wrapper").css("color", "#dce1ea")
       $(".pause-button").addClass("pb-disabled")
       $(".cut-button").removeClass("cb-disabled")
+      $(".cut-wrapper").css("color", "#4caf50")
+      $("#cut-span").html("Cut")
 
 
       $("div.prev-container > div.operation-step").addClass("current-step")
@@ -253,8 +257,10 @@ $(document).ready(function(){
   $(".pause-button").click(function(){
     if (enableLasing){
       $(this).addClass("pb-disabled")
-      $(".stop-button").addClass("sb-disabled")
+      $(".pause-wrapper").css("color", "#dce1ea")
       $(".cut-button").removeClass("cb-disabled")
+      $("#cut-span").html("Continue")
+      $(".cut-wrapper").css("color", "#4caf50")
 
 
       $("div.prev-container > div.operation-step").addClass("current-step")
