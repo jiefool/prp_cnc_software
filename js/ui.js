@@ -30,6 +30,10 @@ $(document).ready(function(){
       if(currentStep == 1){
         $(".next-container").hide();
       }
+
+      if(currentStep == 3){
+        handleAddRuler(canvas)
+      }
     }
   });
 
