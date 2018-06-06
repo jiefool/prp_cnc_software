@@ -199,9 +199,7 @@ parser.on('data', function(data){
         counter++
 
         if (counter >= gcodes.length){
-          $(".cut-button").removeClass("cb-disabled")
-          stopTime();
-          port.close()
+          $(".stop-button").trigger("click")
           alert(translateData['text_lasing_job_done'])
         }
       }
@@ -629,13 +627,15 @@ function goToStepThree(){
 }
 
 function openPort(bdRate){
-  port = new sp(laserDevices[0], {
-    baudRate: bdRate
-  }, function(){
-    hasPortOpen = true;
-    $("#connection-status").append("Device connected.")
-    port.pipe(parser)
-  })
+  if (!hasPortOpen){
+    port = new sp(laserDevices[0], {
+      baudRate: bdRate
+    }, function(){
+      hasPortOpen = true;
+      $("#connection-status").append("Device connected.")
+      port.pipe(parser)
+    })  
+  }
 }
 
 var lasingTimer;

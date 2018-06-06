@@ -1,5 +1,7 @@
-$(document).ready(function(){
+var currentStep = 1;
+var laserMachineSelected = false;
 
+$(document).ready(function(){
   $("#laser-clear-canvas").click(function(){
     clearCanvas();
     $(".preparation-text-next").hide();
@@ -10,20 +12,22 @@ $(document).ready(function(){
   })
 
   $("#laser-cut-material").click(function(){
+    currentStep = 4;
     viewController("laser-operate")
-    navigationController(4)
+    navigationController(currentStep)
     handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
   })
 
   $("#laser-prepare-file").click(function(){
+    currentStep = 3;
     viewController("laser-setup")
-    navigationController(3);
+    navigationController(currentStep);
     handleAddRuler(canvas);
   })
 
   $(".prev-container").click(function(){
     if (!enableLasing){
-      var currentStep = parseInt($(".prev-num").html());
+      currentStep = parseInt($(".prev-num").html());
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
 
@@ -84,24 +88,48 @@ $(document).ready(function(){
   });
 
   $(".main-back-btn").click(function(){
-    if (!enableLasing){
-      var currentStep = parseInt($(".prev-num").html());
+    if (!enableLasing && currentStep != undefined){
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
-
       if(currentStep == 1){
         $(".next-container").hide();
+      }
+
+
+      if (currentStep == 4){
+        currentStep=2;
+      }else{
+        if (currentStep > 1){
+          currentStep--
+        }
       }
     }
   })
 
+  $(".main-back-btn").mouseover(function(){
+    $(this).find('img').attr("src", "images/prev_arrow_white.png")
+  })
+
+  $(".main-back-btn").mouseout(function(){
+    $(this).find('img').attr("src", "images/prev_arrow.png")
+  })
+
   $(".main-home-btn").click(function(){
+    $(this).find('img').attr("src", "images/home_btn_white.png")
     if (!enableLasing){
-      currentStep = 0
-      viewController(viewWindows[currentStep])
-      navigationController(currentStep+1)
+      currentStep = 1
+      viewController(viewWindows[currentStep-1])
+      navigationController(currentStep)
       $(".next-container").hide();
     }
+  })
+
+  $(".main-home-btn").mouseout(function(){
+    $(this).find('img').attr("src", "images/home_btn.png")
+  })
+
+  $(".main-home-btn").mouseover(function(){
+    $(this).find('img').attr("src", "images/home_btn_white.png")
   })
 
 
@@ -162,11 +190,11 @@ $(document).ready(function(){
         alert(translateData['text_please_import_gcode'])
       }
     }else if (operationStep == 2){
-      // if (hasPortOpen){
+      if (hasPortOpen){
         operationStep++;
-      // }else{
-        // alert(translateData['text_connect_device'])
-      // }
+      }else{
+        alert(translateData['text_connect_device'])
+      }
     }   
    
     if (operationStep > 1){
@@ -200,14 +228,20 @@ $(document).ready(function(){
   })
 
 
-  $("#laser-operation").click(function(){
-    $(".next-num").addClass("current-step")
-    $(".next-num").removeClass("os-disable")
-    $(".next-arrow").html('')
-    $(".next-arrow").html('<img src="images/next_arrow.png" width="30">')
-    viewController("laser-operation-select")
-    navigationController(2)
-  })
+  // $("#laser-operation").click(function(){
+  //   $(".next-num").addClass("current-step")
+  //   $(".next-num").removeClass("os-disable")
+  //   $(".next-arrow").html('')
+  //   $(".next-arrow").html('<img src="images/next_arrow.png" width="30">')
+
+  //   if ($(this).parent().hasClass("machine-selected")){
+  //     $(this).parent().removeClass("machine-selected")
+  //   }else{
+  //     currentStep++;
+  //     viewController("laser-operation-select")
+  //     navigationController(currentStep)
+  //   }
+  // })
 
 
   $(".cut-button").click(function(){
@@ -287,12 +321,23 @@ $(document).ready(function(){
   })
 
   $(".machine-select-btn").click(function(){
-    $(this).parent().toggleClass("machine-selected")
-    if ($(this).html().indexOf("Selected") > -1){
+    if ($(this).html().indexOf("Selected") > -1 || $(this).html().indexOf("Pili-a") > -1){
       $(this).html(translateData['text_select'])
+      $(this).css("background-color", "#ab47bc")
     }else{
       $(this).html(translateData['text_selected'])
+      $(this).css("background-color", "#6a1b9a")
     }
+
+    if (!$(this).parent().hasClass("machine-selected")){
+      viewController( $(this).attr("data-view"))
+      currentStep++
+      navigationController(currentStep)
+      $(this).parent().addClass("machine-selected")
+    }else{
+      $(this).parent().removeClass("machine-selected")
+    }
+
   })
 
 })

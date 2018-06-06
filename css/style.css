@@ -135,7 +135,7 @@ body{
 
 
 .operation-step{
-  background-color: #f0f2f7;
+  /*background-color: #f0f2f7;*/
   height: 50px;
   width: 50px;
   border-radius: 25px;
@@ -145,8 +145,9 @@ body{
   padding-top: 12px;
   font-size: 20px;
   font-weight: bold;
-  color: white;
-  box-shadow: 0px 2px 1px #69686e;
+  color: #939598;
+  /*border: 1px solid #ab47bc;*/
+  /*box-shadow: 0px 2px 1px #69686e;*/
 }
 
 .os-disable, 
@@ -156,10 +157,10 @@ body{
   box-shadow: 0px 2px 1px #69686e;
 }
 
-.next-step{
+/*.next-step{
   background-color: #97969c;
   box-shadow: 0px 2px 1px #69686e;
-}
+}*/
 
 .dir-arrow{
   margin-top: 6px;
@@ -182,10 +183,10 @@ body{
   color: #ab47bc;
 }
 
-.ol-next{
+/*.ol-next{
   color: #97969c;
 }
-
+*/
 .prev-container{
   display: none;
 }
@@ -483,12 +484,18 @@ p{
 .preparation-text-prev:hover,
 .preparation-text-next:hover{
   color:#ce93d8;
+  cursor: pointer;
 }
 
 .preparation-text-next,
 .operation-text-next{
   float:right;
   font-size: 18px;
+}
+
+.operation-text-prev,
+.operation-text-next{
+  cursor:pointer;
 }
 
 .laser-file{
@@ -537,8 +544,9 @@ p{
 }
 
 .current-step{
-  background-color: #ab47bc;
-  box-shadow: 0px -3px 1px #6a1b9a;
+  color: #ab47bc;
+  /*background-color: #ab47bc;
+  box-shadow: 0px -3px 1px #6a1b9a;*/
 }
 
 .operation-step-hover{
@@ -735,11 +743,22 @@ p{
   margin: 0 10px;
   border: 1px solid #ab47bc;
   padding: 5px;
-  border-radius: 20px;
+  border-radius: 4px;
   width: 130px;
   height: 40px;
   text-align: center;
   vertical-align: middle;
+  color: #ab47bc;
+}
+
+.back-home-btns-wrapper div:hover{
+  background-color: #ce93d8;
+  color: white;
+}
+
+.back-home-btns-wrapper div:active{
+  background-color: #6a1b9a;
+  color: white;
 }
 
 
@@ -757,7 +776,7 @@ p{
     visibility: hidden;
     width: 140px;
     margin-top: 5px;
-    background-color: black;
+    background-color: #69686e;
     color: #fff;
     text-align: center;
     border-radius: 6px;

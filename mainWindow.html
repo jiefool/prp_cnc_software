@@ -59,7 +59,7 @@
                 <image src="images/milling_machine.png" width="230">
               </div>
               <h2><span class="text_milling_machine">Milling Machine</span></h2>
-              <button class="prp-button disable-btn machine-select-btn" id="milling-operation" disabled>
+              <button class="prp-button disable-btn machine-select-btn" id="milling-operation" data-view="milling-operation-select" disabled>
                 <span class="text_select">Select</span>
               </button>
             </div>
@@ -69,7 +69,7 @@
                 <image src="images/laser_cutter.png" width="230">
               </div>
               <h2><span class="text_laser_cutter">Laser Cutter</span></h2>
-              <button class="prp-button machine-select-btn" id="laser-operation">
+              <button class="prp-button machine-select-btn" id="laser-operation" data-view="laser-operation-select">
                 <span class="text_select">Select</span>
               </button>
             </div>
@@ -79,7 +79,7 @@
                 <image src="images/3d_printer.png" width="230">
               </div>
               <h2><span class="text_3d_printer">3D Printer</span></h2>
-              <button class="prp-button disable-btn machine-select-btn" id="3d-operation" disabled>
+              <button class="prp-button disable-btn machine-select-btn" id="3d-operation" data-view="3d-operation-select" disabled>
                 <span class="text_select">Select</span>
               </button>
             </div>
@@ -290,26 +290,26 @@
     <div class="row footer">
      <div class="col-md-12 footer-breadcrumb">
         <div class="operation-step-wrapper">
-          <div class="prev-container">
+          <!-- <div class="prev-container">
             <div class="dir-arrow prev-arrow"><img src="images/prev_arrow.png" width="30"></div>
             <div class="operation-step os-no-fx current-step prev-num">2</div>
-          </div>
+          </div> -->
           <div class="operation-step-container">
             <div class="operation-step next-step current-step" id="step-num-1">1</div>
             <div class="operation-step next-step" id="step-num-2">2</div>
             <div class="operation-step next-step" id="step-num-3">3</div>
             <div class="operation-step next-step" id="step-num-4">4</div>
           </div>
-          <div class="next-container" style="display:none">
+          <!-- <div class="next-container" style="display:none">
             <div class="dir-arrow next-arrow"><img src="images/next_arrow_disabled.png" width="30"></div>
             <div class="operation-step os-no-fx next-num os-disable">2</div>
-          </div>
+          </div> -->
         </div>
         <div class="operation-step-container">
-          <div class="operation-label ol-next ol-current" id="step-label-1"><span class="text_machine_selection">Machine Selection</span></div>
-          <div class="operation-label ol-next" id="step-label-2"><span class="text_machine_actions">Machine Actions</span></div>
-          <div class="operation-label ol-next" id="step-label-3"><span class="text_file_preparation">File Preparation</span></div>
-          <div class="operation-label ol-next" id="step-label-4"><span class="text_machine_operation">Machine Operation</span></div>
+          <div class="operation-label ol-current" id="step-label-1"><span class="text_machine_selection">Machine Selection</span></div>
+          <div class="operation-label" id="step-label-2"><span class="text_machine_actions">Machine Actions</span></div>
+          <div class="operation-label" id="step-label-3"><span class="text_file_preparation">File Preparation</span></div>
+          <div class="operation-label" id="step-label-4"><span class="text_machine_operation">Machine Operation</span></div>
         </div>
       </div> 
     </div>
