@@ -88,22 +88,36 @@ $(document).ready(function(){
   });
 
   $(".main-back-btn").click(function(){
+   
+
     if (!enableLasing && currentStep != undefined){
+     
+      if (currentStep > 2){
+        var confirmBack = confirm(translateData["text_lost_changes"])
+
+        if (confirmBack){
+          if (currentStep == 4){
+            currentStep=2;
+            clearCutEngraveCanvas()
+          }
+
+          if (currentStep == 3){
+            clearCanvas()
+          }
+          currentStep--
+        }
+
+      }else{
+        currentStep--;
+      }
+
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
       if(currentStep == 1){
         $(".next-container").hide();
       }
-
-
-      if (currentStep == 4){
-        currentStep=2;
-      }else{
-        if (currentStep > 1){
-          currentStep--
-        }
-      }
     }
+
   })
 
   $(".main-back-btn").mouseover(function(){
@@ -186,6 +200,7 @@ $(document).ready(function(){
       if (hasImportedGcode){
         appendSerialDevice();
         operationStep++;
+        $(".operation-text-next").hide();
       }else{
         alert(translateData['text_please_import_gcode'])
       }

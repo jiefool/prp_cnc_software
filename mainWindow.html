@@ -34,7 +34,7 @@
     </div>
 
     <div class="row back-home-btns">
-      <div class="col-md-10 col-md-offset-2 back-home-btns-wrapper">
+      <div class="col-md-12 back-home-btns-wrapper">
         <div class="main-back-btn">
           <image src="images/prev_arrow.png" height="30">
           <span class="text_back">Back</span>
@@ -161,7 +161,7 @@
                     </div>
                   </div>
 
-                  <div class="laser-file-action-step" style="padding: 0px 10px">
+                  <div class="laser-file-action-step">
                     <div class="preparation-text-wrapper">
                       <div class="preparation-text-prev" style="display: none">
                         <img src="images/prev_arrow.png" width="15"/>
@@ -200,7 +200,7 @@
                   <div class="laser-operations laser-operate-step-1 file-import" style="display:block">
                     <h4><span class="text_step">Step</span> 1: <span class="text_open_file">Open File</span></h4>
                     <input type="file" id="gcodeFileSelect" style="display: none;" accept="[*/gcode]" onchange="gcodeImport()" />
-                    <button class="prp-button" id="import-gcode-btn" onclick="document.getElementById('gcodeFileSelect').click();"><span class="text_import_gcode">IMPORT GCODE</span></button>
+                    <button class="prp-button" id="import-gcode-btn" onclick="document.getElementById('gcodeFileSelect').click();"><span class="text_import_gcode">Import Gcode</span></button>
                     <button class="prp-button" id="clear-cut-en-canvas" onclick="clearCutEngraveCanvas()"><span class="text_clear">Clear</span></button>
                   </div>
 
@@ -212,7 +212,7 @@
                   </div>
 
                   <div class="laser-operations laser-operate-step-3 laser-actions" style="display:none">
-                    <h4><span class="text_step">Step</span> 3: <span class="text_open_file">Open File</span></h4>
+                    <h4><span class="text_step">Step</span> 3: <span class="text_cut_file">Cut Material</span></h4>
                     <div class="lasing-time">
                       00:00:00
                     </div>

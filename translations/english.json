@@ -41,5 +41,9 @@
   "text_import_file": "Must import a file.",
   "text_connect_device": "Must connect a device.",
   "text_error_saving": "An error ocurred creating the file ",
-  "text_continue": "Continue"
+  "text_continue": "Continue",
+  "text_cut": "Cut",
+  "text_lost_changes": "Changes will be lost. Do you want to proceed?",
+  "text_cut_file": "Cut Material",
+  "text_import_gcode": "Import Gcode"
 }

@@ -35,6 +35,7 @@ function setLanguage(language){
     $("#generate-gcode-btn").css("height", "65px")
     $("#clear-settings-btn").css("height", "65px")
     $(".laser-file-action-step").css("padding", "20px 10px")
+    $("#import-gcode-btn").css("height", "65px")
   }else{
     $("#laser-cut-material").css("height", "40px")
     $("#laser-prepare-file").css("height", "40px")
@@ -43,6 +44,7 @@ function setLanguage(language){
     $("#generate-gcode-btn").css("height", "40px")
     $("#clear-settings-btn").css("height", "40px")
     $(".laser-file-action-step").css("padding", "0px 10px")
+    $("#import-gcode-btn").css("height", "40px")
   }
   initLanguage()
 }

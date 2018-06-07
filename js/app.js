@@ -499,6 +499,7 @@ function clearCutEngraveCanvas(){
   $("#gcodeFileSelect").val("")
   hasImportedGcode = false;
   counter = 0;
+  handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
 }
 
 
@@ -632,6 +633,7 @@ function openPort(bdRate){
       baudRate: bdRate
     }, function(){
       hasPortOpen = true;
+        $(".operation-text-next").show();
       $("#connection-status").append("Device connected.")
       port.pipe(parser)
     })  

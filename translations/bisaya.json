@@ -41,5 +41,9 @@
   "text_import_file": "Kinahanglan mo-import of file",
   "text_connect_device": "Kinahanglan mosuksuk og makina.",
   "text_error_saving": "Naay problema sa pag-save sa file ",
-  "text_continue": "Ipadayun"
+  "text_continue": "Ipadayun",
+  "text_cut": "Putlon",
+  "text_lost_changes": "Mawala ang gi-utro. Ganahan ka mopadayun?",
+  "text_cut_file": "Pagputol sa Material",
+  "text_import_gcode": "Pagbutang og Gcode"
 }

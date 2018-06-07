@@ -505,7 +505,7 @@ p{
 .laser-file-action-step{
   width: 100%;
   height: 65px;
-  padding: 0px 10px;
+  padding: 0px 40px;
 }
 
 .laser-file-action-1,
@@ -732,10 +732,14 @@ p{
   margin-top: -20px;
   margin-left: 20px;
   width: 100%;
-  max-width: 760px;
+  max-width: 750px;
   border: 1px solid #bfbeb2;
   padding: 0px 10px;
   color: #bfbeb2;
+}
+
+.back-home-btns-wrapper{
+  padding-left: 23px;
 }
 
 .back-home-btns-wrapper div{
