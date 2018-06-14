@@ -12,14 +12,14 @@ $(document).ready(function(){
   })
 
   $("#laser-cut-material").click(function(){
-    currentStep = 4;
+    currentStep = 3;
     viewController("laser-operate")
     navigationController(currentStep)
     handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
   })
 
   $("#laser-prepare-file").click(function(){
-    currentStep = 3;
+    currentStep = 2;
     viewController("laser-setup")
     navigationController(currentStep);
     handleAddRuler(canvas);
@@ -35,7 +35,7 @@ $(document).ready(function(){
         $(".next-container").hide();
       }
 
-      if(currentStep == 3){
+      if(currentStep == 2){
         handleAddRuler(canvas)
       }
     }
@@ -43,10 +43,10 @@ $(document).ready(function(){
 
   $(".next-container").click(function(){
     var currentStep = parseInt($(".next-num").html());
-    if (currentStep > 2 && currentStep <= 4){
+    if (currentStep > 1 && currentStep <= 3){
       viewController(viewWindows[currentStep - 1])
       navigationController(currentStep)
-      if (currentStep == 4){
+      if (currentStep == 3){
         handleAddRuler(en_cut_canvas_fabric, ".cut-canvas-area");
       }
     }
@@ -88,20 +88,20 @@ $(document).ready(function(){
   });
 
   $(".main-back-btn").click(function(){
-   
+    console.log(currentStep);   
 
     if (!enableLasing && currentStep != undefined){
      
-      if (currentStep > 2){
+      if (currentStep > 1){
         var confirmBack = confirm(translateData["text_lost_changes"])
 
         if (confirmBack){
-          if (currentStep == 4){
-            currentStep=2;
+          if (currentStep == 3){
+            currentStep = 2;
             clearCutEngraveCanvas()
           }
 
-          if (currentStep == 3){
+          if (currentStep == 2){
             clearCanvas()
           }
           currentStep--
@@ -131,7 +131,16 @@ $(document).ready(function(){
   $(".main-home-btn").click(function(){
     $(this).find('img').attr("src", "images/home_btn_white.png")
     if (!enableLasing){
-      currentStep = 1
+      if (currentStep > 1){
+        var confirmBack = confirm(translateData["text_lost_changes"])
+        if(confirmBack){
+          clearCanvas()
+          clearCutEngraveCanvas()
+          currentStep = 1
+        }
+      }
+
+     
       viewController(viewWindows[currentStep-1])
       navigationController(currentStep)
       $(".next-container").hide();
@@ -374,7 +383,7 @@ function showLaserOperate(){
 }
 
 
-var viewWindows = ["machine-select","laser-operation-select","laser-setup","laser-operate"]
+var viewWindows = ["laser-operation-select","laser-setup","laser-operate"]
 
 function hideAllView(){
   $.each( viewWindows, function( key, value ) {

@@ -47,51 +47,13 @@
     </div>
   
     <div class="row main">
-      <div id="machine-select" style="display:block">
-        <div class="col-md-12">
-          <h2 class="main-menu-title"><span class="text_which_machine">Which machine do you want to use?</span></h2>
-        </div>
-
-        <div class="col-md-12">
-          <div class="machine-select-container">
-            <div class="machine-container">
-              <div class="machine-image">
-                <image src="images/milling_machine.png" width="230">
-              </div>
-              <h2><span class="text_milling_machine">Milling Machine</span></h2>
-              <button class="prp-button disable-btn machine-select-btn" id="milling-operation" data-view="milling-operation-select" disabled>
-                <span class="text_select">Select</span>
-              </button>
-            </div>
-
-            <div class="machine-container">
-              <div class="machine-image">
-                <image src="images/laser_cutter.png" width="230">
-              </div>
-              <h2><span class="text_laser_cutter">Laser Cutter</span></h2>
-              <button class="prp-button machine-select-btn" id="laser-operation" data-view="laser-operation-select">
-                <span class="text_select">Select</span>
-              </button>
-            </div>
-
-            <div class="machine-container">
-              <div class="machine-image">
-                <image src="images/3d_printer.png" width="230">
-              </div>
-              <h2><span class="text_3d_printer">3D Printer</span></h2>
-              <button class="prp-button disable-btn machine-select-btn" id="3d-operation" data-view="3d-operation-select" disabled>
-                <span class="text_select">Select</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
 
       <!-- ######## LASER ######## -->
       <div class="laser-operation-wrapper">
 
-        <div id="laser-operation-select" class="laser-option" style="display:none">
+        <div id="laser-operation-select" class="laser-option">
           <div class="col-md-12">
             <div class="col-md-8 col-md-offset-2">
               <div class="col-md-4">
@@ -103,11 +65,11 @@
                 <div class="col-md-12">
                   <div class="tooltip">
                     <button class="prp-button" id="laser-prepare-file"><span class="text_prepare_file">Prepare a File</span></button>
-                    <span class="tooltiptext">3 | <span class="text_file_preparation">File Preparation</span></span>
+                    <span class="tooltiptext">2 | <span class="text_file_preparation">File Preparation</span></span>
                   </div>
                   <div class="tooltip">
                     <button class="prp-button" id="laser-cut-material"><span class="text_cut_material">Cut a Material</span></button>
-                    <span class="tooltiptext">4 | <span class="text_machine_operation">Machine Operation</span></span>
+                    <span class="tooltiptext">3 | <span class="text_machine_operation">Machine Operation</span></span>
                   </div>
                 </div>
               </div>
@@ -298,7 +260,6 @@
             <div class="operation-step next-step current-step" id="step-num-1">1</div>
             <div class="operation-step next-step" id="step-num-2">2</div>
             <div class="operation-step next-step" id="step-num-3">3</div>
-            <div class="operation-step next-step" id="step-num-4">4</div>
           </div>
           <!-- <div class="next-container" style="display:none">
             <div class="dir-arrow next-arrow"><img src="images/next_arrow_disabled.png" width="30"></div>
@@ -306,10 +267,9 @@
           </div> -->
         </div>
         <div class="operation-step-container">
-          <div class="operation-label ol-current" id="step-label-1"><span class="text_machine_selection">Machine Selection</span></div>
-          <div class="operation-label" id="step-label-2"><span class="text_machine_actions">Machine Actions</span></div>
-          <div class="operation-label" id="step-label-3"><span class="text_file_preparation">File Preparation</span></div>
-          <div class="operation-label" id="step-label-4"><span class="text_machine_operation">Machine Operation</span></div>
+          <div class="operation-label ol-current" id="step-label-1"><span class="text_machine_actions">Machine Actions</span></div>
+          <div class="operation-label" id="step-label-2"><span class="text_file_preparation">File Preparation</span></div>
+          <div class="operation-label" id="step-label-3"><span class="text_machine_operation">Machine Operation</span></div>
         </div>
       </div> 
     </div>
