@@ -85,7 +85,7 @@ body{
 #app-banner{
   width: 200px;
   height: 50px;
-  background-image: url('../images/banner_logo.png');
+  background-image: url('../images/app_banner.png');
   background-repeat: no-repeat;
   background-size: 170px;
   background-position: 15px 15px;

@@ -139,7 +139,6 @@ $(document).ready(function(){
           currentStep = 1
         }
       }
-
      
       viewController(viewWindows[currentStep-1])
       navigationController(currentStep)

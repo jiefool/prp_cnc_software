@@ -35,45 +35,51 @@
 
     <div class="row back-home-btns">
       <div class="col-md-12 back-home-btns-wrapper">
-        <div class="main-back-btn">
-          <image src="images/prev_arrow.png" height="30">
+        <div class="main-back-btn" style="padding-top: 10px;margin-left: 30px">
+          <image src="images/prev_arrow.png" height="15" style="margin-top: -4px">
           <span class="text_back">Back</span>
         </div>
-        <div class="main-home-btn">
+        <!-- <div class="main-home-btn">
           <image src="images/home_btn.png" height="28">
           <span class="text_home">Home</span>
-        </div>
+        </div> -->
       </div>
     </div>
   
     <div class="row main">
-      
-
 
       <!-- ######## LASER ######## -->
       <div class="laser-operation-wrapper">
 
         <div id="laser-operation-select" class="laser-option">
           <div class="col-md-12">
-            <div class="col-md-8 col-md-offset-2">
-              <div class="col-md-4">
-                <image src="images/laser_cutter.png" width="300" />
-              </div>
-              <div class="col-md-8 action-pane">
-                <h1><span class="text_laser_cutter">Laser Cutter</span></h1>
-                <p><span class="text_laser_what_to_do">What would you want to do with the Laser Cutter?</span></p>
-                <div class="col-md-12">
-                  <div class="tooltip">
-                    <button class="prp-button" id="laser-prepare-file"><span class="text_prepare_file">Prepare a File</span></button>
-                    <span class="tooltiptext">2 | <span class="text_file_preparation">File Preparation</span></span>
-                  </div>
-                  <div class="tooltip">
-                    <button class="prp-button" id="laser-cut-material"><span class="text_cut_material">Cut a Material</span></button>
-                    <span class="tooltiptext">3 | <span class="text_machine_operation">Machine Operation</span></span>
-                  </div>
+
+            <div class="col-md-12" style="text-align:center">
+              <image src="images/laser_circle.png" width="300" />
+            </div>
+
+            <div class="col-md-12" style="text-align:center">
+              <h1><span class="text_laser_cutter">Laser Cutter</span></h1>
+            </div>
+
+            <div class="col-md-12" style="text-align:center">
+              <p><span class="text_laser_what_to_do">What would you want to do with the Laser Cutter?</span></p>
+            </div>
+
+            <div class="col-md-12">
+              <div style="width: 500px;margin: 0 auto">
+                <div class="tooltip">
+                  <button class="prp-button" id="laser-prepare-file"><span class="text_prepare_file">Prepare a File</span></button>
+                  <span class="tooltiptext">2 | <span class="text_file_preparation">File Preparation</span></span>
+                </div>
+                <div class="tooltip">
+                  <button class="prp-button" id="laser-cut-material"><span class="text_cut_material">Cut a Material</span></button>
+                  <span class="tooltiptext">3 | <span class="text_machine_operation">Machine Operation</span></span>
                 </div>
               </div>
             </div>
+      
+    
           </div>
         </div>
 
