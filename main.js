@@ -7,6 +7,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 //set env
 process.env.NODE_ENV = ''
+process.setMaxListeners(Infinity);
 
 let mainWindow;
 let addWindow;
