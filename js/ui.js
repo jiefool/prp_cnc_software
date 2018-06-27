@@ -97,8 +97,17 @@ $(document).ready(function(){
 
         if (confirmBack){
           if (currentStep == 3){
-            currentStep = 2;
+            operationStep = 1;
+            currentStep--;
+            operationStepController(operationStep);
+            setOperationView(operationStep);
             clearCutEngraveCanvas()
+            hasImportedDesign = false;
+            hasImportedGcode = false;
+            hasPortOpen = false;
+            gcodes = []
+            bCodes = []
+            $(".operation-text-prev").hide();
           }
 
           if (currentStep == 2){
@@ -203,6 +212,7 @@ $(document).ready(function(){
   })
 
   var operationStep = 1;
+
   $(".operation-text-next").click(function(){
     if (operationStep == 1 ){
       if (hasImportedGcode){
