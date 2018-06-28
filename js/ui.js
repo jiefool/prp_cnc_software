@@ -102,11 +102,14 @@ $(document).ready(function(){
             operationStepController(operationStep);
             setOperationView(operationStep);
             clearCutEngraveCanvas()
-            hasImportedDesign = false;
-            hasImportedGcode = false;
-            hasPortOpen = false;
             gcodes = []
             bCodes = []
+            elapsedLasingTime = 0
+            $(".lasing-time").html("00:00:00")
+            isBackToMain = true
+
+            $("#laser-port").html("Laser device in port:")
+            $("#connection-status").html("Connection status:")
             $(".operation-text-prev").hide();
           }
 

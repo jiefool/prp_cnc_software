@@ -12,7 +12,7 @@ var isCO2Laser = false;
 
 
 const Readline = sp.parsers.Readline
-const parser = new Readline()
+var parser = new Readline()
 var port
 var isGantryHome = false;
 var checkGantryPosition
@@ -38,6 +38,7 @@ var laseIntensity = ""
 var rulerLineGroup
 var isResumed = false;
 var canvas = new fabric.Canvas('canvas')
+var isBackToMain = false
 canvas.setWidth(748);
 
 
@@ -164,6 +165,7 @@ function addRuler(targetCanvas){
 
 
 parser.on('data', function(data){
+
     if (checkBoundary){
       var line = bCodes[bCounter].replace("BB ", "")
       port.write(line+"\n")
@@ -174,7 +176,6 @@ parser.on('data', function(data){
       }
       bCounter++;
     }
-
 
 
     if (!checkBoundary){
@@ -212,15 +213,15 @@ parser.on('data', function(data){
           
           port.write(gcodes[counter]+"\n")
           port.write("?\n");
-
          
           var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
           counter++
 
           if (counter >= gcodes.length){
-            $(".stop-button").trigger("click")
             alert(translateData['text_lasing_job_done'])
+            setTimeout(function(){ $(".stop-button").trigger("click"); }, 3000);
           }
+          
         }
       }
     }
@@ -235,77 +236,6 @@ parser.on('data', function(data){
     }
 
 })
-
-function lasingProcess(){
-  if (checkBoundary){
-      var line = bCodes[bCounter].replace("BB ", "")
-      port.write(line+"\n")
-      port.write("?\n")
-      if (bCounter >= bCodes.length){
-        checkBoundary = false;
-        bCounter = 0;
-      }
-      bCounter++;
-    }
-
-
-
-    if (!checkBoundary){
-      if (counter < gcodes.length && enableLasing){
-        if(gcodes[counter].indexOf("S") > -1){
-          laseIntensity = gcodes[counter]
-        }
-
-        if(gcodes[counter].indexOf("G0 F") > -1){
-          seekRate = gcodes[counter]
-        }
-
-        if(gcodes[counter].indexOf("G1 F") > -1){
-          laseRate = gcodes[counter]
-        }
-
-        if(isResumed){
-          counter-=10
-          port.write(seekRate+"\n")
-          port.write(laseRate+"\n")
-          port.write(laseIntensity+"\n")
-          port.write(gcodes[counter].replace("G1", "G0")+"\n")
-          port.write("?\n")
-          isResumed = false;
-        }else{
-
-
-          // port.write(gcodes[counter]+'\r\n');
-          // port.once('data', function(buffer){
-          //   counter++
-          //   this.write('?\r\n');
-          // });
-
-
-          
-          port.write(gcodes[counter]+"\n")
-          port.drain();
-          port.write("?\n");
-         
-          var line = drawLasingPath(gcodes[counter], gcodes[counter+1])
-          counter++
-
-          if (counter >= gcodes.length){
-            $(".stop-button").trigger("click")
-            alert(translateData['text_lasing_job_done'])
-          }
-        }
-      }
-    }
-
-  
-
-  //pausing
-
-    if (!enableLasing){
-      gantryHome();
-    }
-}
 
 
 function resizeCanvas() {
@@ -572,6 +502,7 @@ function lasingCommand(){
 }
 
 function appendSerialDevice(){
+  laserDevices = []
   sp.list(function(err, ports) {
     ports.forEach(function(port, index){
       if (port.manufacturer != undefined ){
@@ -694,9 +625,9 @@ function closeOpenPort(){
   isGantryHome = false;
   port.close(function(){
     port.open(function(){
-      // port.write("?\n", function(err){
-      //   console.log(err)
-      // });
+      port.write("?\n", function(err){
+        console.log(err)
+      });
     })
   })
 }
@@ -722,29 +653,36 @@ function goToStepThree(){
 }
 
 function openPort(bdRate, model=""){
-  console.log(laserDevices)
-  if (!hasPortOpen){
-    var laserDevice = laserDevices[0];
-  
-    if (model=="co2"){
-      laserDevice = laserDevice.replace("tty", "cu")
-      isCO2Laser = true
+  if (!isBackToMain){
+    port = undefined
+
+    console.log(laserDevices)
+    if (!hasPortOpen){
+      var laserDevice = laserDevices[0];
+    
+      if (model=="co2"){
+        laserDevice = laserDevice.replace("tty", "cu")
+        isCO2Laser = true
+      }
+
+      console.log(laserDevice)
+
+      port = new sp(laserDevice, {
+        baudRate: bdRate,
+        
+      }, function(){
+        hasPortOpen = true;
+
+        console.log(hasPortOpen)
+
+        $(".operation-text-next").show();
+        $("#connection-status").append("Device connected.")
+        port.pipe(parser)
+      })  
     }
-
-    console.log(laserDevice)
-
-    port = new sp(laserDevice, {
-      baudRate: bdRate,
-      
-    }, function(){
-      hasPortOpen = true;
-
-      console.log(hasPortOpen)
-
+  }else{
       $(".operation-text-next").show();
-      $("#connection-status").append("Device connected.")
-      port.pipe(parser)
-    })  
+      stopLasing();
   }
 }
 
